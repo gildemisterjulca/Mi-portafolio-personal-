@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arte Awajún — Cerámica Sagrada</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cormorant+Garamond:ital,wght@0,300;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --clay-dark: #1a0f07;
+    --clay-mid: #2d1a0e;
+    --clay-warm: #3d2410;
+    --parchment: #f2e8d5;
+    --parchment-dim: #e0d0b0;
+    --red: #cc0a0a;
+    --red-bright: #e81010;
+    --ink: #0d0806;
+    --gold: #c8922a;
+  }
+
+  body {
+    background-color: var(--clay-dark);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    overflow-x: hidden;
+    padding: 2rem 1rem;
+  }
+
+  .page {
+    width: 100%;
+    max-width: 760px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2.5rem;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    letter-spacing: 0.18em;
+  }
+
+  .header-eyebrow {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.85rem;
+    color: var(--gold);
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+  }
+
+  .header h1 {
+    font-family: 'Cinzel', serif;
+    font-weight: 600;
+    font-size: clamp(1.6rem, 4vw, 2.5rem);
+    color: var(--parchment);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .header-rule {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem auto 0;
+  }
+
+  /* Mandala card */
+  .mandala-card {
+    position: relative;
+    width: min(520px, 92vw);
+    aspect-ratio: 1;
+    cursor: crosshair;
+    border-radius: 50%;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .mandala-card:hover {
+    transform: scale(1.018);
+  }
+
+  .mandala-card svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+    filter: drop-shadow(0 0 40px rgba(180, 60, 10, 0.25));
+  }
+
+  /* Triangle ring animation */
+  @keyframes spin-ring {
+    from { transform: rotate(0deg); transform-origin: 300px 300px; }
+    to   { transform: rotate(360deg); transform-origin: 300px 300px; }
+  }
+
+  .ring-group {
+    animation: spin-ring 90s linear infinite;
+    transform-origin: 300px 300px;
+  }
+
+  /* Dot pulse animations */
+  @keyframes pulse-dot {
+    0%, 100% { r: 7; opacity: 0.9; }
+    50%       { r: 9.5; opacity: 1; }
+  }
+
+  @keyframes pulse-center {
+    0%, 100% { r: 5.5; opacity: 1; }
+    50%       { r: 7.5; opacity: 0.8; }
+  }
+
+  .pulse-dot {
+    animation: pulse-dot 2.8s ease-in-out infinite;
+  }
+
+  .pulse-center {
+    animation: pulse-center 1.8s ease-in-out infinite;
+  }
+
+  /* Ripple element */
+  .ripple {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--red);
+    pointer-events: none;
+    transform: translate(-50%, -50%) scale(0);
+    animation: ripple-out 1.2s ease-out forwards;
+  }
+
+  @keyframes ripple-out {
+    0%   { transform: translate(-50%, -50%) scale(0); opacity: 0.9; }
+    100% { transform: translate(-50%, -50%) scale(3.5); opacity: 0; }
+  }
+
+  /* Info strip */
+  .info-strip {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .info-badge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.8rem 1.4rem;
+    border: 0.5px solid rgba(200, 146, 42, 0.35);
+    border-radius: 4px;
+    background: rgba(255,255,255,0.025);
+    transition: background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .info-badge:hover {
+    background: rgba(200, 146, 42, 0.07);
+    border-color: rgba(200, 146, 42, 0.6);
+  }
+
+  .info-badge-label {
+    font-family: 'Cinzel', serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    opacity: 0.7;
+  }
+
+  .info-badge-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.95rem;
+    color: var(--parchment);
+  }
+
+  /* Footer */
+  .footer {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.78rem;
+    color: rgba(242, 232, 213, 0.3);
+    letter-spacing: 0.12em;
+    text-align: center;
+  }
+
+  /* Decorative corner accents */
+  .corners {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    pointer-events: none;
+  }
+
+  .corners::before, .corners::after {
+    content: '';
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-color: rgba(200, 146, 42, 0.4);
+    border-style: solid;
+  }
+
+  .corners::before {
+    top: -8px; left: -8px;
+    border-width: 1px 0 0 1px;
+  }
+
+  .corners::after {
+    bottom: -8px; right: -8px;
+    border-width: 0 1px 1px 0;
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <div class="header">
+    <p class="header-eyebrow">Pueblo originario de la Amazonía</p>
+    <h1>Arte Awajún</h1>
+    <div class="header-rule"></div>
+  </div>
+
+  <div class="mandala-card" id="mandala">
+    <div class="corners"></div>
+    <svg id="svg-main" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg">
+
+      <!-- Background circle (parchment) -->
+      <circle cx="300" cy="300" r="285" fill="#f2e8d5" stroke="none"/>
+
+      <!-- Outer thin ring -->
+      <circle cx="300" cy="300" r="278" fill="none" stroke="#0d0806" stroke-width="3"/>
+      <circle cx="300" cy="300" r="256" fill="none" stroke="#0d0806" stroke-width="3"/>
+
+      <!-- Rotating triangle ring -->
+      <g class="ring-group" id="ring-group"></g>
+
+      <!-- Thick inner border circle -->
+      <circle cx="300" cy="300" r="168" fill="#f2e8d5" stroke="#0d0806" stroke-width="9"/>
+
+      <!-- Scattered red dots in inner circle (pre-computed positions) -->
+      <g id="dot-layer"></g>
+
+      <!-- Center cluster -->
+      <g id="center-cluster"></g>
+
+    </svg>
+  </div>
+
+  <div class="info-strip">
+    <div class="info-badge">
+      <span class="info-badge-label">Cultura</span>
+      <span class="info-badge-value">Awajún · Wampis</span>
+    </div>
+    <div class="info-badge">
+      <span class="info-badge-label">Técnica</span>
+      <span class="info-badge-value">Alfarería tradicional</span>
+    </div>
+    <div class="info-badge">
+      <span class="info-badge-label">Región</span>
+      <span class="info-badge-value">Amazonía peruana</span>
+    </div>
+  </div>
+
+  <p class="footer">Haz clic en el diseño para interactuar — los patrones responden al toque</p>
+
+</div>
+
+<script>
+const cx = 300, cy = 300;
+const svg = document.getElementById('svg-main');
+const ringGroup = document.getElementById('ring-group');
+
+/* ── 1. BUILD TRIANGLES ── */
+const N = 22;
+const outerR = 248, innerR = 174;
+const halfAngle = Math.PI / N * 0.72;
+
+for (let i = 0; i < N; i++) {
+  const ang = (2 * Math.PI * i) / N - Math.PI / 2;
+  const aL = ang - halfAngle, aR = ang + halfAngle;
+
+  const x1 = cx + outerR * Math.cos(aL);
+  const y1 = cy + outerR * Math.sin(aL);
+  const x2 = cx + outerR * Math.cos(aR);
+  const y2 = cy + outerR * Math.sin(aR);
+  const xt = cx + innerR * Math.cos(ang);
+  const yt = cy + innerR * Math.sin(ang);
+
+  const poly = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+  poly.setAttribute('points', `${x1},${y1} ${x2},${y2} ${xt},${yt}`);
+  poly.setAttribute('fill', 'none');
+  poly.setAttribute('stroke', '#cc0a0a');
+  poly.setAttribute('stroke-width', '2.8');
+  poly.setAttribute('stroke-linejoin', 'round');
+  ringGroup.appendChild(poly);
+}
+
+/* ── 2. SCATTERED DOTS ── */
+const dotLayer = document.getElementById('dot-layer');
+const dotPositions = [
+  [300, 195], [340, 200], [380, 215], [410, 238],
+  [430, 268], [432, 305], [418, 340], [398, 368],
+  [368, 388], [330, 400], [290, 400], [252, 390],
+  [218, 370], [195, 340], [182, 308], [185, 270],
+  [200, 238], [225, 210], [260, 198]
+];
+
+dotPositions.forEach((pos, i) => {
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c.setAttribute('cx', pos[0]);
+  c.setAttribute('cy', pos[1]);
+  c.setAttribute('r', '7.5');
+  c.setAttribute('fill', '#cc0a0a');
+  c.classList.add('pulse-dot');
+  c.style.animationDelay = `${(i * 0.18) % 2.8}s`;
+  dotLayer.appendChild(c);
+});
+
+/* ── 3. CENTER CLUSTER ── */
+const cluster = document.getElementById('center-cluster');
+const clusterData = [
+  { x: 285, y: 283, color: '#0d0806', r: 6.5 },
+  { x: 300, y: 278, color: '#cc0a0a', r: 5.5 },
+  { x: 315, y: 283, color: '#0d0806', r: 6.5 },
+  { x: 278, y: 298, color: '#cc0a0a', r: 5.5 },
+  { x: 293, y: 298, color: '#0d0806', r: 7.5 },
+  { x: 307, y: 298, color: '#cc0a0a', r: 5.5 },
+  { x: 322, y: 298, color: '#cc0a0a', r: 5.5 },
+  { x: 285, y: 314, color: '#0d0806', r: 7.5 },
+  { x: 300, y: 316, color: '#cc0a0a', r: 5   },
+  { x: 315, y: 314, color: '#0d0806', r: 7.5 },
+];
+
+clusterData.forEach((d, i) => {
+  const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+  c.setAttribute('cx', d.x);
+  c.setAttribute('cy', d.y);
+  c.setAttribute('r', d.r);
+  c.setAttribute('fill', d.color);
+  c.classList.add('pulse-center');
+  c.style.animationDelay = `${i * 0.12}s`;
+  cluster.appendChild(c);
+});
+
+/* ── 4. CLICK RIPPLE ── */
+const mandala = document.getElementById('mandala');
+
+mandala.addEventListener('click', (e) => {
+  const rect = mandala.getBoundingClientRect();
+  const x = e.clientX - rect.left;
+  const y = e.clientY - rect.top;
+
+  const ripple = document.createElement('div');
+  ripple.className = 'ripple';
+  ripple.style.left = x + 'px';
+  ripple.style.top  = y + 'px';
+  ripple.style.width  = '60px';
+  ripple.style.height = '60px';
+  mandala.appendChild(ripple);
+
+  setTimeout(() => ripple.remove(), 1300);
+
+  /* Secondary, slower ripple */
+  const r2 = document.createElement('div');
+  r2.className = 'ripple';
+  r2.style.left = x + 'px';
+  r2.style.top  = y + 'px';
+  r2.style.width  = '60px';
+  r2.style.height = '60px';
+  r2.style.animationDelay = '0.18s';
+  r2.style.borderColor = 'rgba(200,146,42,0.7)';
+  mandala.appendChild(r2);
+  setTimeout(() => r2.remove(), 1500);
+});
+
+/* ── 5. PAUSE ROTATION ON HOVER ── */
+mandala.addEventListener('mouseenter', () => {
+  ringGroup.style.animationPlayState = 'paused';
+});
+mandala.addEventListener('mouseleave', () => {
+  ringGroup.style.animationPlayState = 'running';
+});
+</script><script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var inFrame = (window.parent !== window);
+
+  if(inFrame){
+    // When in iframe: hide header/info/footer so only mandala shows
+    var hide = document.createElement('style');
+    hide.textContent =
+      '.header,.info-strip,.footer{display:none!important}' +
+      'body{background:#1a0c05!important}';  /* keep warm ceramic atmosphere */
+    document.head.appendChild(hide);
+  }
+
+  document.documentElement.style.height = '100%';
+  document.body.style.cssText += ';height:100vh!important;overflow:hidden!important;';
+
+  var SEL = '.mandala-card', _w = 0, _h = 0;
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    if(!_w || !_h){
+      el.style.transform = 'none';
+      el.style.position  = '';
+      _w = el.offsetWidth  || 520;
+      _h = el.offsetHeight || 540;
+      if(_w < 20 || _h < 20){ _w = 0; _h = 0; return; }
+    }
+    // Center mandala-card in viewport using fixed positioning
+    var s = Math.min(window.innerWidth / _w, window.innerHeight / _h) * 0.90;
+    el.style.position        = 'fixed';
+    el.style.top             = '50%';
+    el.style.left            = '50%';
+    el.style.zIndex          = '10';
+    el.style.transform       = 'translate(-50%, -50%) scale(' + s + ')';
+    el.style.transformOrigin = '0 0';
+  }
+  window.addEventListener('resize', _fit);
+  [0, 60, 200, 500, 1200].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Geometría Awajún | Archivo Vivo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Bungee+Hairline&family=Alumni+Sans+Pinstripe:ital@0;1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/awajun.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="awajun-topbar">
+      <a class="awajun-brand" href="index.html#ceramica-awajun">
+        <span class="awajun-brand-mark">A</span>
+        <span>GJR // Geometría Awajún</span>
+      </a>
+      <div class="awajun-top-actions">
+        <button class="top-link" id="backPortfolioTop">← Volver al portafolio</button>
+        <a class="top-link is-primary" href="#visor">Entrar al visor</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero-stage">
+        <div class="hero-panel reveal" id="heroPanel">
+          <div class="hero-copy">
+            <p class="section-kicker">// archivo vivo · colección visual</p>
+            <h1 class="hero-title">
+              Geometría <span class="accent">Awajún</span>
+            </h1>
+            <p class="hero-desc">
+              Una experiencia independiente para recorrer interfaces inspiradas en símbolo, memoria, cerámica y lenguaje gráfico awajún desde una lectura digital más clara, inmersiva y curada.
+            </p>
+            <div class="hero-meta" id="heroMeta"></div>
+            <div class="hero-actions">
+              <button class="btn-main" id="enterCollectionBtn">Entrar a la colección</button>
+              <button class="btn-secondary" data-open-detail>Ver diseño actual</button>
+              <button class="btn-secondary" id="goViewerBtn">Bajar al visor</button>
+            </div>
+          </div>
+
+          <div class="hero-preview-zone">
+            <div class="hero-preview-shell" id="heroPreviewShell">
+              <div class="hero-iframe-box">
+                <iframe class="frame-iframe" id="heroPreviewFrame" title="Vista destacada Awajún" loading="lazy" scrolling="no"></iframe>
+              </div>
+              <div class="hero-floating">
+                <span class="hero-floating-index" id="heroFloatingIndex">01</span>
+                <div class="hero-floating-copy">
+                  <strong id="heroFloatingTitle">Mandala circular tradicional</strong>
+                  <span id="heroFloatingSub">Cerámica sagrada · Núgkui</span>
+                </div>
+              </div>
+              <div class="hero-progress">
+                <span class="hero-progress-bar" id="heroProgressBar"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="viewer-section" id="visor">
+        <div class="container">
+          <div class="reveal" style="display:grid; gap:.85rem; margin-bottom:1.5rem;">
+            <p class="section-kicker">// visor principal</p>
+            <h2 class="section-heading">La obra primero. La navegación después. El contexto siempre sincronizado.</h2>
+            <p class="section-copy">Aquí la colección se recorre sin ruido. Cada pieza se muestra completa, con flechas, miniaturas y una ficha curatorial que cambia al mismo tiempo que el diseño activo.</p>
+          </div>
+
+          <div class="viewer-grid">
+            <article class="viewer-stage reveal">
+              <div class="viewer-stage-top">
+                <div>
+                  <p class="section-kicker">// pieza activa</p>
+                  <h3 class="thumb-strip-title">Visor curatorial</h3>
+                </div>
+                <div class="viewer-count" id="viewerCount">01 / 09</div>
+              </div>
+
+              <div class="viewer-main">
+                <div class="viewer-main-shell">
+                  <div class="viewer-main-box">
+                    <iframe class="frame-iframe" id="viewerFrame" title="Pieza Awajún activa" loading="lazy" scrolling="no"></iframe>
+                  </div>
+
+                  <div class="viewer-nav" aria-label="Controles laterales">
+                    <button class="viewer-nav-btn" data-step="prev" aria-label="Diseño anterior"><span>←</span></button>
+                    <button class="viewer-nav-btn" data-step="next" aria-label="Diseño siguiente"><span>→</span></button>
+                  </div>
+                </div>
+
+                <div class="viewer-main-actions">
+                  <button class="icon-btn" data-step="prev" aria-label="Diseño anterior">←</button>
+                  <button class="icon-btn" data-open-detail aria-label="Abrir detalle">⤢</button>
+                  <button class="icon-btn" data-step="next" aria-label="Diseño siguiente">→</button>
+                </div>
+              </div>
+            </article>
+
+            <aside class="viewer-sidebar">
+              <article class="curatorial-card reveal">
+                <div class="curatorial-top">
+                  <div>
+                    <p class="curatorial-label">ficha curatorial</p>
+                    <h3 class="curatorial-title" id="curatorialTitle">Mandala circular tradicional</h3>
+                  </div>
+                  <span class="curatorial-year" id="curatorialYear">2026</span>
+                </div>
+                <p class="curatorial-sub" id="curatorialSub">Cerámica sagrada · Núgkui</p>
+                <p class="curatorial-desc" id="curatorialDesc">Composición centrada en anillos, triángulos y puntos pulsantes. Toma como eje la cerámica awajún y su dimensión espiritual dentro de la cosmovisión amazónica.</p>
+                <dl class="curatorial-meta">
+                  <div class="meta-row">
+                    <dt>colección</dt>
+                    <dd>Archivo visual Awajún</dd>
+                  </div>
+                  <div class="meta-row">
+                    <dt>categoría</dt>
+                    <dd id="curatorialCategory">Colección ritual</dd>
+                  </div>
+                  <div class="meta-row">
+                    <dt>modo</dt>
+                    <dd>Visor interactivo + detalle</dd>
+                  </div>
+                </dl>
+                <div class="curatorial-tags" id="curatorialTags"></div>
+                <button class="btn-inline" data-open-detail>Abrir modo detalle</button>
+              </article>
+            </aside>
+          </div>
+
+          <div class="viewer-bottom reveal">
+            <article class="thumb-strip-card thumb-strip-card--wide">
+              <div class="thumb-strip-head">
+                <div>
+                  <h3 class="thumb-strip-title">Navegación de piezas</h3>
+                  <p class="thumb-strip-note">recorre la colección desde aquí · clic o teclado para cambiar el visor</p>
+                </div>
+                <button class="btn-inline btn-inline--ghost" data-open-detail>Ver pieza actual en grande</button>
+              </div>
+              <div class="thumbnails" id="thumbList"></div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="footer-section reveal">
+        <div class="footer-panel">
+          <div>
+            <p class="section-kicker">// cierre</p>
+            <h3>Recorrido limpio, sin conflictos. La colección respira en un espacio propio y vuelve al portafolio de manera más clara.</h3>
+            <p>Cada diseño propone una lectura distinta del universo simbólico awajún. Aquí el recorrido se cierra sin competir con el visor principal y te devuelve al portafolio general con una salida limpia.</p>
+          </div>
+          <div class="footer-actions">
+            <button class="btn-main" id="backToPortfolioFooter">Volver al portafolio</button>
+            <button class="btn-secondary" data-restart-collection>Reiniciar recorrido</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <div class="modal" id="detailModal" aria-hidden="true">
+    <div class="modal-inner">
+      <div class="modal-top">
+        <div>
+          <h3 class="modal-title" id="modalTitle">Mandala circular tradicional</h3>
+          <p class="modal-sub" id="modalSub">Cerámica sagrada · Núgkui</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" id="modalFullscreen">Pantalla completa</button>
+          <button class="btn-secondary" id="modalClose">Cerrar ✕</button>
+        </div>
+      </div>
+
+      <div class="modal-stage">
+        <div class="modal-stage-box">
+          <iframe class="frame-iframe" id="modalFrame" title="Diseño Awajún en detalle" loading="lazy" scrolling="no"></iframe>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <p class="modal-help">Usa ← y → para cambiar de pieza. Presiona F para pantalla completa y ESC para cerrar.</p>
+        <div class="modal-nav">
+          <button class="btn-secondary" id="modalPrev">← Anterior</button>
+          <button class="btn-secondary" id="modalNext">Siguiente →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/awajun-data.js"></script>
+  <script src="js/awajun.js"></script>
+</body>
+</html>

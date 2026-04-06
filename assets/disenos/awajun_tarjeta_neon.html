@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Geometría Awajún — Tarjeta</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Cinzel:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  width:100vw; height:100vh;
+  background:#030308;
+  display:flex; align-items:center; justify-content:center;
+  overflow:hidden;
+}
+
+#bg { position:fixed; inset:0; z-index:0; }
+
+.scene { position:relative; z-index:1; }
+
+/* ══ TARJETA HORIZONTAL ══ */
+.card {
+  position:relative;
+  width:920px; height:500px;
+  background:linear-gradient(135deg,#0A0A14 0%,#080810 50%,#0C0C18 100%);
+  border-radius:18px;
+  border:1px solid rgba(255,30,10,0.22);
+  overflow:hidden;
+  box-shadow:
+    0 0 0 1px rgba(0,0,0,0.8),
+    0 0 60px rgba(255,20,5,0.12),
+    0 30px 90px rgba(0,0,0,0.85);
+  display:flex;
+  animation:cardIn 1.1s cubic-bezier(0.16,1,0.3,1) both;
+}
+@keyframes cardIn {
+  from { opacity:0; transform:scale(0.96) translateY(30px); }
+  to   { opacity:1; transform:scale(1)    translateY(0); }
+}
+
+/* Borde neon superior sutil */
+.card::before {
+  content:'';
+  position:absolute;
+  top:0; left:8%; right:8%; height:1px;
+  background:linear-gradient(to right,
+    transparent, rgba(255,30,10,0.5) 30%, rgba(255,30,10,0.5) 70%, transparent);
+  z-index:10;
+}
+
+/* ══ PANEL IZQUIERDO — RELOJ ══ */
+.panel-left {
+  position:relative;
+  width:490px; flex-shrink:0;
+  display:flex; align-items:center; justify-content:center;
+}
+
+.clock-wrap {
+  position:relative;
+  width:420px; height:420px;
+}
+#clk { width:100%; height:100%; overflow:visible; }
+
+/* Latido segundero */
+@keyframes sGlow {
+  0%,100% { filter:drop-shadow(0 0 4px #FF2010) drop-shadow(0 0 8px rgba(255,30,10,.5)); }
+  50%     { filter:drop-shadow(0 0 11px #FF4020) drop-shadow(0 0 24px rgba(255,30,10,.8)); }
+}
+
+/* ══ DIVISOR VERTICAL ══ */
+.divider-v {
+  position:absolute;
+  left:490px; top:10%; bottom:10%; width:1px;
+  background:linear-gradient(to bottom,
+    transparent, rgba(255,30,10,0.35) 30%, rgba(255,30,10,0.35) 70%, transparent);
+  z-index:5;
+}
+
+/* ══ PANEL DERECHO — ONDAS + TEXTO ══ */
+.panel-right {
+  flex:1;
+  position:relative;
+  display:flex; flex-direction:column;
+  align-items:flex-start; justify-content:center;
+  padding:32px 36px 32px 32px;
+  overflow:hidden;
+}
+
+/* Texto principal */
+.geo-title {
+  position:relative; z-index:3;
+  font-family:'Cinzel', serif;
+  font-size:1.55rem;
+  font-weight:400;
+  letter-spacing:4px;
+  color:#FF2010;
+  text-shadow:
+    0 0 20px rgba(255,30,10,0.7),
+    0 0 50px rgba(255,30,10,0.35),
+    0 0 90px rgba(255,30,10,0.18);
+  line-height:1.2;
+  margin-bottom:12px;
+}
+
+.geo-sub {
+  position:relative; z-index:3;
+  font-family:'Orbitron', sans-serif;
+  font-size:0.38rem; letter-spacing:7px;
+  color:rgba(255,80,50,0.4); text-transform:uppercase;
+  text-indent:3px;
+}
+
+/* Canvas de las ondas orgánicas */
+#waveCvs {
+  position:absolute;
+  inset:0; z-index:1;
+}
+
+/* Sparkle */
+.sparkle {
+  position:absolute;
+  bottom:20px; right:22px;
+  width:16px; height:16px;
+  opacity:.4; z-index:5;
+}
+
+/* Versión */
+.version-txt {
+  position:absolute;
+  bottom:14px; left:50%;
+  transform:translateX(-50%);
+  font-family:'Orbitron',sans-serif;
+  font-size:.4rem; letter-spacing:5px;
+  color:rgba(255,40,20,0.4);
+  white-space:nowrap;
+  z-index:5;
+}
+</style>
+</head>
+<body>
+<canvas id="bg"></canvas>
+
+<div class="scene">
+<div class="card">
+
+  <!-- ══ PANEL IZQUIERDO: RELOJ ══ -->
+  <div class="panel-left">
+    <div class="clock-wrap">
+      <svg id="clk" viewBox="0 0 420 420" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="bgClk" cx="50%" cy="50%" r="50%">
+            <stop offset="0%"   stop-color="#1C1C2E"/>
+            <stop offset="55%"  stop-color="#0E0E1C"/>
+            <stop offset="100%" stop-color="#060608"/>
+          </radialGradient>
+          <radialGradient id="bgInner" cx="42%" cy="38%" r="62%">
+            <stop offset="0%"   stop-color="#18182A"/>
+            <stop offset="100%" stop-color="#07070F"/>
+          </radialGradient>
+
+          <filter id="neon" x="-60%" y="-60%" width="220%" height="220%">
+            <feGaussianBlur stdDeviation="4.5" result="b1"/>
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="b2"/>
+            <feMerge><feMergeNode in="b1"/><feMergeNode in="b2"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="neonSoft" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="2" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <filter id="haloExt" x="-120%" y="-120%" width="340%" height="340%">
+            <feGaussianBlur stdDeviation="18"/>
+          </filter>
+          <filter id="haloMed" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="9"/>
+          </filter>
+          <filter id="shadHand" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.95)"/>
+          </filter>
+          <filter id="neonSec" x="-80%" y="-80%" width="260%" height="260%">
+            <feGaussianBlur stdDeviation="3.5" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <clipPath id="clipC"><circle cx="210" cy="210" r="193"/></clipPath>
+        </defs>
+
+        <!-- Base -->
+        <circle cx="210" cy="210" r="200" fill="#000"/>
+        <circle cx="210" cy="210" r="196" fill="url(#bgClk)"/>
+
+        <!-- Halo exterior ambiental -->
+        <circle cx="210" cy="210" r="194" fill="none"
+          stroke="#FF1A0A" stroke-width="16"
+          filter="url(#haloExt)" opacity=".5"/>
+
+        <!-- Anillo doble exterior -->
+        <circle cx="210" cy="210" r="193" fill="none" stroke="#2E0600" stroke-width="6"/>
+        <circle cx="210" cy="210" r="193" fill="none" stroke="#FF1A0A" stroke-width="1.8"
+          filter="url(#neon)"/>
+        <circle cx="210" cy="210" r="187" fill="none" stroke="#AA0E04" stroke-width=".5" opacity=".5"/>
+
+        <!-- Separador negro -->
+        <circle cx="210" cy="210" r="182" fill="#06060A"/>
+
+        <!-- Anillo interior -->
+        <circle cx="210" cy="210" r="175" fill="none" stroke="#220400" stroke-width="5"/>
+        <circle cx="210" cy="210" r="175" fill="none" stroke="#FF1A0A" stroke-width="1.4"
+          filter="url(#neon)"/>
+        <circle cx="210" cy="210" r="169" fill="none" stroke="#AA0E04" stroke-width=".4" opacity=".4"/>
+
+        <!-- Esfera -->
+        <circle cx="210" cy="210" r="167" fill="url(#bgInner)"/>
+
+        <!-- Ticks minuto -->
+        <g id="tMin"></g>
+        <!-- Ticks hora -->
+        <g id="tHora"></g>
+        <!-- Números -->
+        <g id="nums"></g>
+
+        <!-- Estrella Awajún 12 puntas -->
+        <polygon id="starHalo" fill="none" stroke="#FF1A0A" stroke-width="7"
+          stroke-linejoin="round" opacity=".28" filter="url(#haloMed)"/>
+        <polygon id="starFill" fill="#09090F" stroke="none" stroke-linejoin="round"/>
+        <polygon id="starNeon" fill="none" stroke="#FF2010" stroke-width="1.5"
+          stroke-linejoin="round" filter="url(#neon)"/>
+
+        <!-- Puntos dentro de la estrella -->
+        <g id="dotsRing"></g>
+        <g id="dotsCross"></g>
+
+        <!-- Sombras manecillas -->
+        <line id="shH" x1="210" y1="210" x2="210" y2="108"
+          stroke="rgba(0,0,0,.8)" stroke-width="4.5" stroke-linecap="round"/>
+        <line id="shM" x1="210" y1="210" x2="210" y2="86"
+          stroke="rgba(0,0,0,.7)" stroke-width="3" stroke-linecap="round"/>
+        <line id="shS" x1="210" y1="222" x2="210" y2="80"
+          stroke="rgba(0,0,0,.5)" stroke-width="1.4" stroke-linecap="round"/>
+
+        <!-- Manecilla horas -->
+        <g id="gH">
+          <line x1="210" y1="232" x2="210" y2="110"
+            stroke="#B0B8C8" stroke-width="3.8" stroke-linecap="round" filter="url(#shadHand)"/>
+          <line x1="210" y1="230" x2="210" y2="114"
+            stroke="#D8DDE8" stroke-width="1" stroke-linecap="round" opacity=".65"/>
+        </g>
+
+        <!-- Manecilla minutos -->
+        <g id="gM">
+          <line x1="210" y1="236" x2="210" y2="88"
+            stroke="#9AA2B4" stroke-width="2.5" stroke-linecap="round" filter="url(#shadHand)"/>
+          <line x1="210" y1="234" x2="210" y2="92"
+            stroke="#C8CDD8" stroke-width=".8" stroke-linecap="round" opacity=".6"/>
+        </g>
+
+        <!-- Manecilla segundos -->
+        <g id="gS" style="animation:sGlow 1s ease-in-out infinite">
+          <line x1="210" y1="210" x2="210" y2="234"
+            stroke="#FF2010" stroke-width="1.1" stroke-linecap="round" filter="url(#neonSec)"/>
+          <line x1="210" y1="210" x2="210" y2="78"
+            stroke="#FF2010" stroke-width=".9" stroke-linecap="round" filter="url(#neonSec)"/>
+          <circle cx="210" cy="229" r="2" fill="#FF2010" filter="url(#neonSec)"/>
+        </g>
+
+        <!-- Núcleo -->
+        <circle cx="210" cy="210" r="13" fill="#09090F"
+          stroke="#FF1A0A" stroke-width="1.2" filter="url(#neonSoft)"/>
+        <circle cx="210" cy="210" r="6.5" fill="#FF1A0A" filter="url(#neonSoft)"/>
+        <circle cx="210" cy="210" r="2.8" fill="#FFCCC0"/>
+
+      </svg>
+    </div>
+    <div class="version-txt">AWAJÚN v7.0</div>
+  </div>
+
+  <!-- Divisor vertical -->
+  <div class="divider-v"></div>
+
+  <!-- ══ PANEL DERECHO: ONDAS + TEXTO ══ -->
+  <div class="panel-right">
+    <canvas id="waveCvs"></canvas>
+    <div class="geo-title">GEOMETRÍA<br>AWAJÚN</div>
+    <div class="geo-sub">Bagua Grande · Amazonas · Perú</div>
+
+    <svg class="sparkle" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2 L13.2 10.8 L22 12 L13.2 13.2 L12 22 L10.8 13.2 L2 12 L10.8 10.8 Z"
+        fill="none" stroke="#A0A8C0" stroke-width="1.2"/>
+    </svg>
+  </div>
+
+</div>
+</div>
+
+<script>
+/* ══ GEOMETRÍA DEL RELOJ ══ */
+const CX=210, CY=210;
+const rad = d => d*Math.PI/180;
+const pt  = (r,d) => ({ x:CX+r*Math.cos(rad(d)), y:CY+r*Math.sin(rad(d)) });
+const NS  = 'http://www.w3.org/2000/svg';
+const mk  = (t,a) => {
+  const e=document.createElementNS(NS,t);
+  for(const[k,v] of Object.entries(a)) e.setAttribute(k,v);
+  return e;
+};
+
+function starPts(oR,iR,n,s=-90){
+  return Array.from({length:n*2},(_,i)=>{
+    const a=s+i*(180/n), r=i%2===0?oR:iR, p=pt(r,a);
+    return `${p.x.toFixed(2)},${p.y.toFixed(2)}`;
+  }).join(' ');
+}
+
+const pts=starPts(112,52,12);
+['starHalo','starFill','starNeon'].forEach(id=>
+  document.getElementById(id).setAttribute('points',pts));
+
+/* Puntos en anillo */
+const dR=document.getElementById('dotsRing');
+for(let i=0;i<12;i++){
+  const p=pt(68,-90+i*30);
+  dR.appendChild(mk('circle',{cx:p.x.toFixed(2),cy:p.y.toFixed(2),r:'5',
+    fill:'#000',stroke:'#1A1A28','stroke-width':'1'}));
+}
+/* Puntos cruz central */
+const dC=document.getElementById('dotsCross');
+[[0,0],[0,-23],[23,0],[0,23],[-23,0]].forEach(([dx,dy])=>{
+  dC.appendChild(mk('circle',{cx:(CX+dx).toFixed(1),cy:(CY+dy).toFixed(1),r:'5.5',
+    fill:'#000',stroke:'rgba(255,26,10,0.18)','stroke-width':'.7'}));
+});
+
+/* Ticks minuto */
+const tMinG=document.getElementById('tMin');
+for(let i=0;i<60;i++){
+  if(i%5===0) continue;
+  const deg=-90+i*6, p1=pt(158,deg), p2=pt(164,deg);
+  tMinG.appendChild(mk('line',{
+    x1:p1.x.toFixed(2),y1:p1.y.toFixed(2),
+    x2:p2.x.toFixed(2),y2:p2.y.toFixed(2),
+    stroke:'rgba(255,26,10,0.2)','stroke-width':'.6','stroke-linecap':'round'}));
+}
+
+/* Ticks hora */
+const tHoraG=document.getElementById('tHora');
+for(let i=0;i<12;i++){
+  const deg=-90+i*30, isM=[0,3,6,9].includes(i);
+  const p1=pt(isM?150:154,deg), p2=pt(isM?165:162,deg);
+  tHoraG.appendChild(mk('line',{
+    x1:p1.x.toFixed(2),y1:p1.y.toFixed(2),
+    x2:p2.x.toFixed(2),y2:p2.y.toFixed(2),
+    stroke:'#FF2010','stroke-width':isM?'2':'1.2','stroke-linecap':'round',
+    filter:'url(#neonSoft)'}));
+}
+
+/* Números */
+const nG=document.getElementById('nums');
+for(let i=1;i<=12;i++){
+  const deg=-90+i*30, isM=[3,6,9,12].includes(i);
+  const p=pt(isM?143:141,deg);
+  const t=mk('text',{x:p.x.toFixed(2),y:p.y.toFixed(2),
+    'font-family':'Orbitron, sans-serif',
+    'font-size':isM?'17':'12','font-weight':'700',
+    'dominant-baseline':'central','text-anchor':'middle',
+    fill:'#FF2010',filter:'url(#neonSoft)',opacity:isM?'1':'0.8'});
+  t.textContent=i;
+  nG.appendChild(t);
+}
+
+/* ══ MANECILLAS FUNCIONALES ══ */
+const gH=document.getElementById('gH');
+const gM=document.getElementById('gM');
+const gS=document.getElementById('gS');
+const shH=document.getElementById('shH');
+const shM=document.getElementById('shM');
+const shS=document.getElementById('shS');
+
+function rotar(el,deg){
+  el.setAttribute('transform',`rotate(${deg.toFixed(4)},${CX},${CY})`);
+}
+
+function tickClock(){
+  const now=new Date();
+  const ms=now.getMilliseconds();
+  const s=now.getSeconds()+ms/1000;
+  const m=now.getMinutes()+s/60;
+  const h=(now.getHours()%12)+m/60;
+  rotar(gH, h*30);  rotar(shH, h*30);
+  rotar(gM, m*6);   rotar(shM, m*6);
+  rotar(gS, s*6);   rotar(shS, s*6);
+}
+(function loopClock(){ tickClock(); requestAnimationFrame(loopClock); })();
+
+/* ══ FONDO GALAXIA ══ */
+const bgCvs=document.getElementById('bg');
+const bgCtx=bgCvs.getContext('2d');
+function resizeBG(){
+  bgCvs.width=window.innerWidth; bgCvs.height=window.innerHeight;
+}
+resizeBG(); window.addEventListener('resize',resizeBG);
+
+const STARS=Array.from({length:500},()=>({
+  x:Math.random(),y:Math.random(),
+  r:Math.random()*1.3+0.1,
+  a:Math.random()*0.6+0.05,
+  sp:Math.random()*0.0005+0.0001,
+  ph:Math.random()*Math.PI*2,
+  blue:Math.random()<0.4
+}));
+
+function drawBG(t){
+  const W=bgCvs.width,H=bgCvs.height;
+  bgCtx.clearRect(0,0,W,H);
+  bgCtx.fillStyle='#030308'; bgCtx.fillRect(0,0,W,H);
+
+  // Nebulosa azul-violeta
+  const g1=bgCtx.createRadialGradient(W*.6,H*.42,0,W*.6,H*.42,W*.5);
+  g1.addColorStop(0,'rgba(16,32,110,0.5)');
+  g1.addColorStop(.4,'rgba(8,16,60,0.22)');
+  g1.addColorStop(1,'rgba(0,0,0,0)');
+  bgCtx.fillStyle=g1; bgCtx.fillRect(0,0,W,H);
+
+  const g2=bgCtx.createRadialGradient(W*.15,H*.5,0,W*.15,H*.5,W*.35);
+  g2.addColorStop(0,'rgba(10,18,70,0.3)');
+  g2.addColorStop(1,'rgba(0,0,0,0)');
+  bgCtx.fillStyle=g2; bgCtx.fillRect(0,0,W,H);
+
+  // Halo rojo del reloj
+  const pulse=0.09+0.03*Math.sin(t*0.0005);
+  const g3=bgCtx.createRadialGradient(W*0.3,H*.5,0,W*0.3,H*.5,W*.28);
+  g3.addColorStop(0,`rgba(120,10,3,${pulse})`);
+  g3.addColorStop(.5,'rgba(50,4,1,0.04)');
+  g3.addColorStop(1,'rgba(0,0,0,0)');
+  bgCtx.fillStyle=g3; bgCtx.fillRect(0,0,W,H);
+
+  STARS.forEach(s=>{
+    const br=s.a*(0.4+0.6*Math.sin(t*s.sp*1000+s.ph));
+    bgCtx.beginPath();
+    bgCtx.arc(s.x*W,s.y*H,s.r,0,Math.PI*2);
+    bgCtx.fillStyle=s.blue
+      ? `rgba(120,150,255,${br})`
+      : `rgba(210,215,255,${br})`;
+    bgCtx.fill();
+  });
+}
+function animBG(t){ drawBG(t); requestAnimationFrame(animBG); }
+requestAnimationFrame(animBG);
+
+/* ══ ONDAS ORGÁNICAS en panel derecho ══
+   Líneas curvas que fluyen de arriba a abajo,
+   densas y orgánicas como en la imagen (forma de X / flujo)
+*/
+const waveCvs=document.getElementById('waveCvs');
+const wCtx=waveCvs.getContext('2d');
+
+function resizeWave(){
+  const pr=waveCvs.parentElement;
+  waveCvs.width=pr.clientWidth;
+  waveCvs.height=pr.clientHeight;
+}
+resizeWave();
+window.addEventListener('resize',resizeWave);
+
+/* Genera splines: líneas que salen de la esquina superior-derecha
+   y fluyen en forma de X hasta la esquina inferior-derecha */
+function drawWaves(t){
+  const W=waveCvs.width, H=waveCvs.height;
+  wCtx.clearRect(0,0,W,H);
+
+  const N=28;        // número de líneas
+  const offset = t*0.00014; // desplazamiento lento
+
+  for(let i=0;i<N;i++){
+    const frac = i/(N-1);   // 0..1
+    const phase = frac*Math.PI*2 + offset;
+    const alpha = 0.55 - Math.abs(frac-0.5)*0.5; // más opaco al centro
+
+    // Cada línea es una curva cúbica que va de arriba (zona der) a abajo (zona der)
+    // formando la figura en X / curvas orgánicas de la imagen
+    const squeeze = Math.sin(phase)*18;
+
+    // Punto inicio: arriba a la derecha
+    const x0 = W*0.55 + frac*W*0.45 + Math.sin(phase+1)*22;
+    const y0 = 0;
+
+    // Control 1: curva hacia la izquierda en la parte superior
+    const cx1 = W*0.1  + Math.sin(phase+0.5)*30 + frac*W*0.2;
+    const cy1 = H*0.28 + squeeze;
+
+    // Cintura (el cruce de la X): zona central más estrecha
+    const mx  = W*0.6  + Math.sin(phase+Math.PI)*35;
+    const my  = H*0.5  + Math.sin(phase*1.3)*18;
+
+    // Control 2: curva hacia la derecha en la parte inferior
+    const cx2 = W*0.15 + Math.cos(phase+1)*28 + frac*W*0.18;
+    const cy2 = H*0.72 + squeeze*-1;
+
+    // Punto final: abajo a la derecha
+    const xf  = W*0.5  + frac*W*0.5 + Math.cos(phase)*18;
+    const yf  = H;
+
+    // Dibuja la curva en dos tramos (arriba→cintura, cintura→abajo)
+    wCtx.beginPath();
+    wCtx.moveTo(x0, y0);
+    wCtx.bezierCurveTo(cx1, cy1, mx - 40, my - 40, mx, my);
+    wCtx.bezierCurveTo(mx + 40, my + 40, cx2, cy2, xf, yf);
+
+    // Color: rojo neon, grosor fino
+    wCtx.strokeStyle = `rgba(200,20,8,${alpha})`;
+    wCtx.lineWidth   = 0.6;
+    wCtx.shadowColor = 'rgba(255,20,5,0.5)';
+    wCtx.shadowBlur  = 4;
+    wCtx.stroke();
+  }
+
+  // Segunda pasada más brillante (menos líneas, más opacas)
+  for(let i=0;i<8;i++){
+    const frac = i/7;
+    const phase = frac*Math.PI*2 + offset + 0.3;
+    const alpha = 0.75 - Math.abs(frac-0.5)*0.5;
+
+    const x0 = W*0.6 + frac*W*0.4 + Math.sin(phase+1)*14;
+    const y0 = 0;
+    const cx1= W*0.18 + Math.sin(phase+0.5)*22 + frac*W*0.15;
+    const cy1= H*0.28;
+    const mx = W*0.62 + Math.sin(phase+Math.PI)*28;
+    const my = H*0.5  + Math.sin(phase*1.3)*12;
+    const cx2= W*0.2  + Math.cos(phase+1)*22 + frac*W*0.14;
+    const cy2= H*0.72;
+    const xf = W*0.55 + frac*W*0.45 + Math.cos(phase)*14;
+    const yf = H;
+
+    wCtx.beginPath();
+    wCtx.moveTo(x0,y0);
+    wCtx.bezierCurveTo(cx1,cy1,mx-30,my-30,mx,my);
+    wCtx.bezierCurveTo(mx+30,my+30,cx2,cy2,xf,yf);
+
+    wCtx.strokeStyle=`rgba(255,35,12,${alpha})`;
+    wCtx.lineWidth=0.9;
+    wCtx.shadowColor='rgba(255,30,8,0.65)';
+    wCtx.shadowBlur=8;
+    wCtx.stroke();
+  }
+
+  wCtx.shadowBlur=0;
+}
+
+let waveT=0;
+function animWave(t){
+  waveT=t;
+  drawWaves(t);
+  requestAnimationFrame(animWave);
+}
+requestAnimationFrame(animWave);
+</script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var SEL = '.card', NAT_W = 920, NAT_H = 500;
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    var s = Math.min(window.innerWidth / NAT_W, window.innerHeight / NAT_H) * 0.94;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  [0, 60, 200, 500].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

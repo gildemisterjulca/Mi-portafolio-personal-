@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tarjeta Awajún — Variante</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Raleway:ital,wght@0,200;0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:        #1e1e1e;
+  --stone:     #141414;
+  --band:      #0d0d0d;
+  --red:       #c81010;
+  --red-hot:   #ff2020;
+  --silver:    #d0d0d0;
+  --silver-d:  #888;
+  --gold:      #a07828;
+}
+
+body {
+  min-height: 100vh;
+  background: #000000;
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1rem;
+  gap: 1.6rem;
+  font-family: 'Raleway', sans-serif;
+}
+
+/* ══ ZIGZAG STRIPS ══ */
+.zz { width: min(500px,96vw); height: 18px; }
+.zz svg { width:100%; height:100%; }
+
+/* ══ FLIP ══ */
+.flip-wrap {
+  width: min(500px, 96vw);
+  perspective: 1400px;
+  cursor: pointer;
+}
+.flip-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.9s cubic-bezier(0.55,0.055,0.675,0.19);
+}
+.flip-wrap.flipped .flip-inner {
+  transform: rotateY(180deg);
+  transition-timing-function: cubic-bezier(0.215,0.610,0.355,1.000);
+}
+
+/* ══ SHARED FACE ══ */
+.face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 4px;
+  overflow: hidden;
+  position: relative;
+  box-shadow:
+    0 0 0 1px rgba(200,16,16,0.35),
+    0 0 60px rgba(200,16,16,0.1),
+    0 20px 80px rgba(0,0,0,0.7);
+}
+
+/* ══════════════════════════════
+   FRONT — Vertical medallion
+══════════════════════════════ */
+.face-front {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hero section — mandala on concrete */
+.hero {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 0.88;
+  background: var(--stone);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Radial red glow behind mandala */
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 55% 55% at 50% 52%, rgba(180,10,10,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Concrete scan-lines subtle overlay */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0,0,0,0.03) 3px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+}
+
+.hero-svg-wrap {
+  position: relative;
+  z-index: 2;
+  width: 78%;
+  max-width: 360px;
+  aspect-ratio: 1;
+}
+
+.hero-svg-wrap svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 32px rgba(200,10,10,0.3)) drop-shadow(0 0 8px rgba(200,10,10,0.15));
+}
+
+@keyframes spin-slow { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+@keyframes spin-rev  { from{transform:rotate(0deg)} to{transform:rotate(-360deg)} }
+.rg1 { transform-origin:200px 200px; animation:spin-slow 70s linear infinite; }
+.rg2 { transform-origin:200px 200px; animation:spin-rev  110s linear infinite; }
+
+@keyframes pulse-dot { 0%,100%{opacity:.75} 50%{opacity:1} }
+.pd { animation:pulse-dot 2.8s ease-in-out infinite; }
+
+/* Bottom text panel */
+.front-panel {
+  background: var(--band);
+  padding: 1.8rem 2.4rem 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  border-top: 1.5px solid rgba(200,16,16,0.5);
+  position: relative;
+}
+
+/* Red accent line left */
+.front-panel::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--red), transparent);
+}
+
+.panel-eyebrow {
+  font-weight: 300;
+  font-size: 0.65rem;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--red);
+}
+
+.panel-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.panel-title {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.2rem);
+  color: var(--silver);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  line-height: 1;
+  text-shadow: 0 0 30px rgba(200,10,10,0.2);
+}
+
+.panel-subtitle {
+  font-family: 'Cinzel', serif;
+  font-weight: 400;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--silver-d);
+  white-space: nowrap;
+}
+
+.panel-rule {
+  width: 100%;
+  height: 0.5px;
+  background: linear-gradient(90deg, rgba(200,16,16,0.6), transparent);
+  margin: 0.2rem 0;
+}
+
+.panel-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.meta-lbl {
+  font-size: 0.55rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(136,136,136,0.6);
+}
+
+.meta-val {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: rgba(208,208,208,0.75);
+}
+
+.cta-row {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 0.3rem;
+}
+
+.cta-text {
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.22);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cta-text::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: rgba(200,10,10,0.5);
+  display: inline-block;
+}
+
+/* Ripple */
+.rpl {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  transform: translate(-50%,-50%) scale(0);
+  animation: rplout 1.2s ease-out forwards;
+  z-index: 20;
+}
+@keyframes rplout {
+  0%  { transform:translate(-50%,-50%) scale(0); opacity:.8; }
+  100%{ transform:translate(-50%,-50%) scale(5); opacity:0; }
+}
+
+/* ══════════════════════════════
+   BACK — Profile + Details
+══════════════════════════════ */
+.face-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  background: var(--stone);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Back hero — centered avatar with diamond frame */
+.back-hero {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 2.4rem 2rem;
+  background: var(--band);
+  overflow: hidden;
+  gap: 3rem;
+}
+
+/* Subtle red radial behind avatar */
+.back-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 80% at 28% 50%, rgba(160,10,10,0.12) 0%, transparent 65%);
+  pointer-events: none;
+}
+
+/* Diamond frame around avatar */
+.avatar-frame {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.avatar-frame svg.frame-svg {
+  position: absolute;
+  inset: -24px;
+  width: calc(100% + 48px);
+  height: calc(100% + 48px);
+  pointer-events: none;
+}
+
+@keyframes spin-deco { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.deco-g { transform-origin: 104px 104px; animation: spin-deco 28s linear infinite; }
+
+.avatar-circle {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  overflow: hidden;
+  background: var(--bg);
+  border: 2px solid rgba(200,200,200,0.2);
+  outline: 1.5px solid rgba(200,16,16,0.5);
+  outline-offset: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+
+.avatar-initials {
+  font-family: 'Cinzel', serif;
+  font-weight: 600;
+  font-size: 2.2rem;
+  color: rgba(200,200,200,0.5);
+  letter-spacing: .06em;
+  user-select: none;
+}
+
+/* Text block beside avatar */
+.back-id {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.back-name {
+  font-family: 'Cinzel', serif;
+  font-weight: 700;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  color: var(--silver);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1.3;
+  text-shadow: 0 0 24px rgba(200,10,10,0.15);
+}
+
+.back-role {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.role-line {
+  font-weight: 300;
+  font-size: 0.7rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--silver-d);
+  line-height: 1.6;
+}
+
+.role-uni {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.18em;
+  color: var(--red);
+}
+
+.back-vertical-rule {
+  width: 1px;
+  height: 60px;
+  background: linear-gradient(180deg, transparent, var(--red), transparent);
+  flex-shrink: 0;
+}
+
+/* Detail strip at bottom */
+.back-strip {
+  background: var(--bg);
+  border-top: 1.5px solid rgba(200,16,16,0.4);
+  padding: 1.6rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.back-strip::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--red), transparent);
+}
+
+.strip-eyebrow {
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--red);
+  font-weight: 300;
+}
+
+.strip-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.9rem 1.5rem;
+}
+
+.strip-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.18rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid rgba(200,16,16,0.3);
+}
+
+.strip-lbl {
+  font-size: 0.55rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(200,10,10,0.7);
+  font-weight: 300;
+}
+
+.strip-val {
+  font-size: 0.78rem;
+  font-weight: 300;
+  color: rgba(208,208,208,0.6);
+  line-height: 1.5;
+}
+
+.back-cta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  font-size: 0.58rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.2);
+  gap: 0.5rem;
+}
+.back-cta::before {
+  content: '';
+  width: 18px; height: 1px;
+  background: rgba(200,10,10,0.45);
+  display: inline-block;
+}
+
+.hint {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(200,200,200,0.22);
+  text-align: center;
+  font-weight: 300;
+  user-select: none;
+}
+</style>
+</head>
+<body>
+
+<!-- Zigzag top -->
+<div class="zz"><svg id="zz-t" viewBox="0 0 500 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg></div>
+
+<div class="flip-wrap" id="fw">
+  <div class="flip-inner">
+
+    <!-- ══ FRONT ══ -->
+    <div class="face face-front">
+
+      <div class="hero" id="heroArea">
+        <div class="hero-svg-wrap">
+          <svg id="msv" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+            <!-- Parchment base -->
+            <circle cx="200" cy="200" r="190" fill="#f0e6d0"/>
+            <!-- Outer rings -->
+            <circle cx="200" cy="200" r="188" fill="none" stroke="#1a1a1a" stroke-width="2.5"/>
+            <circle cx="200" cy="200" r="174" fill="none" stroke="#1a1a1a" stroke-width="1.5"/>
+            <!-- Rotating triangle ring 1 -->
+            <g class="rg1" id="trg1"></g>
+            <!-- Inner circle -->
+            <circle cx="200" cy="200" r="112" fill="#f0e6d0" stroke="#1a1a1a" stroke-width="6"/>
+            <!-- Second subtle ring -->
+            <circle cx="200" cy="200" r="168" fill="none" stroke="rgba(0,0,0,0.08)" stroke-width="1"/>
+            <!-- Dots -->
+            <g id="mdots"></g>
+            <!-- Center cluster -->
+            <g id="mcluster"></g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="front-panel">
+        <span class="panel-eyebrow">Pueblo originario · Amazonía peruana</span>
+        <div class="panel-title-row">
+          <span class="panel-title">Awajún</span>
+          <span class="panel-subtitle">Wámpis</span>
+        </div>
+        <div class="panel-rule"></div>
+        <div class="panel-meta">
+          <div class="meta-item"><span class="meta-lbl">Región</span><span class="meta-val">Amazonas · Perú</span></div>
+          <div class="meta-item"><span class="meta-lbl">Técnica</span><span class="meta-val">Alfarería</span></div>
+          <div class="meta-item"><span class="meta-lbl">Colores</span><span class="meta-val">Rojo · Negro · Arcilla</span></div>
+        </div>
+        <div class="cta-row"><span class="cta-text">Clic para ver perfil</span></div>
+      </div>
+
+    </div>
+
+    <!-- ══ BACK ══ -->
+    <div class="face face-back">
+
+      <div class="back-hero">
+        <div class="avatar-frame">
+          <svg class="frame-svg" id="frsvg" viewBox="0 0 208 208" xmlns="http://www.w3.org/2000/svg">
+            <g class="deco-g" id="decoRing"></g>
+          </svg>
+          <div class="avatar-circle">
+            <span class="avatar-initials">GJR</span>
+          </div>
+        </div>
+
+        <div class="back-vertical-rule"></div>
+
+        <div class="back-id">
+          <p class="back-name">Gildemister<br>Julca Ramos</p>
+          <div class="back-role">
+            <span class="role-line">Educación<br>Tecnológica</span>
+            <span class="role-uni">UNIFSLB</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="back-strip">
+        <span class="strip-eyebrow">Figura Geométrica · Diseño Awajún</span>
+        <div class="strip-grid">
+          <div class="strip-item">
+            <span class="strip-lbl">Estructura</span>
+            <span class="strip-val">Tres anillos concéntricos: cosmos, naturaleza y espíritu.</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-lbl">Triángulos</span>
+            <span class="strip-val">20 triángulos rojos que simbolizan los ciclos solares.</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-lbl">Puntos</span>
+            <span class="strip-val">Anillo circular de 20 puntos: comunidad y energía vital.</span>
+          </div>
+          <div class="strip-item">
+            <span class="strip-lbl">Cromatología</span>
+            <span class="strip-val">Rojo: fuerza. Negro: ancestros. Arcilla: tierra sagrada.</span>
+          </div>
+        </div>
+        <div class="back-cta">Clic para volver</div>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<!-- Zigzag bottom -->
+<div class="zz"><svg id="zz-b" viewBox="0 0 500 18" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg></div>
+
+<p class="hint">↺ &nbsp; haz clic en la tarjeta para girarla</p>
+
+<script>
+/* FLIP */
+document.getElementById('fw').addEventListener('click', function(){
+  this.classList.toggle('flipped');
+});
+
+/* ZIGZAG */
+function buildZZ(id, palette) {
+  const s=document.getElementById(id), W=500, step=26;
+  [[4,14],[7,11],[10,8]].forEach(([y1,y2],i)=>{
+    let d=`M0,${y2}`; let up=true;
+    for(let x=0;x<=W;x+=step){ d+=` L${x},${up?y1:y2}`; up=!up; }
+    const p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',d); p.setAttribute('fill','none');
+    p.setAttribute('stroke',palette[i]); p.setAttribute('stroke-width',1.3-i*0.2);
+    p.setAttribute('stroke-linejoin','miter');
+    s.appendChild(p);
+  });
+}
+buildZZ('zz-t',['#555','#b01010','#777']);
+buildZZ('zz-b',['#777','#b01010','#555']);
+
+/* MANDALA */
+const CX=200, CY=200;
+const trg1=document.getElementById('trg1');
+const mdots=document.getElementById('mdots');
+const mcluster=document.getElementById('mcluster');
+
+// Triangles
+const N=20, oR=168, iR=118, ha=Math.PI/N*0.68;
+for(let i=0;i<N;i++){
+  const a=2*Math.PI*i/N-Math.PI/2;
+  const x1=CX+oR*Math.cos(a-ha), y1=CY+oR*Math.sin(a-ha);
+  const x2=CX+oR*Math.cos(a+ha), y2=CY+oR*Math.sin(a+ha);
+  const xt=CX+iR*Math.cos(a),    yt=CY+iR*Math.sin(a);
+  const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  p.setAttribute('points',`${x1},${y1} ${x2},${y2} ${xt},${yt}`);
+  p.setAttribute('fill','none'); p.setAttribute('stroke','#cc1010');
+  p.setAttribute('stroke-width','3'); p.setAttribute('stroke-linejoin','round');
+  trg1.appendChild(p);
+}
+
+// Dots
+for(let i=0;i<20;i++){
+  const a=2*Math.PI*i/20-Math.PI/2;
+  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx', CX+83*Math.cos(a)); c.setAttribute('cy', CY+83*Math.sin(a));
+  c.setAttribute('r','5.8'); c.setAttribute('fill','#cc1010');
+  c.classList.add('pd'); c.style.animationDelay=`${(i*0.14)%2.8}s`;
+  mdots.appendChild(c);
+}
+
+// Center cluster
+[{dx:-13,dy:-13,r:4.2,f:'#cc1010'},{dx:0,dy:-13,r:4.2,f:'#1a1a1a'},{dx:13,dy:-13,r:4.2,f:'#cc1010'},
+ {dx:-13,dy:0,  r:4.2,f:'#1a1a1a'},{dx:0,dy:0,  r:6.5,f:'#0d0d0d'},{dx:13,dy:0,  r:4.2,f:'#1a1a1a'},
+ {dx:-13,dy:13, r:4.2,f:'#cc1010'},{dx:0,dy:13,  r:4.2,f:'#1a1a1a'},{dx:13,dy:13, r:4.2,f:'#cc1010'},
+].forEach((d,i)=>{
+  const c=document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx',CX+d.dx); c.setAttribute('cy',CY+d.dy); c.setAttribute('r',d.r);
+  c.setAttribute('fill',d.f); c.classList.add('pd'); c.style.animationDelay=`${i*0.12}s`;
+  mcluster.appendChild(c);
+});
+
+// Click ripple on hero
+const hero=document.getElementById('heroArea');
+hero.addEventListener('click',e=>{
+  e.stopPropagation();
+  document.getElementById('fw').classList.toggle('flipped');
+  const r=hero.getBoundingClientRect();
+  [['rgba(200,10,10,.7)',0],['rgba(200,200,200,.15)','0.2s']].forEach(([col,delay])=>{
+    const el=document.createElement('div'); el.className='rpl';
+    el.style.cssText=`left:${e.clientX-r.left}px;top:${e.clientY-r.top}px;width:50px;height:50px;border:1.5px solid ${col};animation-delay:${delay}`;
+    hero.appendChild(el); setTimeout(()=>el.remove(),1500);
+  });
+});
+
+/* DECO RING back */
+const drg=document.getElementById('decoRing');
+const dc=104, dn=14, doR=100, diR=82, dha=Math.PI/dn*0.62;
+for(let i=0;i<dn;i++){
+  const a=2*Math.PI*i/dn-Math.PI/2;
+  const x1=dc+doR*Math.cos(a-dha), y1=dc+doR*Math.sin(a-dha);
+  const x2=dc+doR*Math.cos(a+dha), y2=dc+doR*Math.sin(a+dha);
+  const xt=dc+diR*Math.cos(a),     yt=dc+diR*Math.sin(a);
+  const p=document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  p.setAttribute('points',`${x1},${y1} ${x2},${y2} ${xt},${yt}`);
+  p.setAttribute('fill','none'); p.setAttribute('stroke','rgba(180,10,10,0.5)');
+  p.setAttribute('stroke-width','1.4'); p.setAttribute('stroke-linejoin','round');
+  drg.appendChild(p);
+}
+</script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var SEL = '.flip-wrap', _w = 0, _h = 0;
+  // Fix body to exact viewport so the design doesn't overflow
+  document.documentElement.style.height = '100%';
+  document.body.style.cssText += ';height:100vh!important;overflow:hidden!important;';
+
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    // Read natural size only once (before any transform is applied)
+    if(!_w || !_h){
+      el.style.transform = 'none';
+      _w = el.offsetWidth  || el.getBoundingClientRect().width  || 480;
+      _h = el.offsetHeight || el.getBoundingClientRect().height || 480;
+      if(_w < 20 || _h < 20){ _w = 0; _h = 0; return; }
+    }
+    var s = Math.min(window.innerWidth / _w, window.innerHeight / _h) * 0.92;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  // Fire multiple times: handles fonts, canvas, deferred renders
+  [0, 60, 200, 500, 1200].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

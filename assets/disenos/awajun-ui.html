@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AWAJÚN — Geometría & Tradición</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@300;400;600&family=Raleway:wght@200;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --red:      #c00000;
+  --red-dim:  rgba(180,0,0,0.45);
+  --red-glow: rgba(220,0,0,0.25);
+  --white:    #ffffff;
+  --bg:       #060606;
+  --card-bg:  #0b0b0b;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Cinzel', 'Georgia', serif;
+  overflow: hidden;
+  perspective: 1600px;
+}
+
+/* ─── CARD ──────────────────────────────────────── */
+.card {
+  width: 740px;
+  height: 390px;
+  background: var(--card-bg);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.09s ease-out;
+  box-shadow:
+    0 60px 120px rgba(0,0,0,0.9),
+    0 0 0 1px rgba(180,0,0,0.18),
+    inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+/* corner accents */
+.card::before, .card::after {
+  content:'';
+  position:absolute;
+  width:28px; height:28px;
+  border-color: var(--red-dim);
+  border-style: solid;
+  z-index: 10;
+}
+.card::before { top:10px; left:10px;  border-width:1px 0 0 1px; }
+.card::after  { bottom:10px; right:10px; border-width:0 1px 1px 0; }
+
+/* ─── ZIGZAG BORDERS ────────────────────────────── */
+.zz { width:100%; height:32px; display:block; overflow:visible; }
+
+/* ─── BODY ───────────────────────────────────────── */
+.body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 0 52px;
+  gap: 44px;
+}
+
+/* ─── GEOMETRY ───────────────────────────────────── */
+.geo-wrap {
+  flex: 0 0 240px;
+  height: 240px;
+  position: relative;
+}
+.geo-wrap svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  filter: drop-shadow(0 0 18px rgba(180,0,0,0.18));
+}
+
+/* ─── TEXT ───────────────────────────────────────── */
+.text-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.eyebrow {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 0.6rem;
+  letter-spacing: 10px;
+  color: rgba(180,0,0,0.7);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.title {
+  font-family: 'Cinzel', Georgia, serif;
+  font-weight: 300;
+  font-size: 4rem;
+  letter-spacing: 16px;
+  color: var(--white);
+  line-height: 1;
+  text-shadow: 0 0 60px rgba(255,255,255,0.07);
+}
+
+.divider {
+  width: 170px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--red) 0%, rgba(180,0,0,0.15) 100%);
+  box-shadow: 0 0 6px rgba(200,0,0,0.5);
+  margin: 18px 0;
+  position: relative;
+}
+.divider::after {
+  content:'';
+  position:absolute;
+  right:0; top:-2px;
+  width:5px; height:5px;
+  background:var(--red);
+  border-radius:50%;
+  box-shadow:0 0 6px var(--red);
+}
+
+.tagline {
+  font-family: 'Raleway', sans-serif;
+  font-weight: 200;
+  font-size: 0.68rem;
+  letter-spacing: 7px;
+  color: rgba(255,255,255,0.25);
+  text-transform: uppercase;
+}
+
+.sub-line {
+  margin-top: 28px;
+  display: flex;
+  gap: 18px;
+  align-items: center;
+}
+.dot-indicator {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+  box-shadow: 0 0 5px var(--red);
+  animation: dot-pulse 2.8s ease-in-out infinite;
+}
+.dot-indicator:nth-child(2) { animation-delay: 0.5s; background: rgba(200,0,0,0.5); box-shadow: none; }
+.dot-indicator:nth-child(3) { animation-delay: 1s;   background: rgba(200,0,0,0.25); box-shadow: none; }
+
+@keyframes dot-pulse {
+  0%,100% { transform: scale(1); opacity:1; }
+  50%      { transform: scale(1.5); opacity:0.7; }
+}
+
+/* ─── SVG ANIMATIONS ─────────────────────────────── */
+@keyframes spin-cw  { to { transform: rotate(360deg); } }
+@keyframes spin-ccw { to { transform: rotate(-360deg); } }
+@keyframes core-beat {
+  0%,100% { transform:scale(1);   filter:drop-shadow(0 0 4px #cc0000); }
+  40%     { transform:scale(1.12); filter:drop-shadow(0 0 14px #ff2200) brightness(1.3); }
+}
+@keyframes crown-flash {
+  0%,100% { opacity:0.6; }
+  40%     { opacity:1; filter:drop-shadow(0 0 6px #ff0000); }
+}
+
+.g-spin-cw  { transform-origin:110px 110px; animation:spin-cw  28s linear infinite; }
+.g-spin-ccw { transform-origin:110px 110px; animation:spin-ccw 18s linear infinite; }
+.g-core     { transform-origin:110px 110px; animation:core-beat 2.8s ease-in-out infinite; }
+.g-crown    { animation:crown-flash 2.8s ease-in-out infinite; }
+</style>
+</head>
+<body>
+
+<div class="card" id="card">
+
+  <!-- TOP ZIGZAG -->
+  <svg class="zz" viewBox="0 0 740 32" preserveAspectRatio="none">
+    <polyline id="zz-top"
+      fill="none" stroke="rgba(160,0,0,0.4)" stroke-width="1"
+      points="0,22 20,10 40,22 60,10 80,22 100,10 120,22 140,10 160,22 180,10
+              200,22 220,10 240,22 260,10 280,22 300,10 320,22 340,10 360,22 380,10
+              400,22 420,10 440,22 460,10 480,22 500,10 520,22 540,10 560,22 580,10
+              600,22 620,10 640,22 660,10 680,22 700,10 720,22 740,10"/>
+    <polyline id="zz-top-glow"
+      fill="none" stroke="#cc0000" stroke-width="2"
+      stroke-dasharray="28 400" stroke-dashoffset="0"
+      points="0,22 20,10 40,22 60,10 80,22 100,10 120,22 140,10 160,22 180,10
+              200,22 220,10 240,22 260,10 280,22 300,10 320,22 340,10 360,22 380,10
+              400,22 420,10 440,22 460,10 480,22 500,10 520,22 540,10 560,22 580,10
+              600,22 620,10 640,22 660,10 680,22 700,10 720,22 740,10">
+      <animate attributeName="stroke-dashoffset" from="0" to="-428" dur="5s" repeatCount="indefinite"/>
+    </polyline>
+  </svg>
+
+  <!-- BODY -->
+  <div class="body">
+
+    <!-- GEOMETRY SVG -->
+    <div class="geo-wrap">
+      <svg viewBox="-10 -10 240 240" id="geo-svg">
+
+        <!-- NEW: Outermost bold ring -->
+        <circle cx="110" cy="110" r="117"
+          fill="none" stroke="rgba(255,255,255,0.55)" stroke-width="2"/>
+
+        <!-- NEW: Outer rotating dashed accent ring (CW fast) -->
+        <g style="transform-origin:110px 110px; animation:spin-cw 12s linear infinite;">
+          <circle cx="110" cy="110" r="111"
+            fill="none" stroke="rgba(200,0,0,0.35)" stroke-width="1.2"
+            stroke-dasharray="6 14"/>
+        </g>
+
+        <!-- Outer hairline ring -->
+        <circle cx="110" cy="110" r="108"
+          fill="none" stroke="rgba(255,255,255,0.12)" stroke-width="1"/>
+
+        <!-- Rotating dashed ring (slow CW) -->
+        <g class="g-spin-cw">
+          <circle cx="110" cy="110" r="102"
+            fill="none" stroke="rgba(180,0,0,0.15)" stroke-width="1"
+            stroke-dasharray="3 9"/>
+        </g>
+
+        <!-- CROWN (sawtooth) — filled by JS -->
+        <path id="crown-path" class="g-crown"
+          fill="rgba(180,0,0,0.06)"
+          stroke="#cc0000" stroke-width="2"
+          stroke-linejoin="round" stroke-linecap="round"/>
+
+        <!-- Inner bold ring -->
+        <circle cx="110" cy="110" r="69"
+          fill="rgba(0,0,0,0.3)"
+          stroke="rgba(255,255,255,0.75)" stroke-width="1.8"/>
+
+        <!-- Rotating dot ring (CCW) -->
+        <g id="dot-ring" class="g-spin-ccw"></g>
+
+        <!-- Scattered interior red dots -->
+        <g id="interior-dots"></g>
+
+        <!-- Core (pulsing glow only, no dot — cluster drawn separately) -->
+        <g class="g-core" id="core-group">
+          <circle cx="110" cy="110" r="10"
+            fill="rgba(180,0,0,0.08)"
+            stroke="none"/>
+        </g>
+
+        <!-- Center black cluster (static — outside pulse group) -->
+        <g id="center-cluster"></g>
+      </svg>
+    </div>
+
+    <!-- TEXT -->
+    <div class="text-col">
+      <p class="eyebrow">Pueblo Originario</p>
+      <h1 class="title">AWAJÚN</h1>
+      <div class="divider"></div>
+      <p class="tagline">Geometría &amp; Tradición</p>
+      <div class="sub-line">
+        <div class="dot-indicator"></div>
+        <div class="dot-indicator"></div>
+        <div class="dot-indicator"></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM ZIGZAG -->
+  <svg class="zz" viewBox="0 0 740 32" preserveAspectRatio="none">
+    <polyline
+      fill="none" stroke="rgba(160,0,0,0.4)" stroke-width="1"
+      points="0,10 20,22 40,10 60,22 80,10 100,22 120,10 140,22 160,10 180,22
+              200,10 220,22 240,10 260,22 280,10 300,22 320,10 340,22 360,10 380,22
+              400,10 420,22 440,10 460,22 480,10 500,22 520,10 540,22 560,10 580,22
+              600,10 620,22 640,10 660,22 680,10 700,22 720,10 740,22"/>
+    <polyline
+      fill="none" stroke="#cc0000" stroke-width="2"
+      stroke-dasharray="28 400" stroke-dashoffset="0"
+      points="0,10 20,22 40,10 60,22 80,10 100,22 120,10 140,22 160,10 180,22
+              200,10 220,22 240,10 260,22 280,10 300,22 320,10 340,22 360,10 380,22
+              400,10 420,22 440,10 460,22 480,10 500,22 520,10 540,22 560,10 580,22
+              600,10 620,22 640,10 660,22 680,10 700,22 720,10 740,22">
+      <animate attributeName="stroke-dashoffset" from="0" to="428" dur="5s" repeatCount="indefinite"/>
+    </polyline>
+  </svg>
+
+</div>
+
+<script>
+/* ── GEOMETRY GENERATION ────────────────────────── */
+const CX = 110, CY = 110;
+
+/* 1) CROWN — sawtooth between two radii */
+(function buildCrown() {
+  const N = 20;
+  const R_valley = 82;  // base of each tooth
+  const R_tip    = 100; // peak of each tooth
+  const pts = [];
+  for (let i = 0; i < N; i++) {
+    const aV1 = (i       / N) * 2*Math.PI - Math.PI/2;
+    const aTip = ((i+0.5) / N) * 2*Math.PI - Math.PI/2;
+    const aV2  = ((i+1)   / N) * 2*Math.PI - Math.PI/2;
+    const vx1 = CX + R_valley * Math.cos(aV1), vy1 = CY + R_valley * Math.sin(aV1);
+    const tx  = CX + R_tip    * Math.cos(aTip), ty  = CY + R_tip    * Math.sin(aTip);
+    const vx2 = CX + R_valley * Math.cos(aV2), vy2 = CY + R_valley * Math.sin(aV2);
+    if (i === 0) pts.push(`M${vx1.toFixed(2)},${vy1.toFixed(2)}`);
+    else         pts.push(`L${vx1.toFixed(2)},${vy1.toFixed(2)}`);
+    pts.push(`L${tx.toFixed(2)},${ty.toFixed(2)}`);
+    pts.push(`L${vx2.toFixed(2)},${vy2.toFixed(2)}`);
+  }
+  pts.push('Z');
+  document.getElementById('crown-path').setAttribute('d', pts.join(' '));
+})();
+
+/* 2) ROTATING DOT RING — 8 red dots evenly spaced */
+(function buildDotRing() {
+  const N = 8, R = 82, r = 4.5;
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.getElementById('dot-ring');
+  for (let i = 0; i < N; i++) {
+    const a = (i/N)*2*Math.PI - Math.PI/2;
+    const c = document.createElementNS(ns,'circle');
+    c.setAttribute('cx', (CX + R*Math.cos(a)).toFixed(2));
+    c.setAttribute('cy', (CY + R*Math.sin(a)).toFixed(2));
+    c.setAttribute('r', r);
+    c.setAttribute('fill','#cc0000');
+    g.appendChild(c);
+  }
+})();
+
+/* 3) INTERIOR RED DOTS — single wide ring of 14 dots matching reference */
+(function buildInteriorDots() {
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.getElementById('interior-dots');
+  // 14 dots placed at specific angles to replicate reference image layout
+  const N = 14, R = 50, r = 5.2;
+  for (let i = 0; i < N; i++) {
+    const a = (i / N) * 2 * Math.PI - Math.PI / 2;
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', (CX + R * Math.cos(a)).toFixed(2));
+    c.setAttribute('cy', (CY + R * Math.sin(a)).toFixed(2));
+    c.setAttribute('r', r);
+    c.setAttribute('fill', '#cc0000');
+    g.appendChild(c);
+  }
+})();
+
+/* 4) CENTER BLACK CLUSTER — matches reference: cross of 5 black + 2 small red */
+(function buildCluster() {
+  const ns = 'http://www.w3.org/2000/svg';
+  const g = document.getElementById('center-cluster');
+  const S = 9; // step between dots
+  // black dots: top, left, center, right, bottom — cross shape
+  const blackDots = [
+    { x: CX,     y: CY - S*1.6 },   // top
+    { x: CX - S, y: CY         },   // left
+    { x: CX,     y: CY         },   // center
+    { x: CX + S, y: CY         },   // right
+    { x: CX,     y: CY + S*1.6 },   // bottom
+  ];
+  blackDots.forEach(d => {
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', d.x); c.setAttribute('cy', d.y); c.setAttribute('r', 5.5);
+    c.setAttribute('fill', '#111');
+    c.setAttribute('stroke', 'rgba(255,255,255,0.2)'); c.setAttribute('stroke-width', '1');
+    g.appendChild(c);
+  });
+  // 2 small red accent dots between center and right/left
+  [{ x: CX - S*0.48, y: CY - S*0.8 },
+   { x: CX + S*0.48, y: CY - S*0.8 }].forEach(d => {
+    const c = document.createElementNS(ns, 'circle');
+    c.setAttribute('cx', d.x); c.setAttribute('cy', d.y); c.setAttribute('r', 3.5);
+    c.setAttribute('fill', '#cc0000');
+    g.appendChild(c);
+  });
+})();
+
+/* ── 3D TILT ON MOUSEMOVE ───────────────────────── */
+const card = document.getElementById('card');
+document.addEventListener('mousemove', e => {
+  const rx = (window.innerHeight/2 - e.clientY) / 28;
+  const ry = (e.clientX - window.innerWidth/2)  / 28;
+  card.style.transform = `perspective(1500px) rotateX(${rx}deg) rotateY(${ry}deg)`;
+});
+document.addEventListener('mouseleave', () => {
+  card.style.transform = 'perspective(1500px) rotateX(0deg) rotateY(0deg)';
+});
+</script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var SEL = '.card', NAT_W = 740, NAT_H = 390;
+  // Fix body to exact viewport so the design doesn't overflow
+  document.documentElement.style.height = '100%';
+  document.body.style.cssText += ';height:100vh!important;overflow:hidden!important;';
+
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    var s = Math.min(window.innerWidth / NAT_W, window.innerHeight / NAT_H) * 0.94;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  [0, 60, 200, 500].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

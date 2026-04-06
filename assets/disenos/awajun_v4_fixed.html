@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Awajún — Geometría & Tradición</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Raleway:wght@100;200;300;400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --con:     #797977;
+  --band:    #0f0f0f;
+  --red:     #c01212;
+  --silver:  #d4d4d4;
+  --silverd: #8a8a8a;
+}
+
+/* ── Concrete texture bg ── */
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Raleway', sans-serif;
+  background-color: var(--con);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.2'/%3E%3C/svg%3E"),
+    linear-gradient(150deg,#888 0%,#676765 45%,#7a7a78 100%);
+  gap: 0;
+  padding: 0;
+}
+
+/* ══ ZIGZAG STRIPS ══ */
+.zz { width: min(860px,100vw); height: 48px; display: block; }
+
+/* ══ FLIP CONTAINER ══ */
+.flip-wrap {
+  width: min(860px, 100vw);
+  perspective: 1800px;
+  cursor: pointer;
+}
+
+.flip-inner {
+  position: relative;
+  width: 100%;
+  transform-style: preserve-3d;
+  transition: transform 1s cubic-bezier(0.55,0.055,0.675,0.19);
+}
+.flip-wrap.flipped .flip-inner {
+  transform: rotateY(180deg);
+  transition-timing-function: cubic-bezier(0.215,0.610,0.355,1.000);
+}
+
+/* ══ SHARED FACE ══ */
+.face {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  overflow: hidden;
+}
+
+/* ════════════════════════════════
+   FRONT FACE
+════════════════════════════════ */
+.face-front {
+  display: flex;
+  flex-direction: row;
+  min-height: 260px;
+  background-color: var(--con);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E"),
+    linear-gradient(150deg,#888 0%,#676765 45%,#7a7a78 100%);
+}
+
+/* Left black band */
+.f-band {
+  flex: 0 0 58%;
+  position: relative;
+  z-index: 2;
+  background: linear-gradient(180deg,#1c1c1c 0%,#0a0a0a 50%,#131313 100%);
+  box-shadow:
+    2px 0 0 rgba(255,255,255,0.04),
+    0 -1px 0 rgba(120,120,120,0.35),
+    0  1px 0 rgba(0,0,0,0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 3rem;
+  gap: 0.65rem;
+  clip-path: polygon(0 0,100% 0,93% 100%,0 100%);
+}
+.f-band::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(180,180,180,0.35) 30%,rgba(160,160,160,0.2) 80%,transparent);
+}
+.f-band::after {
+  content:''; position:absolute; bottom:0; left:0; right:0; height:1px;
+  background:linear-gradient(90deg,transparent,rgba(0,0,0,0.7) 50%,transparent);
+}
+
+.f-eyebrow { font-weight:200; font-size:0.58rem; letter-spacing:0.4em; text-transform:uppercase; color:rgba(200,18,18,0.7); }
+.f-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(1.8rem,4.2vw,3.2rem);
+  color:var(--silver); letter-spacing:0.38em; text-transform:uppercase; line-height:1;
+  text-shadow:0 1px 0 rgba(255,255,255,0.07),0 -1px 0 rgba(0,0,0,0.5);
+}
+.f-subtitle {
+  font-weight:200; font-size:clamp(0.48rem,0.9vw,0.62rem);
+  letter-spacing:0.42em; text-transform:uppercase; color:var(--silverd);
+}
+.f-rule { width:44px; height:1px; background:linear-gradient(90deg,var(--red),transparent); margin:0.1rem 0; }
+.f-cta {
+  font-size:0.5rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(190,190,190,0.22); display:flex; align-items:center; gap:0.5rem;
+}
+.f-cta::before { content:''; width:18px; height:1px; background:rgba(200,16,16,0.6); display:inline-block; }
+
+/* Right: diamond zone */
+.f-diamond-zone {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.f-diamond-zone::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 75% 85% at 55% 50%,rgba(150,8,8,0.2) 0%,transparent 65%);
+}
+
+/* Diamond stack — sizes guaranteed to fit in the zone */
+.dw { position:relative; width:200px; height:200px; }
+.dl {
+  position:absolute; top:50%; left:50%; border-radius:3px;
+  transform:translate(-50%,-50%) rotate(45deg);
+}
+.dl-1 { width:200px; height:200px; background:#0c0c0c; box-shadow:0 8px 40px rgba(0,0,0,0.8); }
+.dl-2 { width:156px; height:156px; background:#180000;
+  box-shadow:0 0 0 1px rgba(160,8,8,0.5),0 0 22px rgba(200,10,10,0.55),0 0 50px rgba(180,10,10,0.22),inset 0 0 25px rgba(160,0,0,0.2); }
+.dl-3 { width:114px; height:114px; background:#0e0000;
+  box-shadow:0 0 0 1px rgba(200,14,14,0.3),inset 0 0 14px rgba(160,0,0,0.3); }
+.dl-4 { width:72px; height:72px; background:#1c0000;
+  box-shadow:0 0 0 1.5px rgba(220,20,20,0.7),0 0 18px rgba(220,14,14,0.6),0 0 38px rgba(200,10,10,0.28),inset 0 0 18px rgba(180,0,0,0.45); }
+
+.orb {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:46px; height:46px; border-radius:50%; z-index:30;
+  background:radial-gradient(circle at 34% 30%,rgba(255,130,130,0.85) 0%,rgba(220,14,14,0.95) 35%,rgba(100,0,0,0.98) 70%,rgba(50,0,0,1) 100%);
+  box-shadow:0 4px 16px rgba(0,0,0,0.7),0 0 20px rgba(220,14,14,0.5),inset 0 -3px 8px rgba(0,0,0,0.5),inset 0 2px 6px rgba(255,160,160,0.2);
+}
+.orb::before {
+  content:''; position:absolute; top:14%; left:22%; width:30%; height:20%;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,220,220,0.65) 0%,transparent 100%);
+  transform:rotate(-20deg);
+}
+
+/* Ripple */
+.rpl {
+  position:absolute; border-radius:3px; pointer-events:none;
+  transform:translate(-50%,-50%) rotate(45deg) scale(0);
+  animation:rout 1.2s ease-out forwards; z-index:40;
+}
+@keyframes rout {
+  0%  { transform:translate(-50%,-50%) rotate(45deg) scale(0); opacity:.85; }
+  100%{ transform:translate(-50%,-50%) rotate(45deg) scale(5);  opacity:0; }
+}
+
+/* ════════════════════════════════
+   BACK FACE
+════════════════════════════════ */
+.face-back {
+  position: absolute;
+  inset: 0;
+  transform: rotateY(180deg);
+  display: flex;
+  flex-direction: row;
+  min-height: 260px;
+  background-color: var(--con);
+  background-image:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='500'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.68' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='500' height='500' filter='url(%23n)' opacity='0.18'/%3E%3C/svg%3E"),
+    linear-gradient(150deg,#888 0%,#676765 45%,#7a7a78 100%);
+}
+
+/* Full black band on back (covers whole width) */
+.b-band {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  position: relative;
+  background: linear-gradient(180deg,#1c1c1c 0%,#0a0a0a 50%,#131313 100%);
+  box-shadow:0 -1px 0 rgba(120,120,120,0.35),0 1px 0 rgba(0,0,0,0.8);
+}
+.b-band::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:1.5px; z-index:1;
+  background:linear-gradient(90deg,transparent,rgba(180,180,180,0.3) 30%,rgba(140,140,140,0.18) 75%,transparent);
+}
+
+/* ── Profile column ── */
+.b-profile {
+  flex: 0 0 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.9rem;
+  padding: 2rem 1.4rem;
+  position: relative;
+  border-right: 1px solid rgba(200,14,14,0.18);
+  z-index: 2;
+}
+.b-profile::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 70% 70% at 50% 45%,rgba(130,10,10,0.09) 0%,transparent 70%);
+}
+
+/* Avatar wrapper — the SVG deco ring overflows slightly, so we allow overflow here */
+.av-wrap {
+  position: relative;
+  width: 120px; height: 120px;
+  /* allow deco ring to show outside the 120px box */
+  overflow: visible;
+}
+.av-deco {
+  position:absolute;
+  /* center the 160px SVG over the 120px avatar */
+  top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:160px; height:160px;
+  pointer-events:none; z-index:0;
+}
+@keyframes spin-d { from{transform:rotate(0deg)} to{transform:rotate(360deg)} }
+.dg { transform-origin:80px 80px; animation:spin-d 28s linear infinite; }
+
+.av-circle {
+  position:relative; z-index:1;
+  width:120px; height:120px; border-radius:50%;
+  overflow:hidden; background:#1a1a1a;
+  border:1.5px solid rgba(150,150,150,0.22);
+  outline:1.5px solid rgba(200,14,14,0.45);
+  outline-offset:4px;
+  display:flex; align-items:center; justify-content:center;
+}
+.av-initials {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:1.8rem; letter-spacing:0.08em;
+  color:rgba(180,180,180,0.4); user-select:none;
+}
+.b-name {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:0.9rem; color:var(--silver); letter-spacing:0.16em;
+  text-transform:uppercase; text-align:center; line-height:1.5;
+  text-shadow:0 1px 0 rgba(255,255,255,0.05);
+}
+.b-role {
+  font-weight:200; font-size:0.6rem; letter-spacing:0.28em;
+  text-transform:uppercase; color:var(--silverd); text-align:center; line-height:1.7;
+}
+.b-uni {
+  font-weight:300; font-size:0.6rem; letter-spacing:0.22em;
+  text-transform:uppercase; color:rgba(200,14,14,0.75); text-align:center;
+}
+
+/* ── Details column ── */
+.b-details {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2rem 2rem 2rem 2.2rem;
+  gap: 1rem;
+  z-index: 2;
+}
+.b-eyebrow {
+  font-weight:200; font-size:0.56rem;
+  letter-spacing:0.4em; text-transform:uppercase;
+  color:rgba(200,14,14,0.7);
+}
+.b-title {
+  font-family:'Cormorant Garamond',serif; font-weight:300;
+  font-size:clamp(0.95rem,2vw,1.35rem);
+  color:var(--silver); letter-spacing:0.25em; text-transform:uppercase; line-height:1.3;
+}
+.b-rule { width:44px; height:1px; background:linear-gradient(90deg,rgba(200,14,14,0.7),transparent); }
+
+.det-grid { display:grid; grid-template-columns:1fr 1fr; gap:0.75rem 1.2rem; }
+.det-item {
+  display:flex; flex-direction:column; gap:0.12rem;
+  padding-left:0.7rem; border-left:1px solid rgba(200,14,14,0.3);
+}
+.det-lbl {
+  font-weight:200; font-size:0.53rem;
+  letter-spacing:0.28em; text-transform:uppercase; color:rgba(200,14,14,0.65);
+}
+.det-val { font-weight:300; font-size:0.72rem; line-height:1.5; color:rgba(200,200,200,0.55); }
+
+.b-cta {
+  font-size:0.5rem; letter-spacing:0.3em; text-transform:uppercase;
+  color:rgba(180,180,180,0.2); display:flex; align-items:center; gap:0.5rem;
+}
+.b-cta::before { content:''; width:18px; height:1px; background:rgba(200,14,14,0.45); display:inline-block; }
+
+/* ── Back diamond column — properly sized ── */
+.b-dzone {
+  flex: 0 0 160px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-left: 1px solid rgba(200,14,14,0.12);
+  overflow: hidden; /* safe — diamond is sized to fit */
+  z-index: 2;
+}
+.b-dzone::before {
+  content:''; position:absolute; inset:0; pointer-events:none;
+  background:radial-gradient(ellipse 85% 85% at 50% 50%,rgba(140,8,8,0.18) 0%,transparent 70%);
+}
+
+/* Back diamond — fits perfectly inside 160px column */
+.bdw { position:relative; width:140px; height:140px; }
+.bdl {
+  position:absolute; top:50%; left:50%; border-radius:2px;
+  transform:translate(-50%,-50%) rotate(45deg);
+}
+.bdl-1 { width:140px; height:140px; background:#0a0a0a; box-shadow:0 4px 24px rgba(0,0,0,0.7); }
+.bdl-2 { width:106px; height:106px; background:#160000;
+  box-shadow:0 0 0 1px rgba(180,10,10,0.45),0 0 16px rgba(200,10,10,0.5),0 0 36px rgba(180,10,10,0.2),inset 0 0 14px rgba(160,0,0,0.25); }
+.bdl-3 { width:74px; height:74px; background:#0c0000;
+  box-shadow:0 0 0 1px rgba(200,14,14,0.3),inset 0 0 10px rgba(160,0,0,0.3); }
+.bdl-4 { width:44px; height:44px; background:#1a0000;
+  box-shadow:0 0 0 1.5px rgba(220,20,20,0.65),0 0 12px rgba(210,14,14,0.55),0 0 28px rgba(200,10,10,0.28),inset 0 0 10px rgba(180,0,0,0.45); }
+.b-orb {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+  width:22px; height:22px; border-radius:50%; z-index:10;
+  background:radial-gradient(circle at 34% 30%,rgba(255,130,130,0.85) 0%,rgba(210,14,14,0.95) 40%,rgba(80,0,0,1) 100%);
+  box-shadow:0 2px 8px rgba(0,0,0,0.6),0 0 12px rgba(200,14,14,0.5);
+}
+.b-orb::before {
+  content:''; position:absolute; top:15%; left:22%; width:28%; height:18%;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(255,220,220,0.6) 0%,transparent 100%);
+  transform:rotate(-20deg);
+}
+
+/* ════════════════════════════════
+   RESPONSIVE
+════════════════════════════════ */
+
+/* Tablet: 600–860px */
+@media (max-width: 760px) {
+  .f-title { font-size: clamp(1.5rem, 5vw, 2.4rem); }
+  .f-band  { padding: 1.8rem 2rem; }
+  .b-profile { flex: 0 0 180px; }
+  .b-details { padding: 1.6rem 1.4rem; }
+  .b-dzone { flex: 0 0 130px; }
+  .bdw { width:110px; height:110px; }
+  .bdl-1 { width:110px; height:110px; }
+  .bdl-2 { width:82px; height:82px; }
+  .bdl-3 { width:56px; height:56px; }
+  .bdl-4 { width:32px; height:32px; }
+}
+
+/* Mobile: stacked layout */
+@media (max-width: 560px) {
+  body { padding: 0; }
+  .zz { height: 36px; }
+
+  /* FRONT stacks vertically */
+  .face-front { flex-direction: column; min-height: auto; }
+  .f-band {
+    flex: none;
+    clip-path: none;
+    padding: 1.8rem 1.6rem;
+  }
+  .f-title { font-size: 2rem; white-space: normal; }
+  .f-diamond-zone {
+    height: 220px;
+    border-top: 1px solid rgba(200,14,14,0.18);
+  }
+  .dw { width:160px; height:160px; }
+  .dl-1 { width:160px; height:160px; }
+  .dl-2 { width:124px; height:124px; }
+  .dl-3 { width:90px;  height:90px; }
+  .dl-4 { width:58px;  height:58px; }
+  .orb  { width:36px;  height:36px; }
+
+  /* BACK stacks vertically */
+  .face-back { flex-direction: column; min-height: auto; }
+  .b-band { flex-direction: column; }
+
+  /* Profile full-width on mobile */
+  .b-profile {
+    flex: none;
+    padding: 1.8rem 1.6rem;
+    border-right: none;
+    border-bottom: 1px solid rgba(200,14,14,0.18);
+    flex-direction: row;
+    gap: 1.4rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .av-wrap { width:80px; height:80px; flex-shrink:0; }
+  .av-deco { width:110px; height:110px; }
+  .av-circle { width:80px; height:80px; }
+  .av-initials { font-size:1.3rem; }
+  .b-name { text-align:left; font-size:0.82rem; }
+  .b-role,.b-uni { text-align:left; }
+
+  /* Details full-width */
+  .b-details { padding: 1.6rem; }
+  .det-grid  { grid-template-columns: 1fr; }
+
+  /* Hide diamond column on mobile — replace with inline accent line */
+  .b-dzone { display: none; }
+
+  /* Back face no longer absolute on mobile */
+  .face-back { position: relative; transform: rotateY(180deg); }
+
+  /* Flip inner needs height for both faces */
+  .flip-inner { min-height: auto; }
+}
+</style>
+</head>
+<body>
+
+<!-- Zigzag top -->
+<svg class="zz" id="zz-t" viewBox="0 0 860 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
+
+<div class="flip-wrap" id="fw">
+  <div class="flip-inner" id="fi">
+
+    <!-- ══ FRONT ══ -->
+    <div class="face face-front">
+
+      <!-- Black band (left) -->
+      <div class="f-band">
+        <span class="f-eyebrow">Pueblo originario · Amazonía peruana</span>
+        <div class="f-title">A W A J Ú N</div>
+        <div class="f-subtitle">G E O M E T R Í A &nbsp;&amp;&nbsp; T R A D I C I Ó N</div>
+        <div class="f-rule"></div>
+        <span class="f-cta">Haz clic para ver perfil</span>
+      </div>
+
+      <!-- Diamond (right) -->
+      <div class="f-diamond-zone" id="dzone">
+        <div class="dw">
+          <div class="dl dl-1"></div>
+          <div class="dl dl-2"></div>
+          <div class="dl dl-3"></div>
+          <div class="dl dl-4"></div>
+          <div class="orb"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ══ BACK ══ -->
+    <div class="face face-back" id="fback">
+      <div class="b-band">
+
+        <!-- Profile -->
+        <div class="b-profile">
+          <div class="av-wrap">
+            <svg class="av-deco" id="av-svg" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg">
+              <g class="dg" id="deco-g"></g>
+            </svg>
+            <div class="av-circle">
+              <span class="av-initials">GJR</span>
+            </div>
+          </div>
+          <div>
+            <p class="b-name">Gildemister<br>Julca Ramos</p>
+            <p class="b-role" style="margin-top:0.5rem;">Educación Tecnológica</p>
+            <p class="b-uni" style="margin-top:0.25rem;">U N I F S L B</p>
+          </div>
+        </div>
+
+        <!-- Details -->
+        <div class="b-details">
+          <span class="b-eyebrow">Figura geométrica · Pueblo Awajún</span>
+          <h2 class="b-title">Diseño Circular Tradicional</h2>
+          <div class="b-rule"></div>
+          <div class="det-grid">
+            <div class="det-item">
+              <span class="det-lbl">Estructura</span>
+              <span class="det-val">Tres anillos concéntricos: cosmos, naturaleza y espíritu.</span>
+            </div>
+            <div class="det-item">
+              <span class="det-lbl">Triángulos</span>
+              <span class="det-val">20 triángulos rojos: ciclos solares amazónicos.</span>
+            </div>
+            <div class="det-item">
+              <span class="det-lbl">Puntos</span>
+              <span class="det-val">Anillo de 20 puntos: comunidad y energía vital.</span>
+            </div>
+            <div class="det-item">
+              <span class="det-lbl">Cromatología</span>
+              <span class="det-val">Rojo · Negro · Arcilla sagrada.</span>
+            </div>
+          </div>
+          <span class="b-cta">Clic para volver</span>
+        </div>
+
+        <!-- Diamond accent — right column, properly contained -->
+        <div class="b-dzone">
+          <div class="bdw">
+            <div class="bdl bdl-1"></div>
+            <div class="bdl bdl-2"></div>
+            <div class="bdl bdl-3"></div>
+            <div class="bdl bdl-4"></div>
+            <div class="b-orb"></div>
+          </div>
+        </div>
+
+      </div>
+    </div><!-- /back -->
+
+  </div>
+</div>
+
+<!-- Zigzag bottom -->
+<svg class="zz" id="zz-b" viewBox="0 0 860 48" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg"></svg>
+
+<script>
+/* ══ FLIP ══ */
+const fw = document.getElementById('fw');
+const fi = document.getElementById('fi');
+const fback = document.getElementById('fback');
+
+fw.addEventListener('click', function() {
+  this.classList.toggle('flipped');
+  // Sync flip-inner height to whichever face is showing
+  syncHeight();
+});
+
+function syncHeight() {
+  const isMobile = window.innerWidth <= 560;
+  if (isMobile) return;
+  const front = fw.querySelector('.face-front');
+  const back  = fw.querySelector('.face-back');
+  // Both need the same height for the flip to work cleanly
+  const h = Math.max(front.scrollHeight, 260);
+  fi.style.height = h + 'px';
+  back.style.height = h + 'px';
+}
+
+window.addEventListener('resize', () => {
+  syncHeight();
+  rebuildZZ();
+});
+
+setTimeout(syncHeight, 100);
+
+/* ══ ZIGZAG ══ */
+function buildZZ(id, flip) {
+  const s = document.getElementById(id);
+  // Clear existing paths
+  while(s.firstChild) s.removeChild(s.firstChild);
+  const W = s.parentElement ? s.parentElement.offsetWidth || 860 : 860;
+  s.setAttribute('viewBox',`0 0 ${W} 48`);
+  const step = Math.max(28, Math.floor(W / 28));
+
+  const layers = [
+    { a:flip?38:10, b:flip?10:38, col:'rgba(46,46,46,0.55)',    sw:1.5 },
+    { a:flip?32:16, b:flip?16:32, col:'rgba(190,14,14,0.72)',   sw:2.5 },
+    { a:flip?26:22, b:flip?22:26, col:'rgba(155,155,155,0.45)', sw:1.4 },
+    { a:flip?34:14, b:flip?14:34, col:'rgba(240,240,240,0.1)',  sw:0.8 },
+  ];
+  layers.forEach(row => {
+    let d = `M0,${row.b}`; let up = true;
+    for(let x=0; x<=W; x+=step){ d+=` L${x},${up?row.a:row.b}`; up=!up; }
+    const p = document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d',d); p.setAttribute('fill','none');
+    p.setAttribute('stroke',row.col); p.setAttribute('stroke-width',row.sw);
+    p.setAttribute('stroke-linejoin','miter');
+    s.appendChild(p);
+  });
+}
+
+function rebuildZZ() {
+  buildZZ('zz-t', false);
+  buildZZ('zz-b', true);
+}
+rebuildZZ();
+
+/* ══ RIPPLE on front diamond zone ══ */
+document.getElementById('dzone').addEventListener('click', e => {
+  e.stopPropagation();
+  fw.classList.toggle('flipped');
+  syncHeight();
+  const zone = e.currentTarget;
+  const zr = zone.getBoundingClientRect();
+  const cx = e.clientX - zr.left;
+  const cy = e.clientY - zr.top;
+  [['rgba(200,14,14,.7)',0],['rgba(200,200,200,.12)',200]].forEach(([col,delay]) => {
+    const el = document.createElement('div'); el.className = 'rpl';
+    el.style.cssText = `left:${cx}px;top:${cy}px;width:54px;height:54px;border:1.5px solid ${col};animation-delay:${delay}ms`;
+    zone.appendChild(el); setTimeout(()=>el.remove(),1500);
+  });
+});
+
+/* ══ DECO RING — back avatar ══ */
+const drg = document.getElementById('deco-g');
+const dc=80, dn=12, doR=74, diR=60, dha=Math.PI/dn*0.62;
+for(let i=0;i<dn;i++){
+  const a = 2*Math.PI*i/dn - Math.PI/2;
+  const x1=dc+doR*Math.cos(a-dha), y1=dc+doR*Math.sin(a-dha);
+  const x2=dc+doR*Math.cos(a+dha), y2=dc+doR*Math.sin(a+dha);
+  const xt=dc+diR*Math.cos(a),     yt=dc+diR*Math.sin(a);
+  const p = document.createElementNS('http://www.w3.org/2000/svg','polygon');
+  p.setAttribute('points',`${x1},${y1} ${x2},${y2} ${xt},${yt}`);
+  p.setAttribute('fill','none'); p.setAttribute('stroke','rgba(200,14,14,0.4)');
+  p.setAttribute('stroke-width','1.3'); p.setAttribute('stroke-linejoin','round');
+  drg.appendChild(p);
+}
+// Outer thin circle
+const oc = document.createElementNS('http://www.w3.org/2000/svg','circle');
+oc.setAttribute('cx',dc); oc.setAttribute('cy',dc); oc.setAttribute('r',76);
+oc.setAttribute('fill','none'); oc.setAttribute('stroke','rgba(160,160,160,0.1)'); oc.setAttribute('stroke-width','0.8');
+drg.parentElement.insertBefore(oc, drg);
+</script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var SEL = '.flip-wrap', _w = 0, _h = 0;
+  // Fix body to exact viewport so the design doesn't overflow
+  document.documentElement.style.height = '100%';
+  document.body.style.cssText += ';height:100vh!important;overflow:hidden!important;';
+
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    // Read natural size only once (before any transform is applied)
+    if(!_w || !_h){
+      el.style.transform = 'none';
+      _w = el.offsetWidth  || el.getBoundingClientRect().width  || 480;
+      _h = el.offsetHeight || el.getBoundingClientRect().height || 480;
+      if(_w < 20 || _h < 20){ _w = 0; _h = 0; return; }
+    }
+    var s = Math.min(window.innerWidth / _w, window.innerHeight / _h) * 0.92;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  // Fire multiple times: handles fonts, canvas, deferred renders
+  [0, 60, 200, 500, 1200].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MODELO_1</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&display=swap');
+    :root {
+  --neon-red: #ff0000;
+  --neon-white: #ffffff;
+  --bg-dark: radial-gradient(circle at center, #0a2410 0%, #000 100%);
+}
+
+body {
+  background: #000;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  perspective: 1500px;
+}
+
+.card-ultra-pro {
+  width: 620px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(25px);
+  border-radius: 35px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: visible;
+  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
+  transition: transform 0.1s ease-out;
+}
+
+/* --- ANIMACIONES DE LUZ --- */
+
+.pulse-white-center {
+  stroke: var(--neon-white);
+  stroke-dasharray: 100 700;
+  animation: move-white 3s linear infinite;
+  filter: drop-shadow(0 0 10px var(--neon-white));
+}
+
+.electric-glow {
+  stroke: var(--neon-red);
+  stroke-dasharray: 60 740;
+  stroke-dashoffset: 800;
+  filter: drop-shadow(0 0 15px var(--neon-red)) brightness(2);
+  animation: electric-move 6s ease-in-out infinite;
+  opacity: 0;
+}
+
+@keyframes move-white { to { stroke-dashoffset: -800; } }
+
+@keyframes electric-move {
+  0% { stroke-dashoffset: 800; opacity: 0; }
+  5% { opacity: 1; }
+  45% { stroke-dashoffset: 400; opacity: 1; }
+  50% { stroke-dashoffset: 400; opacity: 0.4; } /* PAUSA */
+  55% { stroke-dashoffset: 400; opacity: 1; }
+  95% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+
+.line-red-static { stroke: var(--neon-red); opacity: 0.4; }
+.center-black-line { stroke: #000; filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.6)); }
+.reverse { animation-direction: reverse; }
+.borde-neon-pro { width: 100%; overflow: visible; }
+
+/* --- CONTENIDO E INTERACCIÓN --- */
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.main-title-box { transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
+
+.titulo-premium {
+  color: #fff;
+  font-family: 'Cinzel', serif;
+  font-size: 3.5rem;
+  font-weight: 100;
+  letter-spacing: 20px;
+  margin: 0;
+}
+
+.divider-neon {
+  width: 60px;
+  height: 2px;
+  background: var(--neon-red);
+  margin: 15px auto;
+  box-shadow: 0 0 15px var(--neon-red);
+}
+
+.alumno-info {
+  position: absolute;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.6s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* Efecto al pasar el Mouse */
+.card-ultra-pro:hover .main-title-box {
+  transform: translateY(-110px) scale(0.65);
+  opacity: 0.7;
+}
+
+.card-ultra-pro:hover .alumno-info {
+  opacity: 1;
+  transform: translateY(20px);
+  pointer-events: auto;
+}
+
+/* Foto y Datos */
+.foto-container {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 2px solid var(--neon-red);
+  box-shadow: 0 0 20px var(--neon-red);
+  overflow: hidden;
+  margin-bottom: 15px;
+}
+
+.foto-alumno { width: 100%; height: 100%; object-fit: cover; }
+
+.datos-texto { color: white; text-align: center; font-family: sans-serif; }
+.nombre { font-size: 1.4rem; margin: 0; color: var(--neon-white); }
+.detalle, .especialidad, .universidad { font-size: 0.8rem; margin: 3px 0; color: #aaa; letter-spacing: 1px; }
+.universidad { color: var(--neon-red); font-weight: bold; margin-top: 5px; }
+  </style>
+
+  
+</head>
+<body>
+  <!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Identidad Digital Awajún - UNIFSLB</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="main-container">
+    <div class="card-ultra-pro" id="card">
+      <div class="glass-reflection"></div>
+      
+      <svg class="borde-neon-pro" viewBox="-20 0 840 120" preserveAspectRatio="none">
+        <defs>
+          <path id="pathZigZag" d="M0 60 L50 30 L100 60 L150 30 L200 60 L250 30 L300 60 L350 30 L400 60 L450 30 L500 60 L550 30 L600 60 L650 30 L700 60 L750 30 L800 60" />
+          <filter id="neonGlow">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+          </filter>
+        </defs>
+        <use href="#pathZigZag" class="line-red-static" y="-8" fill="none" stroke-width="3" />
+        <use href="#pathZigZag" class="line-red-static" y="8" fill="none" stroke-width="3" />
+        <use href="#pathZigZag" class="electric-glow" y="-8" fill="none" stroke-width="4" />
+        <use href="#pathZigZag" class="center-black-line" fill="none" stroke-width="5" />
+        <use href="#pathZigZag" class="pulse-white-center" fill="none" stroke-width="3" />
+      </svg>
+
+      <div class="content">
+        <div class="main-title-box">
+          <h1 class="titulo-premium">AWAJÚN</h1>
+          <div class="divider-neon"></div>
+        </div>
+
+        <div class="alumno-info">
+          <div class="foto-container">
+            <img src="https://i.ibb.co/Df4KBQdC/Foto-de-perfil.png" alt="Alumno" class="foto-alumno">
+          </div>
+          <div class="datos-texto">
+            <h3 class="nombre">Gidememesiter</h3>
+            <p class="detalle">Escuela de Educación Tecnológica</p>
+            <p class="especialidad">Computación Informática</p>
+            <p class="universidad">UNIFSLB</p>
+          </div>
+        </div>
+      </div>
+
+      <svg class="borde-neon-pro" viewBox="-20 0 840 120" preserveAspectRatio="none">
+        <path id="pathZigZagInv" d="M0 60 L50 90 L100 60 L150 90 L200 60 L250 90 L300 60 L350 90 L400 60 L450 90 L500 60 L550 90 L600 60 L650 90 L700 60 L750 90 L800 60" />
+        <use href="#pathZigZagInv" class="line-red-static" y="-8" fill="none" stroke-width="3" />
+        <use href="#pathZigZagInv" class="line-red-static" y="8" fill="none" stroke-width="3" />
+        <use href="#pathZigZagInv" class="electric-glow reverse" y="8" fill="none" stroke-width="4" />
+        <use href="#pathZigZagInv" class="center-black-line" fill="none" stroke-width="5" />
+        <use href="#pathZigZagInv" class="pulse-white-center reverse" fill="none" stroke-width="3" />
+      </svg>
+    </div>
+  </div>
+
+  <script src="script.js"></script></body>
+</html>
+
+  <script>
+    const card = document.getElementById('card');
+
+// Efecto de inclinación 3D siguiendo el mouse
+document.addEventListener('mousemove', (e) => {
+  const rotateY = (window.innerWidth / 2 - e.pageX) / 25;
+  const rotateX = (window.innerHeight / 2 - e.pageY) / 25;
+  card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
+});
+
+// Volver a la posición original al quitar el mouse
+document.addEventListener('mouseleave', () => {
+  card.style.transform = `rotateY(0deg) rotateX(0deg)`;
+});
+  </script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  var SEL = '.card-ultra-pro', NAT_W = 620, NAT_H = 400;
+  document.documentElement.style.height = '100%';
+  document.body.style.cssText += ';height:100vh!important;overflow:hidden!important;';
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    var s = Math.min(window.innerWidth / NAT_W, window.innerHeight / NAT_H) * 0.94;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  [0, 60, 200, 500].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>

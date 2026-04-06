@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reloj Awajún — Portal Cósmico</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@300;400;700;900&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cyan:    #00f5ff;
+  --magenta: #ff00d4;
+  --purp:    #9b00ff;
+  --blanco:  #e0f8ff;
+  --dorado:  #ffe566;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  width:100vw; height:100vh;
+  background:#000;
+  overflow:hidden;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-family:'Orbitron', sans-serif;
+}
+
+/* ── CANVAS DE ESTRELLAS ── */
+#bg { position:fixed; inset:0; z-index:0; }
+
+/* ── CONTENEDOR PRINCIPAL ── */
+.scene {
+  position:relative;
+  z-index:1;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:28px;
+}
+
+/* ── RELOJ ── */
+.clock-wrap {
+  position:relative;
+  width:480px;
+  height:480px;
+}
+#svg-clock { width:100%; height:100%; overflow:visible; }
+
+/* Capas que rotan */
+.layer-a { animation: spin-a 80s linear infinite;  transform-origin:240px 240px; }
+.layer-b { animation: spin-b 50s linear infinite;  transform-origin:240px 240px; }
+.layer-c { animation: spin-c 35s linear infinite;  transform-origin:240px 240px; }
+
+@keyframes spin-a { to { transform:rotate(360deg);  } }
+@keyframes spin-b { to { transform:rotate(-360deg); } }
+@keyframes spin-c { to { transform:rotate(360deg);  } }
+
+/* Pulso del halo exterior */
+.halo-pulse { animation: halo 3s ease-in-out infinite; transform-origin:240px 240px; }
+@keyframes halo {
+  0%,100% { opacity:.3; transform:scale(1);    }
+  50%      { opacity:.7; transform:scale(1.03); }
+}
+
+/* Núcleo pulsante */
+.nucleo-g { animation: core-pulse 2.2s ease-in-out infinite;
+            transform-origin:240px 240px; }
+@keyframes core-pulse {
+  0%,100% { transform:scale(1);    }
+  50%      { transform:scale(1.2); }
+}
+
+/* Estilos SVG */
+.ring-ext-mag {
+  fill:none; stroke:var(--magenta); stroke-width:4;
+  filter:drop-shadow(0 0 10px var(--magenta)) drop-shadow(0 0 25px rgba(255,0,212,.3));
+}
+.ring-cyan {
+  fill:none; stroke:var(--cyan); stroke-width:1.5; opacity:.6;
+  filter:drop-shadow(0 0 5px var(--cyan));
+}
+.ring-purp {
+  fill:none; stroke:var(--purp); stroke-width:.8; opacity:.35;
+}
+.ring-blanco {
+  fill:none; stroke:rgba(224,248,255,.1); stroke-width:.7;
+}
+
+.star-mag  { fill:none; stroke:var(--magenta); stroke-width:1.8;
+             stroke-linejoin:round; opacity:.85;
+             filter:drop-shadow(0 0 6px var(--magenta)); }
+.star-cyan { fill:none; stroke:var(--cyan); stroke-width:1.4;
+             stroke-linejoin:round; opacity:.7;
+             filter:drop-shadow(0 0 4px var(--cyan)); }
+.star-purp { fill:none; stroke:var(--purp); stroke-width:1;
+             stroke-linejoin:round; opacity:.4; }
+.star-blanco { fill:none; stroke:rgba(224,248,255,.15); stroke-width:.8;
+               stroke-linejoin:round; }
+
+.poly-deco { fill:none; stroke:rgba(0,245,255,.12); stroke-width:.7; }
+
+.dot-mag   { fill:var(--magenta); filter:drop-shadow(0 0 6px var(--magenta)); }
+.dot-cyan  { fill:var(--cyan);    filter:drop-shadow(0 0 5px var(--cyan));    }
+.dot-purp  { fill:var(--purp);    filter:drop-shadow(0 0 4px var(--purp)); opacity:.8; }
+.dot-white { fill:rgba(224,248,255,.4); }
+
+.tick-h { stroke:rgba(224,248,255,.7);  stroke-width:2.2; stroke-linecap:round; }
+.tick-m { stroke:rgba(224,248,255,.15); stroke-width:.8;  stroke-linecap:round; }
+
+.num-h {
+  fill:rgba(0,245,255,.75);
+  font-family:'Orbitron',sans-serif;
+  font-size:13px; font-weight:700;
+  dominant-baseline:central; text-anchor:middle;
+}
+
+/* Manecillas */
+.hand-h {
+  stroke:var(--blanco); stroke-width:5.5; stroke-linecap:round;
+  filter:drop-shadow(0 0 8px rgba(0,245,255,.6));
+}
+.hand-m {
+  stroke:var(--cyan); stroke-width:2.8; stroke-linecap:round;
+  filter:drop-shadow(0 0 7px var(--cyan));
+}
+.hand-s {
+  stroke:var(--magenta); stroke-width:1.5; stroke-linecap:round;
+  filter:drop-shadow(0 0 10px var(--magenta));
+}
+
+/* ── PANEL DIGITAL ── */
+.panel {
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:10px;
+}
+
+.digital {
+  font-family:'Share Tech Mono',monospace;
+  font-size:3.6rem;
+  letter-spacing:6px;
+  color:var(--blanco);
+  text-shadow:
+    0 0 20px rgba(0,245,255,.5),
+    0 0 50px rgba(0,245,255,.2);
+  line-height:1;
+}
+.digital .ds {
+  color:var(--magenta);
+  filter:drop-shadow(0 0 8px var(--magenta));
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink { 50%{ opacity:0; } }
+
+.sub-row {
+  display:flex;
+  align-items:center;
+  gap:24px;
+  font-size:.65rem;
+  letter-spacing:5px;
+  color:rgba(0,245,255,.4);
+  text-transform:uppercase;
+}
+.sub-row .highlight {
+  color:var(--cyan);
+  filter:drop-shadow(0 0 6px var(--cyan));
+  font-weight:700;
+}
+
+.linea-glow {
+  width:340px; height:1px;
+  background:linear-gradient(to right,
+    transparent,
+    rgba(0,245,255,.4) 20%,
+    rgba(255,0,212,.5) 50%,
+    rgba(0,245,255,.4) 80%,
+    transparent
+  );
+  box-shadow:0 0 12px rgba(0,245,255,.2), 0 0 25px rgba(255,0,212,.15);
+}
+
+.subtxt {
+  font-size:.5rem;
+  letter-spacing:7px;
+  color:rgba(224,248,255,.18);
+  text-transform:uppercase;
+  text-indent:7px;
+}
+</style>
+</head>
+<body>
+
+<!-- CANVAS ESTRELLAS -->
+<canvas id="bg"></canvas>
+
+<div class="scene">
+
+  <!-- RELOJ -->
+  <div class="clock-wrap">
+    <svg id="svg-clock" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+
+      <defs>
+        <!-- Gradiente radial para el fondo del reloj -->
+        <radialGradient id="bgGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#0a0020"/>
+          <stop offset="60%"  stop-color="#050012"/>
+          <stop offset="100%" stop-color="#000"/>
+        </radialGradient>
+
+        <!-- Filtros -->
+        <filter id="gm" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="4" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gc" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="3.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gp" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="3" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+        <filter id="gd" x="-60%" y="-60%" width="220%" height="220%">
+          <feGaussianBlur stdDeviation="2.5" result="b"/>
+          <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+        </filter>
+      </defs>
+
+      <!-- Fondo circular -->
+      <circle cx="240" cy="240" r="238" fill="url(#bgGrad)"/>
+
+      <!-- ══ HALO EXTERIOR PULSANTE ══ -->
+      <g class="halo-pulse">
+        <circle cx="240" cy="240" r="234" fill="none"
+          stroke="rgba(155,0,255,0.2)" stroke-width="12"/>
+      </g>
+
+      <!-- Anillo magenta exterior -->
+      <circle cx="240" cy="240" r="228" class="ring-ext-mag"/>
+
+      <!-- ══ CAPA A: gira lento horario ══ -->
+      <g class="layer-a">
+        <!-- Estrella de 12 puntas magenta exterior -->
+        <polygon id="star-a" class="star-mag"/>
+        <!-- Puntos en puntas -->
+        <g id="dots-a"></g>
+      </g>
+
+      <!-- ══ CAPA B: gira lento antihorario ══ -->
+      <g class="layer-b">
+        <!-- Estrella de 8 puntas cyan -->
+        <polygon id="star-b" class="star-cyan"/>
+        <!-- Anillo cyan -->
+        <circle cx="240" cy="240" r="168" class="ring-cyan"/>
+        <!-- Puntos -->
+        <g id="dots-b"></g>
+      </g>
+
+      <!-- ══ CAPA C: gira lento horario ══ -->
+      <g class="layer-c">
+        <!-- Estrella de 16 puntas purpura, fina -->
+        <polygon id="star-c" class="star-purp"/>
+        <!-- Polígono decorativo 6 lados -->
+        <polygon id="poly-deco" class="poly-deco"/>
+      </g>
+
+      <!-- ══ ESTÁTICOS ══ -->
+      <!-- Anillos interiores -->
+      <circle cx="240" cy="240" r="210" class="ring-blanco"/>
+      <circle cx="240" cy="240" r="140" class="ring-blanco"/>
+      <circle cx="240" cy="240" r="95"  class="ring-purp"/>
+      <circle cx="240" cy="240" r="55"  class="ring-blanco"/>
+
+      <!-- TICKS -->
+      <g id="ticks"></g>
+
+      <!-- Puntos de hora fijos (cyan, sobre ticks mayores) -->
+      <g id="dots-hora"></g>
+
+      <!-- NÚMEROS -->
+      <text x="240" y="30"  class="num-h">12</text>
+      <text x="450" y="244" class="num-h">3</text>
+      <text x="240" y="458" class="num-h">6</text>
+      <text x="30"  y="244" class="num-h">9</text>
+
+      <!-- ══ MANECILLAS — pivot (240,240) ══ -->
+      <line id="hand-h" x1="240" y1="240" x2="240" y2="130" class="hand-h"/>
+      <line id="hand-m" x1="240" y1="240" x2="240" y2="100" class="hand-m"/>
+      <line id="hand-s" x1="240" y1="268" x2="240" y2="88"  class="hand-s" filter="url(#gm)"/>
+
+      <!-- ══ NÚCLEO ══ -->
+      <g class="nucleo-g">
+        <circle cx="240" cy="240" r="24" fill="#000"
+          stroke="rgba(155,0,255,0.4)" stroke-width="2"/>
+        <circle cx="240" cy="240" r="16" fill="rgba(0,245,255,0.9)"
+          filter="url(#gc)"/>
+        <circle cx="240" cy="240" r="8"  fill="rgba(255,0,212,0.95)"
+          filter="url(#gm)"/>
+        <circle cx="240" cy="240" r="3.5" fill="#fff"/>
+      </g>
+
+    </svg>
+  </div>
+
+  <!-- PANEL DIGITAL -->
+  <div class="panel">
+    <div class="linea-glow"></div>
+    <div class="digital">
+      <span id="hh">00</span><span class="ds">:</span><span
+            id="mm">00</span><span class="ds">:</span><span id="ss">00</span>
+    </div>
+    <div class="sub-row">
+      <span id="diasem" class="highlight">MARTES</span>
+      <span>·</span>
+      <span id="fstr">31 DE MARZO · 2026</span>
+    </div>
+    <div class="subtxt">Awajún · Portal Cósmico · Bagua · Perú</div>
+    <div class="linea-glow"></div>
+  </div>
+
+</div><!-- /scene -->
+
+<script>
+/* ════════════════════════════════════════
+   GEOMETRÍA PERFECTA
+   Centro: (240,240)  ViewBox: 480×480
+════════════════════════════════════════ */
+const CX = 240, CY = 240;
+const rad = d => d * Math.PI / 180;
+const pt  = (r, deg) => ({
+  x: CX + r * Math.cos(rad(deg)),
+  y: CY + r * Math.sin(rad(deg))
+});
+
+function starPts(outerR, innerR, n, startDeg) {
+  const pts = [];
+  for (let i = 0; i < n * 2; i++) {
+    const ang = startDeg + i * (180 / n);
+    const r   = i % 2 === 0 ? outerR : innerR;
+    const p   = pt(r, ang);
+    pts.push(`${p.x.toFixed(3)},${p.y.toFixed(3)}`);
+  }
+  return pts.join(' ');
+}
+
+function polyPts(r, n, startDeg) {
+  const pts = [];
+  for (let i = 0; i < n; i++) {
+    const p = pt(r, startDeg + i * (360 / n));
+    pts.push(`${p.x.toFixed(3)},${p.y.toFixed(3)}`);
+  }
+  return pts.join(' ');
+}
+
+/* CAPA A — 12 puntas magenta, radio 202 / 168 */
+document.getElementById('star-a').setAttribute('points', starPts(202, 168, 12, -90));
+
+/* CAPA B — 8 puntas cyan, radio 155 / 120 */
+document.getElementById('star-b').setAttribute('points', starPts(155, 120, 8, -90));
+
+/* CAPA C — 16 puntas purpura fina, radio 138 / 125 */
+document.getElementById('star-c').setAttribute('points', starPts(138, 125, 16, -90));
+
+/* Polígono 6 lados decorativo */
+document.getElementById('poly-deco').setAttribute('points', polyPts(88, 6, -90));
+
+/* PUNTOS en las 12 puntas de capa A (magenta) */
+const dotsAG = document.getElementById('dots-a');
+for (let i = 0; i < 12; i++) {
+  const p = pt(202, -90 + i * 30);
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx', p.x.toFixed(3));
+  c.setAttribute('cy', p.y.toFixed(3));
+  c.setAttribute('r',  '5');
+  c.setAttribute('class','dot-mag');
+  c.setAttribute('filter','url(#gm)');
+  dotsAG.appendChild(c);
+}
+
+/* PUNTOS en las 8 puntas de capa B (cyan) */
+const dotsBG = document.getElementById('dots-b');
+for (let i = 0; i < 8; i++) {
+  const p = pt(155, -90 + i * 45);
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx', p.x.toFixed(3));
+  c.setAttribute('cy', p.y.toFixed(3));
+  c.setAttribute('r',  '4.5');
+  c.setAttribute('class','dot-cyan');
+  c.setAttribute('filter','url(#gc)');
+  dotsBG.appendChild(c);
+}
+
+/* TICKS */
+const ticksG = document.getElementById('ticks');
+for (let i = 0; i < 60; i++) {
+  const deg   = -90 + i * 6;
+  const major = i % 5 === 0;
+  const r1    = major ? 192 : 198;
+  const r2    = major ? 208 : 203;
+  const p1 = pt(r1, deg), p2 = pt(r2, deg);
+  const ln = document.createElementNS('http://www.w3.org/2000/svg','line');
+  ln.setAttribute('x1', p1.x.toFixed(3)); ln.setAttribute('y1', p1.y.toFixed(3));
+  ln.setAttribute('x2', p2.x.toFixed(3)); ln.setAttribute('y2', p2.y.toFixed(3));
+  ln.setAttribute('class', major ? 'tick-h' : 'tick-m');
+  ticksG.appendChild(ln);
+}
+
+/* PUNTOS HORA fijos (posición de ticks mayores, cyan pequeños) */
+const dotsH = document.getElementById('dots-hora');
+for (let i = 0; i < 12; i++) {
+  const p = pt(186, -90 + i * 30);
+  const c = document.createElementNS('http://www.w3.org/2000/svg','circle');
+  c.setAttribute('cx', p.x.toFixed(3));
+  c.setAttribute('cy', p.y.toFixed(3));
+  c.setAttribute('r',  '3');
+  c.setAttribute('class','dot-purp');
+  c.setAttribute('filter','url(#gp)');
+  dotsH.appendChild(c);
+}
+
+/* ════════════════════════════════════════
+   RELOJ FUNCIONAL
+════════════════════════════════════════ */
+const handH = document.getElementById('hand-h');
+const handM = document.getElementById('hand-m');
+const handS = document.getElementById('hand-s');
+const elHH  = document.getElementById('hh');
+const elMM  = document.getElementById('mm');
+const elSS  = document.getElementById('ss');
+const elDia = document.getElementById('diasem');
+const elFst = document.getElementById('fstr');
+
+const DIAS  = ['DOMINGO','LUNES','MARTES','MIÉRCOLES','JUEVES','VIERNES','SÁBADO'];
+const MESES = ['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO',
+               'JULIO','AGOSTO','SEPTIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
+const pad   = n => n < 10 ? '0'+n : ''+n;
+
+function rotar(el, deg) {
+  el.style.transformOrigin = `${CX}px ${CY}px`;
+  el.style.transform = `rotate(${deg.toFixed(5)}deg)`;
+}
+
+function tick() {
+  const now = new Date();
+  const s = now.getSeconds(), ms = now.getMilliseconds();
+  const m = now.getMinutes(), h  = now.getHours();
+  elHH.textContent = pad(h);
+  elMM.textContent = pad(m);
+  elSS.textContent = pad(s);
+  elDia.textContent = DIAS[now.getDay()];
+  elFst.textContent = `${now.getDate()} DE ${MESES[now.getMonth()]} · ${now.getFullYear()}`;
+  const sf = s + ms / 1000;
+  const mf = m + sf / 60;
+  const hf = (h % 12) + mf / 60;
+  rotar(handS, sf * 6);
+  rotar(handM, mf * 6);
+  rotar(handH, hf * 30);
+}
+
+(function loop() { tick(); requestAnimationFrame(loop); })();
+
+/* ════════════════════════════════════════
+   CANVAS DE ESTRELLAS
+════════════════════════════════════════ */
+const canvas = document.getElementById('bg');
+const ctx    = canvas.getContext('2d');
+
+function resize() {
+  canvas.width  = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+/* Genera estrellas aleatorias */
+const STARS = Array.from({length: 280}, () => ({
+  x:     Math.random(),
+  y:     Math.random(),
+  r:     Math.random() * 1.4 + 0.2,
+  alpha: Math.random() * 0.7 + 0.1,
+  speed: Math.random() * 0.0008 + 0.0002,
+  phase: Math.random() * Math.PI * 2,
+  hue:   Math.random() < 0.15 ? (Math.random() < 0.5 ? 300 : 180) : 0
+}));
+
+/* Nebulosa de fondo */
+function drawNebula(t) {
+  const W = canvas.width, H = canvas.height;
+  /* Halo central purpura */
+  const g1 = ctx.createRadialGradient(W/2, H/2, 0, W/2, H/2, W * 0.42);
+  g1.addColorStop(0,   `rgba(100,0,200,${0.10 + 0.04 * Math.sin(t * 0.0004)})`);
+  g1.addColorStop(0.5, 'rgba(50,0,100,0.05)');
+  g1.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = g1;
+  ctx.fillRect(0, 0, W, H);
+
+  /* Halo cyan lateral */
+  const g2 = ctx.createRadialGradient(W*0.2, H*0.3, 0, W*0.2, H*0.3, W * 0.35);
+  g2.addColorStop(0,   'rgba(0,180,200,0.06)');
+  g2.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = g2;
+  ctx.fillRect(0, 0, W, H);
+
+  /* Halo magenta */
+  const g3 = ctx.createRadialGradient(W*0.8, H*0.7, 0, W*0.8, H*0.7, W * 0.3);
+  g3.addColorStop(0,   'rgba(200,0,150,0.05)');
+  g3.addColorStop(1,   'rgba(0,0,0,0)');
+  ctx.fillStyle = g3;
+  ctx.fillRect(0, 0, W, H);
+}
+
+function animBG(t) {
+  const W = canvas.width, H = canvas.height;
+  ctx.clearRect(0, 0, W, H);
+  drawNebula(t);
+
+  /* Estrellas */
+  STARS.forEach(s => {
+    const br = s.alpha * (0.6 + 0.4 * Math.sin(t * s.speed * 1000 + s.phase));
+    ctx.beginPath();
+    ctx.arc(s.x * W, s.y * H, s.r, 0, Math.PI * 2);
+    if (s.hue === 300) {
+      ctx.fillStyle = `rgba(220,100,255,${br})`;
+    } else if (s.hue === 180) {
+      ctx.fillStyle = `rgba(100,240,255,${br})`;
+    } else {
+      ctx.fillStyle = `rgba(230,240,255,${br})`;
+    }
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animBG);
+}
+requestAnimationFrame(animBG);
+</script>
+<script>
+/* ── Awajún self-scaling: adapts to any viewport/iframe size ── */
+(function(){
+  // Known natural dims: clock-wrap 480x480 + gap 28 + digital panel ≈ 648 total height
+  var SEL = '.scene', NAT_W = 480, NAT_H = 648;
+  function _fit(){
+    var el = document.querySelector(SEL);
+    if(!el) return;
+    // Re-measure every time (scene grows as fonts/canvas render)
+    el.style.transform = 'none';
+    var mW = el.offsetWidth  || NAT_W;
+    var mH = el.offsetHeight || NAT_H;
+    // Use the larger of measured vs hardcoded to avoid clipping the panel
+    var w = Math.max(mW, NAT_W);
+    var h = Math.max(mH, NAT_H);
+    var s = Math.min(window.innerWidth / w, window.innerHeight / h) * 0.90;
+    el.style.transform       = 'scale(' + s + ')';
+    el.style.transformOrigin = 'center center';
+  }
+  window.addEventListener('resize', _fit);
+  [0, 60, 200, 500, 1200, 2500].forEach(function(t){ setTimeout(_fit, t); });
+})();
+</script>
+</body>
+</html>
