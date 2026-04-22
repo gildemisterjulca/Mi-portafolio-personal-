@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mercado Laboral — Docente de Computación e Informática · Perú 2026</title>
+<!-- Tipografía profesional y legible: Inter + fallback system-ui -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:    #0a1628;
+    --navy2:   #0f2040;
+    --blue:    #1a5fd4;
+    --blue2:   #2e7de0;
+    --cyan:    #00b4d8;
+    --teal:    #0d9488;
+    --teal2:   #14b8a6;
+    --amber:   #f59e0b;
+    --green:   #22c55e;
+    --red:     #ef4444;
+    --white:   #ffffff;
+    --off:     #f0f4ff;
+    --muted:   #94a3b8;
+    --border:  rgba(255,255,255,0.08);
+    --card:    rgba(255,255,255,0.04);
+    --card2:   rgba(255,255,255,0.07);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── BACKGROUND ── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(26,95,212,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 110%, rgba(0,180,216,0.15) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 60% 50%, rgba(13,148,136,0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .grid-bg {
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* ── LAYOUT ── */
+  .page { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(10,22,40,0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .nav-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 58px;
+    gap: 24px;
+  }
+  .nav-logo {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: -0.01em;
+    color: var(--cyan);
+    white-space: nowrap;
+  }
+  .nav-links {
+    display: flex;
+    gap: 4px;
+    list-style: none;
+    flex-wrap: wrap;
+  }
+  .nav-links a {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    transition: all 0.2s;
+    white-space: nowrap;
+    letter-spacing: -0.2px;
+  }
+  .nav-links a:hover { color: var(--white); background: var(--card2); }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 72px 0 56px;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--cyan);
+    background: rgba(0,180,216,0.1);
+    border: 1px solid rgba(0,180,216,0.25);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 24px;
+  }
+  .hero-eyebrow span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(0.8)} }
+
+  .hero h1 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-weight: 800;
+    font-size: clamp(32px, 5vw, 54px);
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 18px;
+  }
+  .hero h1 em {
+    font-style: normal;
+    background: linear-gradient(135deg, var(--cyan), var(--blue2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 16px;
+    color: var(--muted);
+    font-weight: 400;
+    max-width: 560px;
+    margin: 0 auto 40px;
+    line-height: 1.6;
+  }
+
+  /* ── METRICS ── */
+  .metrics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 64px;
+  }
+  .metric-card {
+    background: var(--card2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px 20px;
+    text-align: center;
+    transition: transform 0.25s, border-color 0.25s;
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  .metric-card.visible { animation: fadeUp 0.5s forwards; }
+  @keyframes fadeUp { to { opacity:1; transform:translateY(0); } }
+  .metric-card:hover { transform: translateY(-4px); border-color: rgba(0,180,216,0.3); }
+  .metric-icon { font-size: 28px; margin-bottom: 10px; }
+  .metric-val {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--cyan);
+    line-height: 1;
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .metric-lbl { font-size: 12px; color: var(--muted); font-weight: 400; line-height: 1.4; }
+
+  /* ── SECTION TITLES ── */
+  .sec-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+  }
+  .sec-pill {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .pill-pub  { background: rgba(26,95,212,0.2);  color: #7eb8ff; border: 1px solid rgba(26,95,212,0.4); }
+  .pill-priv { background: rgba(34,197,94,0.15); color: #4ade80; border: 1px solid rgba(34,197,94,0.3); }
+  .sec-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+  }
+  .sec-divider {
+    height: 1px;
+    background: linear-gradient(90deg, rgba(0,180,216,0.4), transparent);
+    margin-bottom: 28px;
+  }
+
+  /* ── CARDS ── */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(310px, 1fr));
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .job-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.25s;
+    cursor: default;
+    opacity: 0;
+    transform: translateY(16px);
+    position: relative;
+    overflow: hidden;
+  }
+  .job-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--cyan), var(--blue2));
+    opacity: 0;
+    transition: opacity 0.25s;
+  }
+  .job-card:hover::before { opacity: 1; }
+  .job-card.visible { animation: fadeUp 0.5s forwards; }
+  .job-card:hover { transform: translateY(-4px); border-color: rgba(0,180,216,0.2); background: var(--card2); }
+
+  .card-sector {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .sector-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+  .dot-pub   { background: var(--blue2); box-shadow: 0 0 6px var(--blue2); }
+  .dot-priv  { background: var(--green); box-shadow: 0 0 6px var(--green); }
+  .sector-name { font-size: 11px; font-weight: 500; color: var(--muted); letter-spacing: 0.03em; text-transform: uppercase; }
+
+  .card-title {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--white);
+    line-height: 1.3;
+    letter-spacing: -0.2px;
+  }
+  .card-sub {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 14px;
+    font-style: normal;
+    font-weight: 400;
+  }
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin-bottom: 14px;
+  }
+  .tag {
+    font-size: 11px;
+    padding: 3px 9px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .tag-blue  { background: rgba(46,125,224,0.2);  color: #7eb8ff; border: 1px solid rgba(46,125,224,0.3); }
+  .tag-teal  { background: rgba(20,184,166,0.2);  color: #5eead4; border: 1px solid rgba(20,184,166,0.3); }
+  .tag-amber { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .tag-gray  { background: rgba(148,163,184,0.15);color: #cbd5e1; border: 1px solid rgba(148,163,184,0.3); }
+
+  .card-req {
+    font-size: 12px;
+    color: var(--muted);
+    margin-bottom: 16px;
+    line-height: 1.5;
+    padding: 10px 12px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 8px;
+    border-left: 2px solid rgba(0,180,216,0.4);
+  }
+
+  .card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .salary {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--cyan);
+  }
+  .salary-note { font-size: 10px; color: var(--muted); font-weight: 400; display: block; }
+  .entity { font-size: 11px; color: var(--muted); text-align: right; line-height: 1.4; }
+  .entity a { color: var(--blue2); text-decoration: none; font-size: 10px; }
+  .entity a:hover { color: var(--cyan); }
+
+  /* ── AIP HIGHLIGHT ── */
+  .aip-banner {
+    background: linear-gradient(135deg, rgba(0,180,216,0.12), rgba(26,95,212,0.12));
+    border: 1px solid rgba(0,180,216,0.25);
+    border-radius: 16px;
+    padding: 28px 32px;
+    margin-bottom: 48px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    align-items: start;
+  }
+  .aip-icon {
+    width: 56px; height: 56px;
+    background: linear-gradient(135deg, var(--cyan), var(--blue2));
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 26px;
+    flex-shrink: 0;
+  }
+  .aip-content h3 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .aip-content p { font-size: 14px; color: var(--muted); line-height: 1.6; margin-bottom: 14px; }
+  .aip-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .aip-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    padding: 12px 14px;
+  }
+  .aip-item-title { font-size: 12px; font-weight: 600; color: var(--cyan); margin-bottom: 4px; }
+  .aip-item-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+  /* ── SALARY TABLE ── */
+  .salary-section { margin-bottom: 64px; }
+  .salary-section h2 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .salary-section p { font-size: 14px; color: var(--muted); margin-bottom: 20px; }
+
+  .sal-table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--border); }
+  table.sal-table { width: 100%; border-collapse: collapse; min-width: 560px; }
+  .sal-table thead th {
+    background: rgba(255,255,255,0.06);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 16px;
+    text-align: left;
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .sal-table tbody td {
+    padding: 13px 16px;
+    font-size: 13px;
+    color: var(--white);
+    border-bottom: 1px solid var(--border);
+    vertical-align: middle;
+  }
+  .sal-table tbody tr:last-child td { border-bottom: none; }
+  .sal-table tbody tr:hover td { background: var(--card2); }
+  .sal-range { font-family: 'Inter', system-ui, sans-serif; font-weight: 700; color: var(--cyan); font-size: 13px; }
+  .level-badge {
+    display: inline-block;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 20px;
+    font-weight: 600;
+  }
+  .lv-pub  { background: rgba(26,95,212,0.2); color: #7eb8ff; }
+  .lv-priv { background: rgba(34,197,94,0.15); color: #4ade80; }
+  .lv-top  { background: rgba(245,158,11,0.15); color: #fcd34d; }
+
+  /* ── TIMELINE / STEPS ── */
+  .steps { margin-bottom: 64px; }
+  .steps h2 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+  }
+  .steps p { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+  .timeline { position: relative; padding-left: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 9px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(180deg, var(--cyan), var(--blue2), transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+    opacity: 0;
+    transform: translateX(-12px);
+    transition: all 0.4s;
+  }
+  .tl-item.visible { opacity: 1; transform: translateX(0); }
+  .tl-dot {
+    position: absolute;
+    left: -28px; top: 4px;
+    width: 18px; height: 18px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 2px solid var(--cyan);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .tl-dot span { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); }
+  .tl-title { font-family: 'Inter', system-ui, sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.2px; }
+  .tl-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+  /* ── SOURCES ── */
+  .sources {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 28px;
+    margin-bottom: 64px;
+  }
+  .sources h2 {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    color: var(--muted);
+  }
+  .src-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 10px;
+  }
+  .src-item {
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    padding: 10px 14px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+    display: block;
+  }
+  .src-item:hover { border-color: rgba(0,180,216,0.3); background: rgba(0,180,216,0.06); }
+  .src-name { font-size: 12px; font-weight: 600; color: var(--white); margin-bottom: 2px; }
+  .src-url  { font-size: 10px; color: var(--blue2); }
+
+  /* ── FOOTER ── */
+  footer {
+    text-align: center;
+    padding: 32px 0;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+  }
+  footer strong { color: var(--cyan); }
+
+  /* ── FILTER TABS ── */
+  .filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    font-size: 12px;
+    font-weight: 500;
+    padding: 6px 16px;
+    border-radius: 20px;
+    border: 1px solid var(--border);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'Inter', system-ui, sans-serif;
+  }
+  .filter-btn:hover { border-color: rgba(0,180,216,0.4); color: var(--white); }
+  .filter-btn.active { background: rgba(0,180,216,0.15); border-color: rgba(0,180,216,0.5); color: var(--cyan); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .aip-banner { grid-template-columns: 1fr; }
+    .aip-grid { grid-template-columns: 1fr; }
+    .nav-links { display: none; }
+  }
+
+  /* ── SCROLL ANIMATIONS ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s, transform 0.5s;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">📚 DOCENTE TIC · PERÚ 2026</div>
+    <ul class="nav-links">
+      <li><a href="#publico">Sector Público</a></li>
+      <li><a href="#privado">Sector Privado</a></li>
+      <li><a href="#aip">AIP</a></li>
+      <li><a href="#salarios">Salarios</a></li>
+      <li><a href="#pasos">Cómo postular</a></li>
+      <li><a href="#fuentes">Fuentes</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-eyebrow"><span></span>Informe Laboral · Actualizado Abril 2026</div>
+    <h1>Mercado Laboral<br><em>Computación e Informática</em></h1>
+    <p class="hero-sub">Guía completa de oportunidades de empleo docente en el sector público y privado del Perú para la especialidad de Educación Tecnológica en Computación e Informática.</p>
+  </header>
+
+  <!-- METRICS -->
+  <section class="metrics" id="metricas">
+    <div class="metric-card">
+      <div class="metric-icon">📃</div>
+      <div class="metric-val" data-target="160">0</div>
+      <div class="metric-lbl">Ofertas públicas vigentes<br>en Computación (2026)</div>
+    </div>
+    <div class="metric-card" style="animation-delay:0.1s">
+      <div class="metric-icon">🏫</div>
+      <div class="metric-val" data-target="32">0</div>
+      <div class="metric-lbl">Empleos docentes activos<br>sector privado (LinkedIn)</div>
+    </div>
+    <div class="metric-card" style="animation-delay:0.2s">
+      <div class="metric-icon">💰</div>
+      <div class="metric-val">S/3,500</div>
+      <div class="metric-lbl">Sueldo base mensual<br>docente contratado 2026</div>
+    </div>
+    <div class="metric-card" style="animation-delay:0.3s">
+      <div class="metric-icon">🎉</div>
+      <div class="metric-val" data-target="426000">0</div>
+      <div class="metric-lbl">Docentes nombrados<br>beneficiados con RIM 2026</div>
+    </div>
+    <div class="metric-card" style="animation-delay:0.4s">
+      <div class="metric-icon">✍️</div>
+      <div class="metric-val">DS 022</div>
+      <div class="metric-lbl">Decreto Supremo que regula<br>contratación docente 2026</div>
+    </div>
+  </section>
+
+  <!-- SECTOR PÚBLICO -->
+  <section id="publico">
+    <div class="sec-header fade-in">
+      <div class="sec-pill pill-pub">■ PÚBLICO</div>
+      <h2 class="sec-title">Sector Público</h2>
+    </div>
+    <div class="sec-divider"></div>
+
+    <div class="filters fade-in">
+      <button class="filter-btn active" onclick="filterCards('all', this)">Todos</button>
+      <button class="filter-btn" onclick="filterCards('ebr', this)">EBR</button>
+      <button class="filter-btn" onclick="filterCards('superior', this)">Superior</button>
+      <button class="filter-btn" onclick="filterCards('estado', this)">Otras entidades</button>
+    </div>
+
+    <div class="cards-grid" id="pub-grid">
+
+      <!-- AIP -->
+      <div class="job-card" data-cat="ebr">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">EBR — Innovación</div></div>
+        <div class="card-title">Docente AIP</div>
+        <div class="card-sub">Aula de Innovación Pedagógica · Primaria y Secundaria</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">TIC en aula</span>
+          <span class="tag tag-blue">Soporte pedagógico</span>
+          <span class="tag tag-teal">Integración digital</span>
+        </div>
+        <div class="card-req">
+          <strong style="color:var(--white)">Requisito clave:</strong> Título docente + 2.ª especialidad en Computación e Informática o afines (Instituto Pedagógico o universidad). No basta solo el título de Educación Primaria.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 3,500 – S/ 7,351</div>
+            <span class="salary-note">según escala CPM · 30 h semanales</span>
+          </div>
+          <div class="entity">UGEL / DRE<br><a href="https://www.ugel07.gob.pe" target="_blank">ugel07.gob.pe ↗</a></div>
+        </div>
+      </div>
+
+      <!-- EPT -->
+      <div class="job-card" data-cat="ebr">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">EBR — Educación Secundaria</div></div>
+        <div class="card-title">Docente EPT</div>
+        <div class="card-sub">Educación para el Trabajo · Computación Aplicada</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Computación aplicada</span>
+          <span class="tag tag-blue">Ofimática</span>
+          <span class="tag tag-amber">Diseño digital</span>
+        </div>
+        <div class="card-req">
+          Título pedagógico en Computación e Informática o título técnico afín. Dicta el área curricular directamente a los estudiantes de secundaria.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 3,500 – S/ 7,351</div>
+            <span class="salary-note">según escala CPM</span>
+          </div>
+          <div class="entity">UGEL / DRE<br><a href="https://www.ugel07.gob.pe" target="_blank">ugel07.gob.pe ↗</a></div>
+        </div>
+      </div>
+
+      <!-- EBE -->
+      <div class="job-card" data-cat="ebr">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">EBE — Ed. Básica Especial</div></div>
+        <div class="card-title">Docente EBE · Computación</div>
+        <div class="card-sub">Educación Inclusiva con TIC</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">TIC inclusiva</span>
+          <span class="tag tag-teal">Adaptación digital</span>
+        </div>
+        <div class="card-req">
+          Egresado o Titulado en Computación e Informática. Adaptación de recursos tecnológicos para estudiantes con necesidades especiales.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 3,500+</div>
+            <span class="salary-note">según escala</span>
+          </div>
+          <div class="entity">UGEL / DRE<br><a href="https://www.ugel07.gob.pe" target="_blank">ugel07.gob.pe ↗</a></div>
+        </div>
+      </div>
+
+      <!-- EBA -->
+      <div class="job-card" data-cat="ebr">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">EBA — Ed. Básica Alternativa</div></div>
+        <div class="card-title">Docente EBA · Computación</div>
+        <div class="card-sub">Ciclo Avanzado — Adultos</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">Alfabetización digital</span>
+          <span class="tag tag-amber">Adultos y jóvenes</span>
+        </div>
+        <div class="card-req">
+          Perfil docente con formación en Computación. Atiende a personas que no pudieron completar su educación básica en edad escolar.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 3,500+</div>
+            <span class="salary-note">según escala</span>
+          </div>
+          <div class="entity">UGEL / DRE<br><a href="https://www.ugel07.gob.pe" target="_blank">ugel07.gob.pe ↗</a></div>
+        </div>
+      </div>
+
+      <!-- IEST -->
+      <div class="job-card" data-cat="superior">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">Ed. Superior Tecnológica</div></div>
+        <div class="card-title">Docente IEST</div>
+        <div class="card-sub">Instituto de Educación Superior Tecnológico</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Redes y telecomunicaciones</span>
+          <span class="tag tag-blue">Programación</span>
+          <span class="tag tag-blue">Soporte TI</span>
+        </div>
+        <div class="card-req">
+          Título pedagógico o universitario en Computación e Informática, Ingeniería de Sistemas o afines. Convocatoria en DRE / MINEDU.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 3,000 – S/ 5,000</div>
+            <span class="salary-note">mensual</span>
+          </div>
+          <div class="entity">DRE / MINEDU<br><a href="https://www.gob.pe/minedu" target="_blank">gob.pe/minedu ↗</a></div>
+        </div>
+      </div>
+
+      <!-- CETPRO -->
+      <div class="job-card" data-cat="superior">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">Ed. Técnico-Productiva</div></div>
+        <div class="card-title">Docente CETPRO</div>
+        <div class="card-sub">Centro de Educación Técnico-Productiva</div>
+        <div class="card-tags">
+          <span class="tag tag-amber">Ofimática</span>
+          <span class="tag tag-amber">Diseño gráfico</span>
+          <span class="tag tag-amber">Computación básica</span>
+        </div>
+        <div class="card-req">
+          Título técnico o pedagógico en Computación e Informática. Existe déficit reconocido de docentes con título pedagógico en esta modalidad.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 2,500 – S/ 4,000</div>
+            <span class="salary-note">mensual</span>
+          </div>
+          <div class="entity">UGEL / DRE<br><a href="https://evaluaciondocente.perueduca.pe/ingresocetpro25/" target="_blank">perueduca.pe ↗</a></div>
+        </div>
+      </div>
+
+      <!-- ESPECIALISTA -->
+      <div class="job-card" data-cat="estado">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">Otras entidades del Estado</div></div>
+        <div class="card-title">Especialista / Analista TIC</div>
+        <div class="card-sub">Ministerios, Municipalidades, Hospitales</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Ing. de Sistemas</span>
+          <span class="tag tag-gray">Soporte informático</span>
+          <span class="tag tag-gray">Gestión TI</span>
+        </div>
+        <div class="card-req">
+          Egresado o titulado en Computación e Informática, Ingeniería de Sistemas o afines. 160+ convocatorias activas en todo el sector público.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 2,500 – S/ 6,000</div>
+            <span class="salary-note">según entidad y régimen</span>
+          </div>
+          <div class="entity">Sector Público General<br><a href="https://www.convocatoriasdetrabajo.com" target="_blank">convocatoriasdetrabajo.com ↗</a></div>
+        </div>
+      </div>
+
+      <!-- CAPACITADOR -->
+      <div class="job-card" data-cat="estado">
+        <div class="card-sector"><div class="sector-dot dot-pub"></div><div class="sector-name">Municipalidades / UGEL</div></div>
+        <div class="card-title">Capacitador / Facilitador TIC</div>
+        <div class="card-sub">Talleres y programas de alfabetización digital</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">Formación en TIC</span>
+          <span class="tag tag-teal">Talleres digitales</span>
+        </div>
+        <div class="card-req">
+          Docente o técnico en Computación con experiencia en capacitación. Trabaja con comunidades, docentes en servicio y adultos mayores.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 2,000 – S/ 4,000</div>
+            <span class="salary-note">mensual / CAS</span>
+          </div>
+          <div class="entity">Municipalidades / UGEL<br><a href="https://www.perutrabajos.com" target="_blank">perutrabajos.com ↗</a></div>
+        </div>
+      </div>
+
+    </div><!-- end cards-grid -->
+  </section>
+
+  <!-- AIP HIGHLIGHT -->
+  <section id="aip" class="fade-in">
+    <div class="aip-banner">
+      <div class="aip-icon">💻</div>
+      <div class="aip-content">
+        <h3>Plaza AIP — Detalle especial</h3>
+        <p>El Aula de Innovación Pedagógica es el puesto más relevante y específico para docentes de Computación e Informática dentro del EBR. Es importante conocer sus requisitos exactos para no ser observado durante el proceso.</p>
+        <div class="aip-grid">
+          <div class="aip-item">
+            <div class="aip-item-title">⚠️ Requisito Primaria</div>
+            <div class="aip-item-text">Título de Prof. o Lic. en Ed. Primaria <strong>más</strong> título o 2.ª especialidad en Computación o afines. No basta solo el título de primaria.</div>
+          </div>
+          <div class="aip-item">
+            <div class="aip-item-title">📃 Requisito Secundaria</div>
+            <div class="aip-item-text">Título de Prof. o Lic. en Educación con especialidad en Computación e Informática. Se puede complementar con 2.ª especialidad.</div>
+          </div>
+          <div class="aip-item">
+            <div class="aip-item-title">📖 Base legal</div>
+            <div class="aip-item-text">Anexo 6 del D.S. N.° 022-2025-MINEDU. Consultar en tu UGEL los perfiles de formación académica por cargo.</div>
+          </div>
+          <div class="aip-item">
+            <div class="aip-item-title">🎯 Función principal</div>
+            <div class="aip-item-text">Integrar las TIC en el proceso pedagógico, apoyar a los docentes de aula y asesorar a los estudiantes en el uso de recursos digitales.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTOR PRIVADO -->
+  <section id="privado">
+    <div class="sec-header fade-in">
+      <div class="sec-pill pill-priv">■ PRIVADO</div>
+      <h2 class="sec-title">Sector Privado</h2>
+    </div>
+    <div class="sec-divider"></div>
+
+    <div class="cards-grid">
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">Colegios privados</div></div>
+        <div class="card-title">Docente de Computación</div>
+        <div class="card-sub">Primaria y Secundaria — Tiempo completo</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">Programación</span>
+          <span class="tag tag-teal">Ofimática</span>
+          <span class="tag tag-teal">Robótica educativa</span>
+        </div>
+        <div class="card-req">
+          Título docente o técnico en Computación e Informática. Empresas como Innova Schools (63 sedes), colegios privados en Lima y provincias.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 1,800 – S/ 3,500</div>
+            <span class="salary-note">mensual · Planilla DL 728</span>
+          </div>
+          <div class="entity">Innova Schools y otros<br><a href="https://pe.indeed.com" target="_blank">indeed.pe ↗</a></div>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">Centros de especialización</div></div>
+        <div class="card-title">Docente Computación Adultos</div>
+        <div class="card-sub">Excel, Diseño gráfico, Ofimática avanzada</div>
+        <div class="card-tags">
+          <span class="tag tag-amber">Office avanzado</span>
+          <span class="tag tag-amber">Diseño gráfico</span>
+          <span class="tag tag-amber">Tiempo parcial</span>
+        </div>
+        <div class="card-req">
+          Egresado técnico o universitario en Computación. Academias como Dimensión 3.0 (Lince) y centros similares en Lima Metropolitana.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 1,200 – S/ 2,500</div>
+            <span class="salary-note">por horas / tiempo parcial</span>
+          </div>
+          <div class="entity">Centros de capacitación<br><a href="https://pe.indeed.com" target="_blank">indeed.pe ↗</a></div>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">CETPRO privado</div></div>
+        <div class="card-title">Docente CETPRO Privado</div>
+        <div class="card-sub">Computación técnica, Redes, Soporte TI</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">Computación técnica</span>
+          <span class="tag tag-teal">Redes</span>
+          <span class="tag tag-blue">Soporte TI</span>
+        </div>
+        <div class="card-req">
+          Título técnico o universitario con especialidad en Computación. Mayor flexibilidad que en el sector público en cuanto al perfil requerido.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 1,500 – S/ 3,000</div>
+            <span class="salary-note">mensual</span>
+          </div>
+          <div class="entity">CETPRO privados<br><a href="https://pe.computrabajo.com" target="_blank">computrabajo.pe ↗</a></div>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">Ed. Superior Privada</div></div>
+        <div class="card-title">Docente Universitario / IST</div>
+        <div class="card-sub">Carreras de TI, Sistemas, Software</div>
+        <div class="card-tags">
+          <span class="tag tag-blue">Bases de datos</span>
+          <span class="tag tag-blue">Desarrollo web</span>
+          <span class="tag tag-blue">Seguridad informática</span>
+        </div>
+        <div class="card-req">
+          Licenciado en Educación o Ingeniería de Sistemas / Informática + formación pedagógica. Requiere experiencia profesional en el área.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 2,500 – S/ 6,000</div>
+            <span class="salary-note">mensual</span>
+          </div>
+          <div class="entity">Universidades / IST privados<br><a href="https://pe.linkedin.com" target="_blank">linkedin.pe ↗</a></div>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">Empresas y consultoras</div></div>
+        <div class="card-title">Capacitador Corporativo TIC</div>
+        <div class="card-sub">Transformación digital, Alfabetización TIC</div>
+        <div class="card-tags">
+          <span class="tag tag-amber">Transformación digital</span>
+          <span class="tag tag-amber">Formación empresarial</span>
+        </div>
+        <div class="card-req">
+          Título docente + dominio de herramientas digitales. Trabajo con empresas, ONGs, cooperativas. Alta demanda por digitalización del sector productivo.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 2,000 – S/ 5,000</div>
+            <span class="salary-note">mensual / por módulo</span>
+          </div>
+          <div class="entity">Empresas y ONGs<br><a href="https://pe.linkedin.com" target="_blank">linkedin.pe ↗</a></div>
+        </div>
+      </div>
+
+      <div class="job-card">
+        <div class="card-sector"><div class="sector-dot dot-priv"></div><div class="sector-name">Plataformas digitales</div></div>
+        <div class="card-title">Docente en Línea / E-learning</div>
+        <div class="card-sub">Plataformas LMS, cursos virtuales</div>
+        <div class="card-tags">
+          <span class="tag tag-teal">Cursos virtuales</span>
+          <span class="tag tag-teal">Moodle / LMS</span>
+          <span class="tag tag-gray">Trabajo remoto</span>
+        </div>
+        <div class="card-req">
+          Conocimiento pedagógico + dominio de plataformas educativas digitales. Creciente demanda post-pandemia. Trabajo desde cualquier lugar del país.
+        </div>
+        <div class="card-footer">
+          <div>
+            <div class="salary">S/ 1,000 – S/ 4,000</div>
+            <span class="salary-note">variable / por módulo</span>
+          </div>
+          <div class="entity">Academias online<br><a href="https://pe.linkedin.com" target="_blank">linkedin.pe ↗</a></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SALARY TABLE -->
+  <section class="salary-section fade-in" id="salarios">
+    <h2>📈 Escala de Remuneraciones 2026</h2>
+    <p>Remuneración Íntegra Mensual (RIM) según escala magisterial y jornada laboral — Decreto Supremo que aprueba la nueva RIM, MINEDU 2026.</p>
+    <div class="sal-table-wrap">
+      <table class="sal-table">
+        <thead>
+          <tr><th>Puesto / Modalidad</th><th>Sector</th><th>Jornada</th><th>Remuneración</th><th>Nivel</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Docente Contratado (todas las modalidades)</td><td>Público</td><td>30 h / semana</td><td><span class="sal-range">S/ 3,500.70</span></td><td><span class="level-badge lv-pub">1.ª Escala</span></td></tr>
+          <tr><td>Docente Nombrado CPM</td><td>Público</td><td>30 h / semana</td><td><span class="sal-range">S/ 3,500 – S/ 7,351</span></td><td><span class="level-badge lv-pub">Escalas 1–8</span></td></tr>
+          <tr><td>Docente Nombrado CPM (jornada extendida)</td><td>Público</td><td>40 h / semana</td><td><span class="sal-range">S/ 4,668 – S/ 9,802</span></td><td><span class="level-badge lv-top">Escalas 1–8</span></td></tr>
+          <tr><td>Especialista / Analista TIC (CAS)</td><td>Público</td><td>Tiempo completo</td><td><span class="sal-range">S/ 2,500 – S/ 6,000</span></td><td><span class="level-badge lv-pub">CAS</span></td></tr>
+          <tr><td>Docente colegio privado (Computación)</td><td>Privado</td><td>Tiempo completo</td><td><span class="sal-range">S/ 1,800 – S/ 3,500</span></td><td><span class="level-badge lv-priv">DL 728</span></td></tr>
+          <tr><td>Docente universitario / IST privado</td><td>Privado</td><td>Tiempo parcial/completo</td><td><span class="sal-range">S/ 2,500 – S/ 6,000</span></td><td><span class="level-badge lv-priv">Planilla</span></td></tr>
+          <tr><td>Capacitador TIC corporativo</td><td>Privado</td><td>Por módulo / proyecto</td><td><span class="sal-range">S/ 2,000 – S/ 5,000</span></td><td><span class="level-badge lv-top">Variable</span></td></tr>
+          <tr><td>Docente e-learning / plataformas</td><td>Privado</td><td>Remoto / flexible</td><td><span class="sal-range">S/ 1,000 – S/ 4,000</span></td><td><span class="level-badge lv-priv">Variable</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PASOS -->
+  <section class="steps fade-in" id="pasos">
+    <h2>🎯 ¿Cómo postular al sector público?</h2>
+    <p>El proceso de contratación docente 2026 sigue tres etapas definidas por el D.S. N.° 022-2025-MINEDU.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot"><span></span></div><div class="tl-title">Etapa 1 — Renovación de contrato</div><div class="tl-desc">Para docentes que ya trabajaron bajo contrato en 2025. Requiere evaluación de desempeño favorable y vínculo laboral mínimo de 3 meses acumulados.</div></div>
+      <div class="tl-item"><div class="tl-dot"><span></span></div><div class="tl-title">Etapa 2 — Contratación por Prueba Nacional (PN)</div><div class="tl-desc">Para postulantes en el cuadro de méritos de la Prueba Única Nacional. Presentar documentos en la UGEL seleccionada. Las plazas se adjudican por orden de mérito.</div></div>
+      <div class="tl-item"><div class="tl-dot"><span></span></div><div class="tl-title">Etapa 3 — Evaluación por expedientes</div><div class="tl-desc">Si quedan plazas vacantes. Los postulantes deben acreditar el perfil del Anexo 6 (D.S. 022-2025-MINEDU). La clave es presentar correctamente la formación académica requerida.</div></div>
+      <div class="tl-item"><div class="tl-dot"><span></span></div><div class="tl-title">Registro y postulación virtual (SISCAS)</div><div class="tl-desc">La postulación se realiza a través del sistema SISCAS en el portal web del MINEDU. Consultar el cronograma regional aprobado por la DRE correspondiente.</div></div>
+    </div>
+  </section>
+
+  <!-- FUENTES -->
+  <section class="sources fade-in" id="fuentes">
+    <h2>🔍 Fuentes y referencias oficiales</h2>
+    <div class="src-grid">
+      <a class="src-item" href="https://www.minedu.gob.pe/reforma-magisterial/contrato.php" target="_blank"><div class="src-name">MINEDU — Contrato Docente</div><div class="src-url">minedu.gob.pe ↗</div></a>
+      <a class="src-item" href="https://www.ugel07.gob.pe/contratacion-docente-para-las-instituciones-educativas/" target="_blank"><div class="src-name">UGEL 07 — Contratación</div><div class="src-url">ugel07.gob.pe ↗</div></a>
+      <a class="src-item" href="https://www.elperuano.pe/noticia/286676-plazas-docentes-requisitos-para-las-contrataciones-y-renovaciones" target="_blank"><div class="src-name">El Peruano — D.S. 022-2025</div><div class="src-url">elperuano.pe ↗</div></a>
+      <a class="src-item" href="https://elcomercio.pe/respuestas/tramites/tabla-actualizada-del-sueldo-docente-2026" target="_blank"><div class="src-name">El Comercio — Sueldos 2026</div><div class="src-url">elcomercio.pe ↗</div></a>
+      <a class="src-item" href="https://www.convocatoriasdetrabajo.com/ofertas-de-empleo-en-COMPUTACION-12.html" target="_blank"><div class="src-name">Convocatorias de Trabajo</div><div class="src-url">convocatoriasdetrabajo.com ↗</div></a>
+      <a class="src-item" href="https://pe.indeed.com/q-docente-computacion-empleos.html" target="_blank"><div class="src-name">Indeed Perú — Docente Computación</div><div class="src-url">pe.indeed.com ↗</div></a>
+      <a class="src-item" href="https://pe.linkedin.com/jobs/docente-computacion-empleos" target="_blank"><div class="src-name">LinkedIn Perú</div><div class="src-url">pe.linkedin.com ↗</div></a>
+      <a class="src-item" href="https://pe.computrabajo.com/trabajo-de-docente-de-computacion" target="_blank"><div class="src-name">Computrabajo Perú</div><div class="src-url">pe.computrabajo.com ↗</div></a>
+      <a class="src-item" href="https://evaluaciondocente.perueduca.pe/ingresocetpro25/" target="_blank"><div class="src-name">PerúEduca — Ingreso CETPRO</div><div class="src-url">evaluaciondocente.perueduca.pe ↗</div></a>
+      <a class="src-item" href="https://comunicaciones.congreso.gob.pe/noticias/profesionales-titulados-podran-ejercer-docencia-en-cetpro/" target="_blank"><div class="src-name">Congreso — CETPRO Docentes</div><div class="src-url">comunicaciones.congreso.gob.pe ↗</div></a>
+      <a class="src-item" href="https://www.portaltrabajos.pe/2026/01/minedu-convocatoria-2026-docentes.html" target="_blank"><div class="src-name">Portal Trabajos Perú</div><div class="src-url">portaltrabajos.pe ↗</div></a>
+      <a class="src-item" href="https://www.perutrabajos.com" target="_blank"><div class="src-name">Perú Trabajos — Sector Público</div><div class="src-url">perutrabajos.com ↗</div></a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p><strong>Mercado Laboral · Educación Tecnológica en Computación e Informática · Perú 2026</strong></p>
+    <p>Información compilada de fuentes oficiales del MINEDU, UGEL, El Peruano y plataformas de empleo. · Actualizado: Abril 2026</p>
+    <p style="margin-top:8px;font-size:11px">Este documento tiene fines informativos. Para datos oficiales y actualizados, consulte directamente los portales del MINEDU y su UGEL local.</p>
+  </footer>
+
+</div><!-- end page -->
+
+<script>
+  // ── INTERSECTION OBSERVER ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.metric-card, .job-card, .fade-in, .tl-item').forEach(el => observer.observe(el));
+
+  // ── COUNTER ANIMATION ──
+  function animateCounter(el) {
+    const target = parseInt(el.dataset.target);
+    if (!target) return;
+    const duration = 1200;
+    const start = performance.now();
+    const startVal = 0;
+    function update(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const current = Math.round(startVal + (target - startVal) * eased);
+      el.textContent = current >= 1000 ? current.toLocaleString('es-PE') : current + '+';
+      if (progress < 1) requestAnimationFrame(update);
+      else el.textContent = target >= 1000 ? target.toLocaleString('es-PE') : target + '+';
+    }
+    requestAnimationFrame(update);
+  }
+
+  const counterObs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        animateCounter(e.target);
+        counterObs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('.metric-val[data-target]').forEach(el => counterObs.observe(el));
+
+  // ── CARD STAGGER ──
+  document.querySelectorAll('.cards-grid').forEach(grid => {
+    Array.from(grid.children).forEach((card, i) => {
+      card.style.animationDelay = (i * 0.08) + 's';
+    });
+  });
+
+  // ── FILTER ──
+  function filterCards(cat, btn) {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelectorAll('#pub-grid .job-card').forEach(card => {
+      if (cat === 'all' || card.dataset.cat === cat) {
+        card.style.display = '';
+        setTimeout(() => { card.classList.remove('visible'); void card.offsetWidth; card.classList.add('visible'); }, 10);
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // ── ACTIVE NAV ON SCROLL ──
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(s => {
+      if (window.scrollY >= s.offsetTop - 80) current = s.id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = a.getAttribute('href') === '#' + current ? 'var(--cyan)' : '';
+    });
+  });
+</script>
+
+</body>
+</html>

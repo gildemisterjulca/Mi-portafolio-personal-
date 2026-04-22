@@ -1,1045 +1,577 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Gildemister Julca Ramos | Educación Tecnológica</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link
-    href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&family=Raleway:ital,wght@0,100..900;1,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Bungee+Hairline&family=Alumni+Sans+Pinstripe:ital@0;1&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
-  <link rel="stylesheet" href="css/styles.css">
-</head>
-
-<body>
-
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-ring" id="cursorRing"></div>
-  <div id="toast">✓ Mensaje enviado con éxito</div>
-
-  <!-- NAVBAR -->
-  <nav id="navbar">
-    <a href="#inicio" class="nav-logo">GJR // EDUTEC</a>
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#inicio">[ Inicio ]</a></li>
-      <li><a href="#proyectos">[ Proyectos ]</a></li>
-      <li><a href="#galeria">[ Galería ]</a></li>
-      <li><a href="#ceramica-awajun">[ Awajún ]</a></li>
-      <li><a href="#videos">[ Videos ]</a></li>
-      <li><a href="#contacto">[ Contacto ]</a></li>
-    </ul>
-    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
-      <span></span><span></span><span></span>
-    </div>
-  </nav>
-
-  <!-- ======================================================
-       SECCIÓN 1: HERO
-  ====================================================== -->
-  <section id="inicio">
-    <div class="hero-particles" id="particles"></div>
-    <!-- Fondo geométrico Awajún -->
-    <div class="hero-geo-bg">
-      <svg viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg">
-        <g class="hg-bg-inner">
-          <polygon id="bgPoly1" fill="none" stroke="rgba(0,255,231,1)" stroke-width="1" />
-          <polygon id="bgPoly2" fill="none" stroke="rgba(200,146,42,1)" stroke-width="1" />
-          <polygon id="bgPoly3" fill="none" stroke="rgba(0,255,231,1)" stroke-width="0.8" />
-          <g id="bgTriangles"></g>
-          <g id="bgRadials"></g>
-        </g>
-      </svg>
-    </div>
-    <div class="hero-ambient hero-ambient-left"></div>
-    <div class="hero-ambient hero-ambient-right"></div>
-    <div class="hero-content hero-content-premium">
-      <div class="hero-left">
-        <div class="hero-topline">
-          <div class="hero-badge">
-            <div class="badge-dot"></div> Portafolio académico · 2026
-          </div>
-          <span class="hero-kicker">Bagua - Capital · Educación tecnológica intercultural</span>
-        </div>
-
-        <div class="hero-identity-card">
-          <div class="hero-profile-wrapper hero-profile-premium">
-            <div class="hero-photo-frame">
-              <img src="assets/imagenes/perfil-gildemeister.png" alt="Gildemeister Julca Ramos" class="hero-photo"
-                loading="lazy"
-                onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22160%22 height=%22160%22%3E%3Cdefs%3E%3CradialGradient id=%22g%22%3E%3Cstop offset=%220%25%22 stop-color=%22%23001f3f%22/%3E%3Cstop offset=%22100%25%22 stop-color=%22%230a0e2e%22/%3E%3C/radialGradient%3E%3C/defs%3E%3Crect width=%22160%22 height=%22160%22 rx=%2280%22 fill=%22url(%23g)%22/%3E%3Ctext x=%2280%22 y=%2292%22 font-size=%2250%22 text-anchor=%22middle%22 fill=%22%2300ffe7%22%3EGJR%3C/text%3E%3C/svg%3E'">
-            </div>
-            <div class="hero-info hero-info-premium">
-              <span class="hero-mini-label">Computación e informática · Dcte en formación</span>
-              <h1><span>Gildemister Julca Ramos</span></h1>
-              <p>Estudiante de Educación Tecnológica con interés en diseño digital, recursos interactivos e integración
-                del patrimonio cultural amazónico en experiencias de aprendizaje.</p>
-              <p class="university">UNIFSLB</p>
-            </div>
-          </div>
-        </div>
-
-        <div class="hero-copy-block">
-          <p class="hero-headline hero-headline-premium">
-            <span class="headline-line1">Tecnología, cultura</span>
-            <span class="headline-line2">y diseño con propósito</span>
-          </p>
-          <p class="hero-desc hero-desc-premium">Un portafolio construido para mostrar proyectos académicos, interfaces
-            visuales, materiales didácticos y exploraciones inspiradas en la identidad awajún desde un enfóque
-            intercultural.</p>
-        </div>
-
-        <div class="hero-metrics-strip" aria-label="Resumen del portafolio">
-          <article class="hero-metric-card">
-            <strong>04</strong>
-            <span>proyectos principales</span>
-          </article>
-          <article class="hero-metric-card">
-            <strong>09</strong>
-            <span>interfaces visuales</span>
-          </article>
-          <article class="hero-metric-card">
-            <strong>02</strong>
-            <span>ejes: tecnología + interculturalidad</span>
-          </article>
-        </div>
-
-        <div class="hero-cta">
-          <a href="#proyectos" class="btn-primary">Ver portafolio →</a>
-          <a href="awajun.html" class="btn-outline">Entrar a experiencia awajún</a>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="hero-stage">
-          <div class="hero-stage-topline">
-            <span class="hero-stage-tag">Geometría Awajún</span>
-            <span class="hero-stage-note">Tecnología · Identidad Amazónica</span>
-          </div>
-
-          <div class="hero-stage-visual">
-            <div class="hero-stage-grid"></div>
-
-            <!-- ══ GEOMETRÍA AWAJÚN SVG ══ -->
-            <!-- ══ CHIP UNIFSLB ══ -->
-            <div class="hero-chip-panel">
-              <div class="hero-chip-label">
-                <span class="hero-stage-tag">interfaz técnica</span>
-                <span class="hero-chip-dot"></span>
-              </div>
-              <div class="hero-chip-svg-wrap">
-                <svg class="hero-chip-svg" viewBox="0 0 800 260" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id="chipG2" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="#1a2238" />
-                      <stop offset="100%" stop-color="#0a0e1a" />
-                    </linearGradient>
-                    <linearGradient id="textG2" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stop-color="rgba(0,255,231,0.95)" />
-                      <stop offset="100%" stop-color="rgba(0,180,255,0.75)" />
-                    </linearGradient>
-                    <linearGradient id="pinG2" x1="1" y1="0" x2="0" y2="0">
-                      <stop offset="0%" stop-color="rgba(0,255,231,0.8)" />
-                      <stop offset="50%" stop-color="rgba(0,180,200,0.5)" />
-                      <stop offset="100%" stop-color="rgba(0,100,150,0.3)" />
-                    </linearGradient>
-                    <filter id="chipGlow2">
-                      <feGaussianBlur stdDeviation="2.5" result="blur" />
-                      <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                    </filter>
-                  </defs>
-
-                  <!-- Trazas izquierda -->
-                  <path d="M40  60 H160 V115 H326" class="trace-bg" />
-                  <path d="M40  60 H160 V115 H326" class="trace-flow purple" />
-                  <path d="M20 100 H140 V130 H326" class="trace-bg" />
-                  <path d="M20 100 H140 V130 H326" class="trace-flow blue" />
-                  <path d="M20 160 H120 V148 H326" class="trace-bg" />
-                  <path d="M20 160 H120 V148 H326" class="trace-flow yellow" />
-                  <path d="M40 200 H160 V166 H326" class="trace-bg" />
-                  <path d="M40 200 H160 V166 H326" class="trace-flow green" />
-
-                  <!-- Trazas derecha -->
-                  <path d="M760  60 H600 V115 H474" class="trace-bg" />
-                  <path d="M760  60 H600 V115 H474" class="trace-flow blue" />
-                  <path d="M780 100 H620 V130 H474" class="trace-bg" />
-                  <path d="M780 100 H620 V130 H474" class="trace-flow green" />
-                  <path d="M780 160 H640 V148 H474" class="trace-bg" />
-                  <path d="M780 160 H640 V148 H474" class="trace-flow red" />
-                  <path d="M760 200 H600 V166 H474" class="trace-bg" />
-                  <path d="M760 200 H600 V166 H474" class="trace-flow yellow" />
-
-                  <!-- Chip body -->
-                  <rect x="330" y="88" width="140" height="84" rx="14" fill="url(#chipG2)" stroke="rgba(0,255,231,0.35)"
-                    stroke-width="1.5" filter="url(#chipGlow2)" />
-                  <!-- Pines izquierda -->
-                  <rect x="320" y="103" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="320" y="120" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="320" y="137" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="320" y="154" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <!-- Pines derecha -->
-                  <rect x="470" y="103" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="470" y="120" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="470" y="137" width="10" height="8" fill="url(#pinG2)" rx="2" />
-                  <rect x="470" y="154" width="10" height="8" fill="url(#pinG2)" rx="2" />
-
-                  <!-- Texto chip -->
-                  <text x="400" y="126" font-family="'Cinzel',serif" font-size="14" fill="url(#textG2)"
-                    text-anchor="middle" letter-spacing="3">UNIFSLB</text>
-                  <text x="400" y="147" font-family="'Cinzel',serif" font-size="7" fill="rgba(200,146,42,0.7)"
-                    text-anchor="middle" letter-spacing="2">BAGUA · PERÚ</text>
-                  <text x="400" y="161" font-family="monospace" font-size="6.5" fill="rgba(0,255,231,0.4)"
-                    text-anchor="middle" letter-spacing="1">2026</text>
-
-                  <!-- Puntos terminales -->
-                  <circle cx="40" cy="60" r="4" fill="rgba(0,255,231,0.7)" />
-                  <circle cx="20" cy="100" r="4" fill="rgba(0,255,231,0.5)" />
-                  <circle cx="20" cy="160" r="4" fill="rgba(200,146,42,0.7)" />
-                  <circle cx="40" cy="200" r="4" fill="rgba(0,255,231,0.5)" />
-                  <circle cx="760" cy="60" r="4" fill="rgba(0,255,231,0.7)" />
-                  <circle cx="780" cy="100" r="4" fill="rgba(0,255,231,0.5)" />
-                  <circle cx="780" cy="160" r="4" fill="rgba(200,146,42,0.7)" />
-                  <circle cx="760" cy="200" r="4" fill="rgba(0,255,231,0.5)" />
-                </svg>
-              </div>
-            </div>
-
-
-            <!-- ══ GEOMETRÍA AWAJÚN ══ -->
-            <svg class="hero-geo-svg" viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
-              <defs>
-                <radialGradient id="hgGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stop-color="rgba(0,255,231,0.18)" />
-                  <stop offset="60%" stop-color="rgba(0,150,255,0.06)" />
-                  <stop offset="100%" stop-color="rgba(0,0,0,0)" />
-                </radialGradient>
-                <filter id="hgBlur">
-                  <feGaussianBlur stdDeviation="3.5" />
-                </filter>
-              </defs>
-
-              <!-- Glow central -->
-              <circle cx="240" cy="240" r="200" fill="url(#hgGlow)" filter="url(#hgBlur)" />
-
-              <!-- Ring exterior: hexágono suave 24-lados -->
-              <g class="hg-ring-outer" style="transform-origin:240px 240px">
-                <polygon id="hgOuter" fill="none" stroke="rgba(0,255,231,0.22)" stroke-width="1.2" />
-              </g>
-
-              <!-- Zigzag Awajún ring exterior -->
-              <polyline class="hg-zigzag" id="hgZigzag" fill="none" stroke="rgba(0,255,231,0.35)" stroke-width="1.5"
-                stroke-linejoin="round" />
-
-              <!-- Ring medio -->
-              <g class="hg-ring-mid" style="transform-origin:240px 240px">
-                <polygon id="hgMid" fill="none" stroke="rgba(200,146,42,0.28)" stroke-width="1.2" />
-              </g>
-
-              <!-- Triángulos radiales (16) -->
-              <g id="hgTriangles"></g>
-
-              <!-- Ring interior -->
-              <circle cx="240" cy="240" r="82" fill="none" stroke="rgba(0,255,231,0.18)" stroke-width="1.5" />
-              <circle cx="240" cy="240" r="64" fill="none" stroke="rgba(200,146,42,0.20)" stroke-width="1" />
-
-              <!-- Puntos de cruce (12) -->
-              <g id="hgDots"></g>
-
-              <!-- Núcleo -->
-              <circle cx="240" cy="240" r="38" fill="rgba(0,255,231,0.04)" stroke="rgba(0,255,231,0.30)"
-                stroke-width="1.5" />
-              <circle cx="240" cy="240" r="26" fill="rgba(0,0,0,0.5)" stroke="rgba(0,255,231,0.15)" stroke-width="1" />
-
-              <!-- Texto central -->
-              <text x="240" y="236" text-anchor="middle" font-family="'Cinzel',serif" font-size="9"
-                fill="rgba(0,255,231,0.75)" letter-spacing="3">GJR</text>
-              <text x="240" y="250" text-anchor="middle" font-family="'Cinzel',serif" font-size="6.5"
-                fill="rgba(200,146,42,0.65)" letter-spacing="2">EDUTEC</text>
-
-              <!-- Líneas radiales finas -->
-              <g id="hgRadials"></g>
-
-              <!-- Orbes de acento -->
-              <circle class="hg-orb" cx="240" cy="82" r="4.5" fill="rgba(0,255,231,0.9)" filter="url(#hgBlur)" />
-              <circle class="hg-orb" cx="240" cy="398" r="4.5" fill="rgba(0,255,231,0.9)" filter="url(#hgBlur)" />
-              <circle class="hg-orb" cx="82" cy="240" r="3.5" fill="rgba(200,146,42,0.8)" filter="url(#hgBlur)" />
-              <circle class="hg-orb" cx="398" cy="240" r="3.5" fill="rgba(200,146,42,0.8)" filter="url(#hgBlur)" />
-            </svg>
-
-            <div class="hero-stage-orb hero-stage-orb-a"></div>
-            <div class="hero-stage-orb hero-stage-orb-b"></div>
-          </div>
-
-          <div class="hero-stage-footer">
-            <article class="hero-stage-stat">
-              <span>línea visual</span>
-              <strong>tecnología</strong>
-            </article>
-            <article class="hero-stage-stat">
-              <span>enfoque</span>
-              <strong>Intercultural</strong>
-            </article>
-            <article class="hero-stage-stat">
-              <span>Dominio</span>
-              <strong>Educativo</strong>
-            </article>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN 2: PROYECTOS
-  ====================================================== -->
-  <section id="proyectos">
-    <div class="section-header reveal">
-      <span class="section-tag">Portafolio Académico</span>
-      <h2 class="section-title">Proyectos &amp; <span>Trabajos</span></h2>
-      <div class="section-line"></div>
-      <p class="section-lead project-section-lead">Portafolio Educativo, con enfóque intercultural, basado en la
-        investigación y la práctica docente, integrando la tecnología y la preservación del patrimonio cultural.</p>
-    </div>
-
-    <div class="portfolio-overview reveal">
-      <div class="overview-card">
-        <span class="overview-label">Enfoque</span>
-        <strong>Educación tecnológica + patrimonio intercultural</strong>
-        <p>Mi portafolio integra, proyectos digitales, de investigación y cultura amazónica, de forma individual y de
-          forma colaborativa.</p>
-      </div>
-      <div class="overview-metrics">
-        <div class="metric-box"><span class="metric-value">04</span><span class="metric-label">proyectos
-            principales</span></div>
-        <div class="metric-box"><span class="metric-value">06</span><span class="metric-label">evidencias
-            académicas</span></div>
-        <div class="metric-box"><span class="metric-value">09</span><span class="metric-label">interfaces awajún</span>
-        </div>
-      </div>
-    </div>
-
-    <div class="portfolio-purpose reveal">
-      <article class="purpose-card purpose-problem">
-        <span class="purpose-kicker">TRABAJOS REALIZADOS</span>
-        <h3>Mi portafolio: Es un viaje creativo.
-          Soy un tejedor de proyectos que unen cultura, tecnología y educación. En mi portafolio guardo tres semillas
-          que germinan en caminos distintos, pero que comparten un mismo propósito: preservar, inspirar y transformar.
-        </h3>
-        <p>Un Diccionario. Proyecto que busca integrar 4 idiomas, con la finalidad de presvar las lenguas de la familia
-          lingüística Jíbaro.
-          Integración de la gamificación a travez de la Matemática básica, para que los niños de educación Primaria
-          aprendan jugando, de manera social ycolectiva.
-          También he realizado un Demo para gestión de pagos, y un una bonita sección con modelos IU/UX proyectos
-          vinculados a la cerámica y la geometría sagrada awajún.</p>
-      </article>
-      <article class="purpose-card purpose-goal">
-        <span class="purpose-kicker">Objetivo</span>
-        <h3>Integrar la tecnologia y la educación para preservar, innovar e inspirar.</h3>
-        <p>Mi objetibo es consolidar estas ideas en algo útil, que pueda servir a la Sociedad. Ejemplo Crear una APP
-          "Diccionario Cuadrilingüe", de forma Offline que permita ser utilizada, en diferentes escuelas, universidades
-          y también pueda servir como guia para para estudios cientificos en lingüística.
-          La gamificación no solo como enseñanza, si no aprender de manera entretenida y colavorativa.
-          Demo Gestión de Pagos, Podemos integrar un sistema sólido para aquellas escuelas que carecen de un sistema
-          para la gestión financiera.
-          Geometría Sagrada, que podemos escalar a diseños digitales preservando la geometría Sagrada original.</p>
-      </article>
-    </div>
-
-    <div class="projects-grid">
-      <article class="project-card reveal project-card-clean project-card-featured project-card-gold">
-        <div class="project-card-top">
-          <div class="project-card-headline">
-            <div class="project-icon icon-gold">📖</div>
-            <div>
-              <p class="project-mini-label">Diccionario lingüístico Colaborativo EDUTEC</p>
-              <span class="project-card-index">01 / proyecto central</span>
-            </div>
-          </div>
-          <span class="project-tag tag-live">▶ EN VIVO</span>
-        </div>
-
-        <div class="project-featured-body">
-          <div class="project-copy">
-            <h3>Diccionario Cuadrilingüe</h3>
-            <p>Proyecto lingüístico que articula <span class="accent-gold">Español · Inglés · Awajún · Wampis</span>
-              dentro de una interfaz más clara, sólida y presentable. Aquí el valor no es solo técnico: también funciona
-              como pieza de preservación lingüística y visibilización cultural.</p>
-            <div class="project-highlights">
-              <span class="highlight">4 lenguas</span><span class="highlight">Investigación</span>
-              <span class="highlight">Patrimonio</span><span class="highlight">Interfaz educativa</span>
-            </div>
-            <div class="project-meta-row">
-              <span>Preservación cultural</span>
-              <span>Consulta interactiva</span>
-              <span>Tesis aplicada</span>
-            </div>
-          </div>
-
-          <div class="project-preview-card">
-            <span class="project-preview-kicker">núcleo del proyecto</span>
-            <strong class="project-preview-title">ES · EN · AW · WA</strong>
-            <div class="project-preview-lines">
-              <span></span><span></span><span></span>
-            </div>
-            <div class="project-preview-grid">
-              <div><small>lenguas</small><strong>04</strong></div>
-              <div><small>enfoque</small><strong>cultural</strong></div>
-              <div><small>tipo</small><strong>tesis</strong></div>
-              <div><small>modo</small><strong>web</strong></div>
-            </div>
-          </div>
-        </div>
-
-        <div class="project-actions">
-          <a href="https://julcajhimy-tech.github.io/diccionario-awajun-wampis/" target="_blank" rel="noopener"
-            class="btn-project btn-project-primary">Visitar proyecto ↗</a>
-          <span class="project-inline-note">pieza académica con identidad intercultural</span>
-        </div>
-      </article>
-
-      <article class="project-card reveal project-card-clean project-card-side">
-        <div class="project-card-top">
-          <div class="project-card-headline">
-            <div class="project-icon icon-green">🎮</div>
-            <div>
-              <p class="project-mini-label">didáctica interactiva</p>
-              <span class="project-card-index">02 / experiencia</span>
-            </div>
-          </div>
-          <span class="project-tag tag-live">▶ EN VIVO</span>
-        </div>
-        <div class="project-copy">
-          <h3>Aprendemos Jugando</h3>
-          <p>Plataforma para reforzar matemática mediante retos, competencia por equipos y participación activa. La
-            tarjeta ahora se centra en el beneficio pedagógico y la experiencia de uso.</p>
-          <div class="project-highlights">
-            <span class="highlight">Gamificación</span><span class="highlight">Matemática</span>
-            <span class="highlight">VI–VII ciclo</span>
-          </div>
-        </div>
-        <div class="project-footer-row">
-          <span class="project-chip-soft">aula + juego + interacción</span>
-          <a href="https://julcajhimy-tech.github.io/aprendemos-jugando/" target="_blank" rel="noopener"
-            class="btn-project">Visitar proyecto ↗</a>
-        </div>
-      </article>
-
-      <article class="project-card reveal project-card-clean project-card-half">
-        <div class="project-card-top">
-          <div class="project-card-headline">
-            <div class="project-icon icon-blue">🏫</div>
-            <div>
-              <p class="project-mini-label">identidad institucional</p>
-              <span class="project-card-index">03 / estructura web</span>
-            </div>
-          </div>
-          <span class="project-tag tag-coming">◌ EN DESARROLLO</span>
-        </div>
-        <div class="project-copy">
-          <h3>Web Escuela de Educación Tecnológica</h3>
-          <p>Propuesta institucional para ordenar oferta académica, docentes y recursos con una presentación más limpia
-            y profesional.</p>
-          <div class="project-highlights">
-            <span class="highlight">Institucional</span><span class="highlight">Responsive</span>
-            <span class="highlight">Frontend limpio</span>
-          </div>
-        </div>
-        <div class="project-footer-row">
-          <span class="project-chip-soft">orden · claridad · confianza</span>
-          <a href="https://www.unibagua.edu.pe/facultades/ciencias-sociales-y-empresariales/educacion-tecnologica"
-            target="_blank" rel="noopener" class="btn-project">Ver referencia ↗</a>
-        </div>
-      </article>
-
-      <article class="project-card reveal project-card-clean project-demo project-card-half">
-        <div class="project-card-top">
-          <div class="project-card-headline">
-            <div class="project-icon icon-purple">💰</div>
-            <div>
-              <p class="project-mini-label">solución administrativa</p>
-              <span class="project-card-index">04 / caso real</span>
-            </div>
-          </div>
-          <span class="project-tag tag-live">▶ DEMO ACTIVA</span>
-        </div>
-        <div class="project-copy">
-          <h3>Gestión de Pagos · IEP Millenium</h3>
-          <p>Sistema para registro, boletas, control de ingresos y seguimiento de pagos. En el portafolio funciona como
-            prueba de capacidad técnica aplicada.</p>
-          <div class="project-highlights">
-            <span class="highlight">Boletas</span><span class="highlight">Ingresos</span>
-            <span class="highlight">Seguimiento</span><span class="highlight">Demo</span>
-          </div>
-        </div>
-        <div class="project-footer-row">
-          <span class="project-chip-soft">flujo administrativo digital</span>
-          <a href="https://orange-feather-d354.julcajhimy.workers.dev/" target="_blank" rel="noopener"
-            class="btn-project btn-demo-project">Probar demo →</a>
-        </div>
-      </article>
-    </div>
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN 3: GALERÍA ACADÉMICA CURADA
-  ====================================================== -->
-  <section id="galeria">
-    <div class="section-header reveal">
-      <span class="section-tag">// actividades académicas</span>
-      <h2 class="section-title">Galería <span>Académica</span></h2>
-      <div class="section-line"></div>
-      <p class="section-lead">Actividades, entorno y momentos del recorrido académico. Usa los botones o las teclas ← →
-        para navegar entre imágenes.</p>
-    </div>
-
-    <div class="academic-gallery-3d reveal">
-      <div class="academic-gallery-3d-top">
-        <div class="academic-gallery-3d-current" id="academicGalleryCurrent"></div>
-
-        <aside class="academic-gallery-3d-meta">
-          <span class="academic-gallery-3d-kicker" id="academicGalleryKicker">actividad académica</span>
-          <div class="academic-gallery-3d-counter">
-            <span id="academicGalleryCurrentNum">01</span>
-            <span>/</span>
-            <span id="academicGalleryTotalNum">06</span>
-          </div>
-          <h3 id="academicGalleryTitle">Campus Universitario</h3>
-          <p id="academicGalleryDesc">Vista principal del contexto donde se desarrolla la experiencia académica y
-            tecnológica.</p>
-          <div class="academic-gallery-3d-chips" id="academicGalleryChips"></div>
-          <div class="academic-gallery-3d-actions">
-            <button type="button" class="academic-gallery-3d-nav academic-gallery-3d-prev" id="academicGalleryPrevBtn">←
-              Anterior</button>
-            <button type="button" class="academic-gallery-3d-nav academic-gallery-3d-next"
-              id="academicGalleryNextBtn">Siguiente →</button>
-          </div>
-        </aside>
-      </div>
-
-
-    </div>
-
-    <div id="lightbox" onclick="closeLightbox()">
-      <div class="lightbox-content" onclick="event.stopPropagation()">
-        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
-        <img id="lightboxImg" class="lightbox-img" src="" alt="">
-        <p class="lightbox-caption" id="lightboxCaption"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN 4: GEOMETRÍA SAGRADA AWAJÚN — FINAL
-  ====================================================== -->
-  <section id="ceramica-awajun">
-    <div class="section-header reveal">
-      <span class="section-tag">// geometría sagrada</span>
-      <h2 class="section-title">Geometría <span>Awajún</span></h2>
-      <div class="section-line"></div>
-      <p class="section-lead">La cerámica Awajún constituye una de las expresiones más significativas del patrimonio
-        cultural inmaterial de la Amazonía peruana, al reflejar en sus patrones geométricos una profunda cosmovisión,
-        identidad y conocimiento ancestral.</p>
-    </div>
-
-    <div class="awajun-entry-wrap reveal">
-      <article class="awajun-entry-shell">
-        <div class="awajun-entry-copy">
-          <p class="awajun-entry-kicker">DISEÑO DE PATRONES GEOMÉTRICOS DIGITALES</p>
-          <h3 class="awajun-entry-title">Transformando tradición en arte digital.</h3>
-          <p class="awajun-entry-text">Así nacieron tarjetas que respiran geometrías de la cerámica Awajún: círculos que evocan la luna, triángulos que recuerdan montañas, líneas que susurran ríos. Cada forma es un puente entre tradición y futuro, un canto visual donde la tecnología se convierte en eco poético de la cultura. Una forma de transmitir la identidad y la cosmovisión de la Amazonía peruana.</p>
-
-          <div class="awajun-entry-points" aria-label="Qué incluye la experiencia Awajún">
-            <article>
-              <strong>Portada inmersiva</strong>
-              <span>Entrada visual más fuerte y enfocada.</span>
-            </article>
-            <article>
-              <strong>Visor sincronizado</strong>
-              <span>Obra, ficha y navegación cambian al mismo tiempo.</span>
-            </article>
-            <article>
-              <strong>Modo detalle</strong>
-              <span>Vista amplia para contemplar cada pieza sin ruido.</span>
-            </article>
-          </div>
-
-          <div class="awajun-entry-actions">
-            <a href="awajun.html" class="btn-primary">Abrir experiencia Awajún</a>
-            <a href="awajun.html#visor" class="btn-outline">Ir directo al visor</a>
-          </div>
-
-          <div class="awajun-entry-tags" aria-label="Estado actual de la sección">
-            <span>Cultivando cultura viva</span>
-            <span>Tradiciòn</span>
-            <span>Cosmovisiòn</span>
-          </div>
-        </div>
-
-        <div class="awajun-entry-preview">
-          <div class="awajun-preview-card">
-            <div class="awajun-preview-topbar">
-              <span class="awajun-preview-dot"></span>
-              <span class="awajun-preview-dot"></span>
-              <span class="awajun-preview-dot"></span>
-              <p>Vista previa · Archivo vivo Awajún</p>
-            </div>
-
-            <figure class="awajun-preview-media awajun-preview-media--modelo1">
-              <div class="modelo1-wrap">
-                <iframe class="modelo1-frame" srcdoc="<!DOCTYPE html>
-<html>
-
-<html>
-<head>
-  <meta charset=&quot;utf-8&quot;>
-  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;>
-  <title>MODELO_1</title>
-
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400..900&amp;display=swap');
-    :root {
-  --neon-red: #ff0000;
-  --neon-white: #ffffff;
-  --bg-dark: radial-gradient(circle at center, #0a2410 0%, #000 100%);
-}
-
-body {
-  background: #000;
-  height: 100vh;
-  margin: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;
-  perspective: 1500px;
-}
-
-.card-ultra-pro {
-  width: 620px;
-  height: 400px;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(25px);
-  border-radius: 35px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  position: relative;
-  overflow: visible;
-  box-shadow: 0 40px 100px rgba(0,0,0,0.9);
-  transition: transform 0.1s ease-out;
-}
-
-/* --- ANIMACIONES DE LUZ --- */
-
-.pulse-white-center {
-  stroke: var(--neon-white);
-  stroke-dasharray: 100 700;
-  animation: move-white 3s linear infinite;
-  filter: drop-shadow(0 0 10px var(--neon-white));
-}
-
-.electric-glow {
-  stroke: var(--neon-red);
-  stroke-dasharray: 60 740;
-  stroke-dashoffset: 800;
-  filter: drop-shadow(0 0 15px var(--neon-red)) brightness(2);
-  animation: electric-move 6s ease-in-out infinite;
-  opacity: 0;
-}
-
-@keyframes move-white { to { stroke-dashoffset: -800; } }
-
-@keyframes electric-move {
-  0% { stroke-dashoffset: 800; opacity: 0; }
-  5% { opacity: 1; }
-  45% { stroke-dashoffset: 400; opacity: 1; }
-  50% { stroke-dashoffset: 400; opacity: 0.4; } /* PAUSA */
-  55% { stroke-dashoffset: 400; opacity: 1; }
-  95% { stroke-dashoffset: 0; opacity: 1; }
-  100% { stroke-dashoffset: 0; opacity: 0; }
-}
-
-.line-red-static { stroke: var(--neon-red); opacity: 0.4; }
-.center-black-line { stroke: #000; filter: drop-shadow(0 0 1.5px rgba(255,255,255,0.6)); }
-.reverse { animation-direction: reverse; }
-.borde-neon-pro { width: 100%; overflow: visible; }
-
-/* --- CONTENIDO E INTERACCIÓN --- */
-
-.content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-.main-title-box { transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); }
-
-.titulo-premium {
-  color: #fff;
-  font-family: 'Cinzel', serif;
-  font-size: 3.5rem;
-  font-weight: 100;
-  letter-spacing: 20px;
-  margin: 0;
-}
-
-.divider-neon {
-  width: 60px;
-  height: 2px;
-  background: var(--neon-red);
-  margin: 15px auto;
-  box-shadow: 0 0 15px var(--neon-red);
-}
-
-.alumno-info {
-  position: absolute;
-  opacity: 0;
-  transform: translateY(40px);
-  transition: all 0.6s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  pointer-events: none;
-}
-
-/* Efecto al pasar el Mouse */
-.card-ultra-pro:hover .main-title-box {
-  transform: translateY(-110px) scale(0.65);
-  opacity: 0.7;
-}
-
-.card-ultra-pro:hover .alumno-info {
-  opacity: 1;
-  transform: translateY(20px);
-  pointer-events: auto;
-}
-
-/* Foto y Datos */
-.foto-container {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  border: 2px solid var(--neon-red);
-  box-shadow: 0 0 20px var(--neon-red);
-  overflow: hidden;
-  margin-bottom: 15px;
-}
-
-.foto-alumno { width: 100%; height: 100%; object-fit: cover; }
-
-.datos-texto { color: white; text-align: center; font-family: sans-serif; }
-.nombre { font-size: 1.4rem; margin: 0; color: var(--neon-white); }
-.detalle, .especialidad, .universidad { font-size: 0.8rem; margin: 3px 0; color: #aaa; letter-spacing: 1px; }
-.universidad { color: var(--neon-red); font-weight: bold; margin-top: 5px; }
-  </style>
-
-  
-</head>
-<body>
-  <!DOCTYPE html>
-<html lang=&quot;es&quot;>
-<head>
-  <meta charset=&quot;UTF-8&quot;>
-  <meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;>
-  <title>Identidad Digital Awajún - UNIFSLB</title>
-  <link rel=&quot;stylesheet&quot; href=&quot;style.css&quot;>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Construyendo mi Futuro Profesional – UNIFSLB</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="css/styles.css"/>
 </head>
 <body>
 
-  <div class=&quot;main-container&quot;>
-    <div class=&quot;card-ultra-pro&quot; id=&quot;card&quot;>
-      <div class=&quot;glass-reflection&quot;></div>
-      
-      <svg class=&quot;borde-neon-pro&quot; viewBox=&quot;-20 0 840 120&quot; preserveAspectRatio=&quot;none&quot;>
-        <defs>
-          <path id=&quot;pathZigZag&quot; d=&quot;M0 60 L50 30 L100 60 L150 30 L200 60 L250 30 L300 60 L350 30 L400 60 L450 30 L500 60 L550 30 L600 60 L650 30 L700 60 L750 30 L800 60&quot; />
-          <filter id=&quot;neonGlow&quot;>
-            <feGaussianBlur stdDeviation=&quot;3&quot; result=&quot;blur&quot; />
-            <feComposite in=&quot;SourceGraphic&quot; in2=&quot;blur&quot; operator=&quot;over&quot; />
-          </filter>
-        </defs>
-        <use href=&quot;#pathZigZag&quot; class=&quot;line-red-static&quot; y=&quot;-8&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-        <use href=&quot;#pathZigZag&quot; class=&quot;line-red-static&quot; y=&quot;8&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-        <use href=&quot;#pathZigZag&quot; class=&quot;electric-glow&quot; y=&quot;-8&quot; fill=&quot;none&quot; stroke-width=&quot;4&quot; />
-        <use href=&quot;#pathZigZag&quot; class=&quot;center-black-line&quot; fill=&quot;none&quot; stroke-width=&quot;5&quot; />
-        <use href=&quot;#pathZigZag&quot; class=&quot;pulse-white-center&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-      </svg>
+<audio id="backgroundMusic" src="assets/audio/no_one_else .mp3" loop></audio>
 
-      <div class=&quot;content&quot;>
-        <div class=&quot;main-title-box&quot;>
-          <h1 class=&quot;titulo-premium&quot;>AWAJÚN</h1>
-          <div class=&quot;divider-neon&quot;></div>
-        </div>
+<div class="pattern-bar"></div>
 
-        <div class=&quot;alumno-info&quot;>
-          <div class=&quot;foto-container&quot;>
-            <img src=&quot;https://i.ibb.co/Df4KBQdC/Foto-de-perfil.png&quot; alt=&quot;Alumno&quot; class=&quot;foto-alumno&quot;>
-          </div>
-          <div class=&quot;datos-texto&quot;>
-            <h3 class=&quot;nombre&quot;>Gidememesiter</h3>
-            <p class=&quot;detalle&quot;>Escuela de Educación Tecnológica</p>
-            <p class=&quot;especialidad&quot;>Computación Informática</p>
-            <p class=&quot;universidad&quot;>UNIFSLB</p>
-          </div>
+<!-- ═══════════════════════════════════════
+     NAV STICKY
+════════════════════════════════════════ -->
+<nav class="section-nav" id="mainNav">
+  <div class="nav-links">
+    <span class="nav-label active" data-section="slidesSection" onclick="jumpSection('slidesSection')">📊 Exposición</span>
+    <span class="nav-label" data-section="campoSection" onclick="jumpSection('campoSection')">💼 Campo Laboral</span>
+    <span class="nav-label" data-section="bibliotecaSection" onclick="jumpSection('bibliotecaSection')">📚 Biblioteca</span>
+    <span class="nav-label" data-section="juegoPromoSection" onclick="jumpSection('juegoPromoSection')">🎮 Juego</span>
+    <span class="nav-label" data-section="gameSection" onclick="jumpSection('gameSection')">🧩 Trivia</span>
+  </div>
+  <button id="musicControlBtn" class="nav-music-btn">
+    <span class="icon-play">▶️</span>
+    <span class="icon-pause hidden">⏸️</span>
+  </button>
+</nav>
+
+<!-- ═══════════════════════════════════════
+     HERO / PORTADA
+════════════════════════════════════════ -->
+<section id="heroSection">
+  <img src="assets/imagenes/logo.svg" alt="Logo UNIFSLB" class="hero-logo-flotante"/>
+  <canvas id="heroCanvas"></canvas>
+  <img src="assets/imagenes/portada.jpg" alt="Portada UNIFSLB" class="hero-portada-bg"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="badge-uni"> UNIFSLB · Bagua, Amazonas, Perú</div>
+    <h1 class="hero-title">Construyendo<br>mi <span>Futuro</span><br>Profesional</h1>
+    <p class="hero-sub">
+      Educación Tecnológica<br>
+      <strong class="text-cian">Especialidad: Computación e Informática</strong><br>
+      Charla vocacional para estudiantes de 4.° y 5.° de secundaria<br>de Bagua y Utcubamba
+    </p>
+    <div class="hero-btns">
+      <button class="btn btn-primary" onclick="jumpSection('slidesSection')">📊 Ver Presentación</button>
+      <button class="btn btn-secondary" onclick="jumpSection('juegoPromoSection')">🎮 Jugar y Aprender</button>
+    </div>
+    <div class="hero-chips">
+      <span class="chip">🎓 10 semestres</span>
+      <span class="chip">📘 214 créditos</span>
+      <span class="chip">🌐 Enfoque intercultural</span>
+      <span class="chip">🏹 Cultura Awajún · Wampis</span>
+      <span class="chip">💼 Licenciado en Educación</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     PERFILES DE ESTUDIANTES
+════════════════════════════════════════ -->
+<section id="perfilesSection">
+  <div class="section-header">
+    <div class="section-label">👨‍🎓 Equipo Expositor</div>
+    <h2 class="section-title">Nuestros <span class="text-cian">Estudiantes</span></h2>
+    <p class="section-desc m-0-auto">Conoce al equipo que hace posible esta presentación vocacional.</p>
+  </div>
+  <div class="perfiles-grid">
+
+    <!-- Perfil 1: Gildemeister -->
+    <div class="profile-card">
+      <div class="profile-photo-wrap">
+        <img src="assets/imagenes/Gildemeister.svg" alt="Gildemeister Julca Ramos"/>
+        <div class="profile-badge">🏹</div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Gildemeister Julca Ramos</div>
+        <div class="profile-career">Educación Tecnológica</div>
+        <span class="profile-cycle">VI Ciclo</span>
+      </div>
+    </div>
+
+    <!-- Perfil 2: Xiomara -->
+    <div class="profile-card">
+      <div class="profile-photo-wrap">
+        <img src="assets/imagenes/xiomara.jpeg" alt="Xiomara Guadalupe Mejia Uriol"/>
+        <div class="profile-badge"></div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Xiomara Guadalupe Mejia Uriol</div>
+        <div class="profile-career">Educación Tecnológica</div>
+        <span class="profile-cycle">V Ciclo</span>
+      </div>
+    </div>
+
+    <!-- Perfil 3: Roberto -->
+    <div class="profile-card">
+      <div class="profile-photo-wrap">
+        <img src="assets/imagenes/roberto.jpeg" alt="Roberto Regulo Zuñiga Ayala"/>
+        <div class="profile-badge">💻</div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Roberto Regulo Zuñiga Ayala</div>
+        <div class="profile-career">Educación Tecnológica</div>
+        <span class="profile-cycle">III Ciclo</span>
+      </div>
+    </div>
+
+    <!-- Perfil 4: Sugka -->
+    <div class="profile-card">
+      <div class="profile-photo-wrap">
+        <img src="assets/imagenes/sugka.jpeg" alt="Sugka Eleodan Ugkum Majuash"/>
+        <div class="profile-badge">🌎</div>
+      </div>
+      <div class="profile-info">
+        <div class="profile-name">Sugka Eleodan Ugkum Majuash</div>
+        <div class="profile-career">Educación Tecnológica</div>
+        <span class="profile-cycle">III Ciclo</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════
+     EXPOSICIÓN — SLIDES
+════════════════════════════════════════ -->
+<div id="slidesSection">
+<div class="section">
+  <div class="section-label">📊 Exposición — Diapositivas</div>
+  <h2 class="section-title">Conoce la Carrera de <span class="text-cian">Educación Tecnológica</span></h2>
+  <p class="section-desc"></p>
+
+  <div class="slide-wrapper">
+    <div class="slide-progress"><div class="slide-progress-fill initial-progress" id="slideProgress"></div></div>
+    <div class="slides-container">
+
+      <!-- SLIDE 1 -->
+      <div class="slide active" data-slide="0">
+        <div class="slide-num">Diapositiva 01 / 08</div>
+        <div class="slide-emoji">🚀</div>
+        <h2 class="slide-heading">¿Qué es la carrera de<br><span class="accent">Educación Tecnológica?</span></h2>
+        <div class="slide-body">
+          Es una carrera de la <strong>Universidad Nacional Intercultural Fabiola Salazar Leguía de Bagua (UNIFSLB)</strong> que forma docentes especializados en tecnología, con énfasis en <strong class="text-cian">Computación e Informática</strong>.<br><br>
+          Su enfoque es único: combina la <strong>excelencia tecnológica</strong> con el <strong>respeto por la identidad intercultural amazónica</strong>, valorando los saberes de los pueblos Awajún y Wampis.
         </div>
       </div>
 
-      <svg class=&quot;borde-neon-pro&quot; viewBox=&quot;-20 0 840 120&quot; preserveAspectRatio=&quot;none&quot;>
-        <path id=&quot;pathZigZagInv&quot; d=&quot;M0 60 L50 90 L100 60 L150 90 L200 60 L250 90 L300 60 L350 90 L400 60 L450 90 L500 60 L550 90 L600 60 L650 90 L700 60 L750 90 L800 60&quot; />
-        <use href=&quot;#pathZigZagInv&quot; class=&quot;line-red-static&quot; y=&quot;-8&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-        <use href=&quot;#pathZigZagInv&quot; class=&quot;line-red-static&quot; y=&quot;8&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-        <use href=&quot;#pathZigZagInv&quot; class=&quot;electric-glow reverse&quot; y=&quot;8&quot; fill=&quot;none&quot; stroke-width=&quot;4&quot; />
-        <use href=&quot;#pathZigZagInv&quot; class=&quot;center-black-line&quot; fill=&quot;none&quot; stroke-width=&quot;5&quot; />
-        <use href=&quot;#pathZigZagInv&quot; class=&quot;pulse-white-center reverse&quot; fill=&quot;none&quot; stroke-width=&quot;3&quot; />
-      </svg>
+      <!-- SLIDE 2 -->
+      <div class="slide" data-slide="1">
+        <div class="slide-num">Diapositiva 02 / 08</div>
+        <h2 class="slide-heading">🎯 Objetivos de la <span class="accent">Carrera</span></h2>
+        <div class="slide-body">Formar integralmente profesionales comprometidos con la <strong>docencia, investigación y responsabilidad social</strong>.</div>
+        <div class="slide-cards">
+          <div class="slide-card"><div class="slide-card-icon">💡</div><div class="slide-card-title">Innovación Educativa</div><div class="slide-card-desc">Metodologías pedagógicas modernas integradas con tecnología.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🌿</div><div class="slide-card-title">Identidad Intercultural</div><div class="slide-card-desc">Valoración y preservación de la cultura Awajún y Wampis.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🔬</div><div class="slide-card-title">Investigación</div><div class="slide-card-desc">Genera conocimiento en educación intercultural y tecnológica.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🤝</div><div class="slide-card-title">Alianzas Estratégicas</div><div class="slide-card-desc">Vínculos con comunidades y organizaciones interculturales.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🚀</div><div class="slide-card-title">Emprendimiento</div><div class="slide-card-desc">Proyectos tecnológicos que impulsan el desarrollo local.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">📈</div><div class="slide-card-title">Mejora Continua</div><div class="slide-card-desc">Evaluación constante para garantizar una formación de excelencia.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 3 -->
+      <div class="slide" data-slide="2">
+        <div class="slide-num">Diapositiva 03 / 08</div>
+        <h2 class="slide-heading">👤 Perfil del <span class="accent">Ingresante</span></h2>
+        <div class="slide-body">¿Esta carrera es para ti? Conoce el perfil ideal:</div>
+        <div class="tag-list">
+          <span class="tag">📐 Matemática y Física básica</span>
+          <span class="tag">💻 Manejo básico de computadoras</span>
+          <span class="tag">🖥️ Principios de Programación</span>
+          <span class="tag amber">🗣️ Expresión en lengua originaria y español</span>
+          <span class="tag amber">📚 Conocimiento de Ciencias Sociales</span>
+          <span class="tag purple">❤️ Pasión por la tecnología y la enseñanza</span>
+          <span class="tag purple">👥 Trabajo en equipo</span>
+          <span class="tag red">🎯 Espíritu perseverante</span>
+          <span class="tag red">🚀 Actitud proactiva y autoaprendizaje</span>
+        </div>
+        <div class="slide-body slide-body-custom">
+          ¡Si amas la tecnología y quieres enseñar con impacto real en tu comunidad, esta carrera es tuya!
+        </div>
+      </div>
+
+      <!-- SLIDE 4 -->
+      <div class="slide" data-slide="3">
+        <div class="slide-num">Diapositiva 04 / 08</div>
+        <h2 class="slide-heading">📚 ¿Qué <span class="accent">Aprenderás?</span></h2>
+        <div class="slide-body">En <strong>10 semestres y 214 créditos</strong> desarrollarás competencias en áreas clave:</div>
+        <div class="slide-cards mt-1-2">
+          <div class="slide-card"><div class="slide-card-icon">🖥️</div><div class="slide-card-title">Computación e Informática</div><div class="slide-card-desc">Programación, redes, sistemas y bases de datos.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🎓</div><div class="slide-card-title">Ciencias de la Educación</div><div class="slide-card-desc">Pedagogía, didáctica, currículo y gestión educativa.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🌐</div><div class="slide-card-title">TIC Educativas</div><div class="slide-card-desc">Herramientas digitales, aulas virtuales y e-learning.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🏹</div><div class="slide-card-title">Educación Intercultural</div><div class="slide-card-desc">Lenguas nativas, derechos y cosmovisión amazónica.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🔭</div><div class="slide-card-title">Investigación Científica</div><div class="slide-card-desc">Metodología científica y elaboración de tesis.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">💼</div><div class="slide-card-title">Emprendimiento</div><div class="slide-card-desc">Proyectos tecnológicos para el desarrollo regional.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 5 -->
+      <div class="slide" data-slide="4">
+        <div class="slide-num">Diapositiva 05 / 08</div>
+        <div class="slide-emoji">🎓</div>
+        <h2 class="slide-heading">Perfil del <span class="accent">Egresado</span></h2>
+        <div class="slide-body">Al graduarte serás un <strong>profesional altamente capacitado</strong> capaz de:</div>
+        <ul class="steps">
+          <li><div class="step-num">1</div><div class="step-text">Aplicar conocimientos científicos de las ciencias formales y pedagógicas en el campo tecnológico.</div></li>
+          <li><div class="step-num">2</div><div class="step-text">Usar las TIC y procesos automatizados para <strong>resolver problemas educativos reales</strong>.</div></li>
+          <li><div class="step-num">3</div><div class="step-text">Diseñar <strong>recursos y materiales didácticos digitales</strong> que promuevan el aprendizaje significativo.</div></li>
+          <li><div class="step-num">4</div><div class="step-text">Enseñar con estrategias innovadoras adaptadas a diferentes <strong>niveles y modalidades educativas</strong>.</div></li>
+          <li><div class="step-num">5</div><div class="step-text">Contribuir al <strong>desarrollo sostenible</strong> con identidad intercultural amazónica.</div></li>
+        </ul>
+      </div>
+
+      <!-- SLIDE 6 -->
+      <div class="slide" data-slide="5">
+        <div class="slide-num">Diapositiva 06 / 08</div>
+        <h2 class="slide-heading">🏛️ Graduación y <span class="accent">Titulación</span></h2>
+        <div class="slide-body">Tu camino al título profesional en dos etapas:</div>
+        <div class="slide-cards slide-cards-2-cols">
+          <div class="slide-card slide-card--orange">
+            <div class="slide-card-icon">📜</div>
+            <div class="slide-card-title text-ambar">Grado de Bachiller</div>
+            <div class="slide-card-desc">✔ 10 semestres académicos<br>✔ 214 créditos aprobados<br>✔ Idioma extranjero o lengua nativa<br>✔ Requisitos del reglamento UNIFSLB</div>
+          </div>
+          <div class="slide-card">
+            <div class="slide-card-icon">🎓</div>
+            <div class="slide-card-title">Título Profesional</div>
+            <div class="slide-card-desc">✔ Grado de Bachiller previo<br>✔ Aprobación de tesis<br>✔ Requisitos reglamentarios<br><br><strong class="text-cian">Licenciado en Educación,<br>Esp. Computación e Informática</strong></div>
+          </div>
+        </div>
+        <div class="mt-1-2">
+          <a href="https://www.unibagua.edu.pe/uploads/escuelas/edt/malla-curricular-edt.pdf" target="_blank" rel="noopener" class="btn btn-secondary d-inline-flex font-sm padding-sm">📄 Ver Malla Curricular PDF</a>
+        </div>
+      </div>
+
+      <!-- SLIDE 7 -->
+      <div class="slide" data-slide="6">
+        <div class="slide-num">Diapositiva 07 / 08</div>
+        <div class="slide-emoji">💼</div>
+        <h2 class="slide-heading">¿Dónde <span class="accent">Trabajarás?</span></h2>
+        <div class="slide-body">El campo laboral del egresado es amplio y muy demandado en nuestra región:</div>
+        <div class="slide-cards">
+          <div class="slide-card"><div class="slide-card-icon">🏫</div><div class="slide-card-title">Docente</div><div class="slide-card-desc">Colegios públicos y privados en el área de Computación e Informática.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🌐</div><div class="slide-card-title">Consultor TIC</div><div class="slide-card-desc">Implementación de tecnología en instituciones educativas.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🏢</div><div class="slide-card-title">Sector Público</div><div class="slide-card-desc">UGEL, DRE, Ministerio de Educación y municipalidades.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🚀</div><div class="slide-card-title">Emprendedor</div><div class="slide-card-desc">Academia de cómputo, software educativo y capacitaciones.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🏹</div><div class="slide-card-title">Comunidades Nativas</div><div class="slide-card-desc">Proyectos tecnológicos en comunidades Awajún y Wampis.</div></div>
+          <div class="slide-card"><div class="slide-card-icon">🔬</div><div class="slide-card-title">Investigador</div><div class="slide-card-desc">Educación intercultural, tecnología y desarrollo regional.</div></div>
+        </div>
+      </div>
+
+      <!-- SLIDE 8 -->
+      <div class="slide" data-slide="7">
+        <div class="slide-num">Diapositiva 08 / 08</div>
+        <div class="slide-emoji">🌿</div>
+        <h2 class="slide-heading">¿Por qué elegir <span class="accent">UNIFSLB?</span></h2>
+        <div class="slide-body">La única universidad con enfoque intercultural amazónico en la región.</div>
+        <ul class="steps">
+          <li><div class="step-num">🏹</div><div class="step-text"><strong>Identidad amazónica:</strong> Aprendes junto a estudiantes y docentes Awajún y Wampis, enriqueciendo tu formación cultural.</div></li>
+          <li><div class="step-num">📍</div><div class="step-text"><strong>Local y accesible:</strong> Jirón Ancash N° 520, Bagua, Amazonas. Tu universidad, en tu región.</div></li>
+          <li><div class="step-num">🎓</div><div class="step-text"><strong>Calidad académica:</strong> Docentes comprometidos con la investigación, la innovación y la mejora continua.</div></li>
+          <li><div class="step-num">💡</div><div class="step-text"><strong>Beca 18:</strong> Posibilidad de financiar tus estudios con el programa del Estado Peruano.</div></li>
+          <li><div class="step-num">🌎</div><div class="step-text"><strong>Impacto real:</strong> Formas parte del cambio y el desarrollo sostenible de Bagua y Utcubamba.</div></li>
+        </ul>
+        <div class="button-group">
+          <a href="https://www.unibagua.edu.pe/facultades/ciencias-sociales-y-empresariales/educacion-tecnologica" target="_blank" rel="noopener" class="btn btn-primary d-inline-flex">🔗 Sitio Oficial UNIFSLB</a>
+          <a href="https://www.unibagua.edu.pe/academico/admision/examen-ordinario" target="_blank" rel="noopener" class="btn btn-secondary d-inline-flex">📝 Admisión 2026-I</a>
+        </div>
+      </div>
+
+    </div><!-- end slides-container -->
+    <div class="slide-controls">
+      <div class="slide-arrows">
+        <button class="arrow-btn" id="prevSlideBtn" onclick="changeSlide(-1)" disabled>◀</button>
+        <button class="arrow-btn" id="nextSlideBtn" onclick="changeSlide(1)">▶</button>
+      </div>
+      <div class="slide-dots" id="slideDots"></div>
     </div>
   </div>
 
-  <script src=&quot;script.js&quot;></script>
-</body>
-</html>
-
-  <script>
-    const card = document.getElementById('card');
-
-// Efecto de inclinación 3D siguiendo el mouse
-document.addEventListener('mousemove', (e) => {
-  const rotateY = (window.innerWidth / 2 - e.pageX) / 25;
-  const rotateX = (window.innerHeight / 2 - e.pageY) / 25;
-  card.style.transform = `rotateY(${rotateY}deg) rotateX(${rotateX}deg)`;
-});
-
-// Volver a la posición original al quitar el mouse
-document.addEventListener('mouseleave', () => {
-  card.style.transform = `rotateY(0deg) rotateX(0deg)`;
-});
-  </script>
-</body>
-</html>
-" title="Modelo 1 – Tarjeta Neon Awajún" scrolling="no" frameborder="0" loading="lazy"></iframe>
-              </div>
-            </figure>
-          </div>
-
-          <div class="awajun-preview-info">
-            <div class="awajun-preview-info-badge">
-              <span class="awajun-preview-index">01</span>
-              <div>
-                <strong>Acceso al micrositio</strong>
-                <small>Portada, visor y detalle en una ruta separada</small>
-              </div>
-            </div>
-            <div class="awajun-preview-footer">
-              <div>
-                <small>flujo</small>
-                <strong>portada → visor → detalle</strong>
-              </div>
-              <div>
-                <small>estado</small>
-                <strong>listo para explorar</strong>
-              </div>
-            </div>
-          </div>
-        </div>
-      </article>
+<!-- ═══════════════════════════════════════
+     GALERÍA DE LABORATORIOS
+════════════════════════════════════════ -->
+<section id="galeriaSection">
+  <div class="section-header">
+    <div class="section-label">🛰️ Infraestructura</div>
+    <h2 class="section-title">Nuestros <span class="text-cian">Laboratorios</span></h2>
+    <p class="section-desc m-0-auto">Contamos con espacios equipados para potenciar tu aprendizaje.</p>
+  </div>
+  <div class="galeria-grid">
+    <div class="galeria-item">
+      <img src="assets/imagenes/qr.svg" alt="Código QR para más información">
+      <div class="galeria-overlay">
+        <div class="galeria-icon">💻</div>
+        <div class="galeria-title">QR - Página Web</div>
+      </div>
     </div>
-  </section>
-
-  <!-- ======================================================
-       SECCIÓN 5: VIDEOS
-  ====================================================== -->
-  <section id="videos">
-    <div class="section-header reveal">
-      <span class="section-tag">// contenido multimedia</span>
-      <h2 class="section-title">Proyectos en <span>Video</span></h2>
-      <div class="section-line"></div>
+    <div class="galeria-item">
+      <img src="assets/imagenes/labo_2.svg" alt="Laboratorio de Cómputo 2">
+      <div class="galeria-overlay">
+        <div class="galeria-icon">🖥️</div>
+        <div class="galeria-title">Laboratorio 02</div>
+      </div>
     </div>
-    <div class="videos-grid" id="videosGrid"></div>
-  </section>
-  <div id="video-modal" onclick="closeVideoModal(event)">
-    <div class="video-modal-content" onclick="event.stopPropagation()">
-      <button class="video-modal-close" onclick="closeVideoModal()">✕</button>
-      <iframe id="videoModalIframe" class="video-modal-iframe" allowfullscreen allow="autoplay"></iframe>
+    <div class="galeria-item">
+      <img src="assets/imagenes/labo_3.jpeg" alt="Equipamiento Tecnológico">
+      <div class="galeria-overlay">
+        <div class="galeria-icon">🛠️</div>
+        <div class="galeria-title">Equipamiento</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+  <!-- Q&A de reflexión -->
+  <div class="qna-panel">
+    <h3>❓ Preguntas de Reflexión</h3>
+    <div class="qna-grid" id="qnaGrid"></div>
+  </div>
+
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     CAMPO LABORAL
+════════════════════════════════════════ -->
+<section id="campoSection">
+<div class="campo-inner">
+  <div class="section-label">💼 Oportunidades Profesionales</div>
+  <h2 class="section-title">Campo <span class="text-cian">Laboral</span></h2>
+  <p class="section-desc">
+    El egresado de Educación Tecnológica cuenta con un campo laboral amplio y en constante crecimiento. La integración de la tecnología en la educación abre puertas en el sector público y privado, en comunidades nativas y en el emprendimiento digital regional.
+  </p>
+  <div class="campo-grid">
+    <div class="campo-card">
+      <div class="campo-icon">🏫</div>
+      <div class="campo-title">Docencia en Informática</div>
+      <div class="campo-desc">Enseña en instituciones educativas públicas y privadas de nivel secundario y superior en el área de Computación e Informática.</div>
+    </div>
+    <div class="campo-card">
+      <div class="campo-icon">🏢</div>
+      <div class="campo-title">Sector Público</div>
+      <div class="campo-desc">Trabaja en UGEL, DRE, Ministerio de Educación, municipalidades y gobiernos regionales como especialista en TIC.</div>
+    </div>
+    <div class="campo-card">
+      <div class="campo-icon">🌐</div>
+      <div class="campo-title">Consultor TIC</div>
+      <div class="campo-desc">Asesora en la implementación de tecnología educativa, plataformas virtuales y recursos digitales en instituciones.</div>
+    </div>
+    <div class="campo-card">
+      <div class="campo-icon">🚀</div>
+      <div class="campo-title">Emprendimiento Digital</div>
+      <div class="campo-desc">Crea tu propia academia de cómputo, desarrolla software educativo o brinda capacitaciones tecnológicas en la región.</div>
+    </div>
+    <div class="campo-card">
+      <div class="campo-icon">🏹</div>
+      <div class="campo-title">Comunidades Nativas</div>
+      <div class="campo-desc">Lidera proyectos de inclusión digital en comunidades Awajún y Wampis, impulsando el desarrollo intercultural.</div>
+    </div>
+    <div class="campo-card">
+      <div class="campo-icon">🔬</div>
+      <div class="campo-title">Investigación Educativa</div>
+      <div class="campo-desc">Desarrolla investigaciones sobre educación intercultural, tecnología y desarrollo sostenible en la Amazonía.</div>
+    </div>
+  </div>
+  <div class="campo-cta">
+    <div>
+      <p class="promo-text">¿Quieres explorar más oportunidades laborales en detalle?</p>
+    </div>
+    <a href="campo_laboral.html" class="btn btn-primary" target="_blank">💼 Ver Página de Campo Laboral</a>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     BIBLIOTECA
+════════════════════════════════════════ -->
+<section id="bibliotecaSection">
+<div class="bib-inner">
+  <div class="section-label">📚 Recursos Académicos</div>
+  <h2 class="section-title">Nuestra <span class="text-purple">Biblioteca</span></h2>
+  <p class="section-desc">
+    Accede a una colección curada de recursos académicos sobre las áreas que dan vida a nuestra carrera. Desde programación hasta neuroeducación, tenemos el material que necesitas para crecer como futuro docente tecnológico.
+  </p>
+  <div class="bib-books">
+    <div class="bib-book">
+      <div class="bib-book-icon">💻</div>
+      <div class="bib-book-body">
+        <div class="bib-book-title">Programación e Informática</div>
+        <div class="bib-book-desc">Libros sobre algoritmos, lenguajes de programación, desarrollo de software y fundamentos de computación para la enseñanza tecnológica.</div>
+      </div>
+    </div>
+    <div class="bib-book">
+      <div class="bib-book-icon">🎓</div>
+      <div class="bib-book-body">
+        <div class="bib-book-title">Enseñanza y Aprendizaje</div>
+        <div class="bib-book-desc">Recursos sobre pedagogía moderna, didáctica digital, metodologías activas y diseño instruccional para entornos tecnológicos.</div>
+      </div>
+    </div>
+    <div class="bib-book">
+      <div class="bib-book-icon">🧠</div>
+      <div class="bib-book-body">
+        <div class="bib-book-title">Neuroeducación</div>
+        <div class="bib-book-desc">Literatura sobre el funcionamiento del cerebro en el aprendizaje, inteligencias múltiples y estrategias cognitivas basadas en neurociencia.</div>
+      </div>
+    </div>
+    <div class="bib-book">
+      <div class="bib-book-icon">🌿</div>
+      <div class="bib-book-body">
+        <div class="bib-book-title">Educación Intercultural</div>
+        <div class="bib-book-desc">Textos sobre educación bilingüe intercultural, cosmovisión amazónica, derechos de los pueblos originarios y desarrollo comunitario.</div>
+      </div>
+    </div>
+  </div>
+  <div class="bib-cta d-flex align-items-center gap-1-5rem flex-wrap">
+    <div>
+      <p class="text-white-65 font-sm mb-0-5rem">Accede al catálogo completo de la biblioteca de la UNIFSLB.</p>
+    </div>
+    <a href="https://biblioteca.unibagua.edu.pe/" target="_blank" rel="noopener" class="btn btn-primary bg-purple-gradient shadow-purple">
+      📚 Ir a la Biblioteca UNIFSLB
+    </a>
+  </div>
+</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     JUEGO INTERACTIVO — PROMO
+════════════════════════════════════════ -->
+<section id="juegoPromoSection">
+<div class="juego-inner">
+  <div class="section-label">🎮 Aprendizaje Gamificado</div>
+  <h2 class="section-title">¡<span class="text-cian">Aprende</span> Jugando!</h2>
+  <p class="section-desc m-0-auto mb-2">
+    Hemos creado un juego interactivo diseñado especialmente para que explores el fascinante mundo de la educación tecnológica de forma divertida. Completa retos, gana puntos y descubre si la carrera es para ti.
+  </p>
+
+  <div class="juego-preview">
+    <div class="game-icon">🕹️</div>
+    <h3 class="font-montserrat-800 font-lg mb-1rem text-cian">Aprendemos Jugando</h3>
+    <p class="text-white-75 line-height-1-85 mb-1-5rem">
+      Un juego interactivo que te lleva a través de desafíos sobre tecnología, educación e interculturalidad amazónica. Pon a prueba tus conocimientos, desbloquea nuevos niveles y comprueba cuánto sabes sobre el futuro que te espera como docente tecnológico.
+    </p>
+    <div class="juego-features">
+      <div class="juego-feat">
+        <div class="juego-feat-icon">🎯</div>
+        <div class="juego-feat-label">Retos por Niveles</div>
+      </div>
+      <div class="juego-feat">
+        <div class="juego-feat-icon">⭐</div>
+        <div class="juego-feat-label">Sistema de Puntos</div>
+      </div>
+      <div class="juego-feat">
+        <div class="juego-feat-icon">🏆</div>
+        <div class="juego-feat-label">Logros y Premios</div>
+      </div>
+      <div class="juego-feat">
+        <div class="juego-feat-icon">📱</div>
+        <div class="juego-feat-label">Juego en Línea</div>
+      </div>
     </div>
   </div>
 
-  <!-- ======================================================
-       SECCIÓN 6: CONTACTO
-  ====================================================== -->
+  <a href="https://julcajhimy-tech.github.io/aprendemos-jugando/" target="_blank" rel="noopener" class="btn btn-primary font-lg padding-lg shadow-cian">
+    🚀 ¡Jugar Ahora!
+  </a>
+</div>
+</section>
 
-  <section id="contacto">
-    <div class="section-header reveal">
-      <span class="section-tag">// comunicación</span>
-      <h2 class="section-title">Contacto <span>Seguro</span></h2>
-      <div class="section-line"></div>
+<div class="divider"></div>
+
+<!-- ═══════════════════════════════════════
+     TRIVIA / GAME INTERNO
+════════════════════════════════════════ -->
+<section id="gameSection">
+<div class="section">
+  <div class="section-label">🧩 Test de Conocimientos</div>
+  <h2 class="section-title">Trivia: <span class="text-cian">¿Cuánto Sabes?</span></h2>
+  <p class="section-desc">10 preguntas sobre la carrera y la UNIFSLB. ¡20 segundos por pregunta, responde rápido y suma más puntos!</p>
+
+  <div id="gameIntro">
+    <div class="game-intro-icon">🧩</div>
+    <h3 class="game-intro-title">¿Estás listo para el reto?</h3>
+    <p class="game-intro-desc">Pon a prueba tus conocimientos sobre la carrera de Educación Tecnológica. ¡Demuestra que tienes lo que se necesita para ser un futuro líder en tecnología educativa!</p>
+    <button class="btn btn-primary" id="startGameBtn">🚀 ¡Empezar a Jugar!</button>
+  </div>
+
+  <div class="score-bar d-none">
+    <div class="score-item">
+      <span class="score-icon">⭐</span>
+      <div><div class="score-val" id="scoreDisplay">0</div><div class="score-label">Puntos</div></div>
     </div>
-
-    <div class="cflip-stage reveal">
-      <p class="cflip-hint">↺ &nbsp; Clic en el mandala para ver información de contacto</p>
-
-      <div class="cflip-wrap" id="cflipWrap">
-        <div class="cflip-inner">
-
-          <!-- ══ FRENTE: Mandala + Formulario ══ -->
-          <div class="cflip-face cflip-front">
-
-            <div class="cflip-visual" id="cflipVisual">
-              <svg id="cflip-svg" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="150" cy="150" r="142" fill="rgba(0,255,231,0.04)" />
-                <circle cx="150" cy="150" r="139" fill="none" stroke="rgba(0,255,231,0.12)" stroke-width="2" />
-                <circle cx="150" cy="150" r="128" fill="none" stroke="rgba(0,255,231,0.07)" stroke-width="1.5" />
-                <g class="cflip-ring-group" id="cflip-ring-g"></g>
-                <circle cx="150" cy="150" r="84" fill="rgba(0,255,231,0.04)" stroke="rgba(0,255,231,0.18)"
-                  stroke-width="4" />
-                <g id="cflip-dots-g"></g>
-                <g id="cflip-center-g"></g>
-              </svg>
-              <span class="cflip-visual-hint">clic para girar</span>
-            </div>
-
-            <div class="cflip-form-side">
-              <p class="cflip-eyebrow">// mensaje directo · formulario seguro</p>
-              <h3 class="cflip-form-title">Escríbeme</h3>
-              <div class="cflip-rule"></div>
-
-              <form id="contactForm" novalidate class="cflip-form">
-                <div class="cflip-grid">
-                  <div class="cflip-field">
-                    <label for="formNombre">NOMBRE COMPLETO <span class="req">*</span></label>
-                    <input type="text" id="formNombre" name="nombre" required placeholder="Tu nombre completo"
-                      autocomplete="name">
-                    <p class="field-error" id="formNombreError"></p>
-                  </div>
-                  <div class="cflip-field">
-                    <label for="formCodigo">CÓDIGO DE ESTUDIANTE <span class="req">*</span></label>
-                    <input type="text" id="formCodigo" name="codigo" required placeholder="Ej: 2024-001">
-                    <p class="field-error" id="formCodigoError"></p>
-                  </div>
-                  <div class="cflip-field">
-                    <label for="formEmail">CORREO INSTITUCIONAL <span class="req">*</span></label>
-                    <input type="email" id="formEmail" name="email" required placeholder="usuario@unibagua.edu.pe"
-                      autocomplete="email">
-                    <p class="cflip-hint-text">Solo correos institucionales (.edu.pe)</p>
-                    <p class="field-error" id="formEmailError"></p>
-                  </div>
-                  <div class="cflip-field">
-                    <label for="formTelefono">TELÉFONO <span class="cflip-optional">(opcional)</span></label>
-                    <input type="tel" id="formTelefono" name="telefono" placeholder="999 999 999" autocomplete="tel">
-                  </div>
-                  <div class="cflip-field cflip-field--wide">
-                    <label for="formMensaje">MENSAJE <span class="req">*</span></label>
-                    <textarea id="formMensaje" name="mensaje" rows="3" required
-                      placeholder="Escribe tu mensaje aquí..."></textarea>
-                    <p class="field-error" id="formMensajeError"></p>
-                  </div>
-                </div>
-
-                <div class="cflip-form-footer">
-                  <a href="https://formspree.io/login" target="_blank" rel="noopener" class="formspree-badge">
-                    <span class="fs-icon">📨</span><span class="fs-text">Formspree</span><span
-                      class="fs-external">↗</span>
-                  </a>
-                  <button type="submit" id="btnEnviar" class="btn-primary contact-submit-btn">
-                    <span id="btnText">✓ Enviar Mensaje</span>
-                  </button>
-                </div>
-                <div id="formMessage"
-                  style="display:none;padding:.75rem;border-radius:8px;font-family:var(--font-mono);font-size:.82rem;margin-top:.5rem;">
-                </div>
-              </form>
-            </div>
-
-          </div>
-
-          <!-- ══ DORSO: Perfil + Info de contacto ══ -->
-          <div class="cflip-face cflip-back">
-
-            <div class="cflip-back-profile">
-              <div class="cflip-avatar-wrap">
-                <svg class="cflip-ring-deco" viewBox="0 0 196 196" xmlns="http://www.w3.org/2000/svg">
-                  <g class="cflip-deco-ring-g" id="cflip-deco-ring-g"></g>
-                </svg>
-                <div class="cflip-avatar-circle" id="cflipAvatarCircle">
-                  <img src="assets/imagenes/Foto_de_perfil.png" alt="Gildemeister Julca Ramos"
-                    onerror="this.style.display='none';document.getElementById('cflipInitials').style.display='flex'">
-                  <span class="cflip-avatar-initials" id="cflipInitials" style="display:none">GJR</span>
-                </div>
-              </div>
-              <p class="cflip-profile-name">Gildemeister<br>Julca Ramos</p>
-              <p class="cflip-profile-sub">Educación Tecnológica<br>UNIFSLB · Bagua</p>
-              <p class="cflip-back-cta">↺ Clic para volver</p>
-            </div>
-
-            <div class="cflip-back-info">
-              <p class="cflip-eyebrow">// datos de contacto</p>
-              <h3 class="cflip-back-title">Información<br>de Contacto</h3>
-              <div class="cflip-rule"></div>
-
-              <div class="cflip-info-list">
-                <div class="cflip-info-item">
-                  <span class="cflip-info-label">Correo institucional</span>
-                  <span class="cflip-info-value">gjulca@unibagua.edu.pe</span>
-                </div>
-                <div class="cflip-info-item">
-                  <span class="cflip-info-label">Universidad</span>
-                  <span class="cflip-info-value">UNIFSLB · Bagua</span>
-                </div>
-                <div class="cflip-info-item">
-                  <span class="cflip-info-label">Escuela</span>
-                  <span class="cflip-info-value">Educación Tecnológica</span>
-                </div>
-                <div class="cflip-info-item">
-                  <span class="cflip-info-label">Especialidad</span>
-                  <span class="cflip-info-value">Computación Informática</span>
-                </div>
-                <div class="cflip-info-item">
-                  <span class="cflip-info-label">Disponibilidad</span>
-                  <span class="cflip-info-value">Horario laboral · Perú</span>
-                </div>
-              </div>
-
-              <div class="cflip-visits">
-                <div class="cflip-visit-chip"><span>👁️</span>
-                  <div><strong id="totalVisits">—</strong><small>visitas totales</small></div>
-                </div>
-                <div class="cflip-visit-chip"><span>📅</span>
-                  <div><strong id="todayVisits">—</strong><small>hoy</small></div>
-                </div>
-                <div class="cflip-visit-chip"><span>🌐</span>
-                  <div><strong id="onlineNow">1</strong><small>en línea</small></div>
-                </div>
-              </div>
-            </div>
-
-          </div>
-
-        </div>
-      </div>
+    <div class="score-item">
+      <span class="score-icon">📋</span>
+      <div><div class="score-val" id="questionCounter">1 / 10</div><div class="score-label">Pregunta</div></div>
     </div>
-  </section>
-
-
-  <footer>
-    <span class="footer-logo">GJR // EDUCACIÓN TECNOLÓGICA</span>
-    <div class="footer-links">
-      <a href="#inicio">Inicio</a><a href="#proyectos">Proyectos</a>
-      <a href="#galeria">Galería</a><a href="#ceramica-awajun">Awajún</a>
-      <a href="#videos">Videos</a><a href="#contacto">Contacto</a>
+    <div class="score-item">
+      <span class="score-icon">🔥</span>
+      <div><div class="score-val" id="streakDisplay">0</div><div class="score-label">Racha</div></div>
     </div>
-    <p class="footer-copy">© 2026 <span>Gildemeister Julca Ramos</span> · Educación Tecnológica · Universidad
-      Intercultural Fabiola Salazar Leguía de Bagua<br>Especialidad: Computación e Informática · Ciclos VI–VII</p>
-  </footer>
+    <div class="timer-ring">
+      <svg width="52" height="52" viewBox="0 0 52 52">
+        <circle class="timer-bg" cx="26" cy="26" r="22"/>
+        <circle class="timer-fg" id="timerRing" cx="26" cy="26" r="22" stroke-dasharray="138.23" stroke-dashoffset="0"/>
+      </svg>
+      <div class="timer-text" id="timerText">20</div>
+    </div>
+  </div>
 
-  <button id="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+  <div id="questionArea" class="d-none">
+    <div class="question-card" id="questionCard">
+      <div class="q-cat" id="qCategory">Categoría</div>
+      <div class="q-text" id="qText">Pregunta</div>
+      <div class="options-grid" id="optionsGrid"></div>
+      <div class="feedback-toast" id="feedbackToast"></div>
+      <button class="next-btn" id="nextQBtn" onclick="nextQuestion()">Siguiente pregunta →</button>
+    </div>
+  </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-  <script src="js/scripts.js"></script>
+  <div id="resultsScreen" class="d-none">
+    <span class="results-trophy" id="resultsTrophy">🏆</span>
+    <div class="results-score" id="finalScore">0</div>
+    <div class="results-label" id="finalOutOf">de 150 puntos</div>
+    <div class="results-message" id="resultsMessage"></div>
+    <div class="results-btns">
+      <button class="btn btn-primary" onclick="restartGame()">🔄 Jugar de nuevo</button>
+      <button class="btn btn-secondary" onclick="jumpSection('slidesSection')">📊 Repasar diapositivas</button>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<canvas id="confettiCanvas" class="confetti-canvas"></canvas>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">UNI<span>FSL</span>B</div>
+  <div class="footer-sub">Universidad Nacional Intercultural Fabiola Salazar Leguía de Bagua · Amazonas, Perú<br>
+  Jirón Ancash N° 520, Bagua · (+51) 939 571 296<br>
+  Proyecto: "Construyendo mi Futuro Profesional"</div>
+  <div class="footer-links">
+    <a href="https://www.unibagua.edu.pe" target="_blank" rel="noopener">🌐 Sitio Oficial</a>
+    <a href="https://www.unibagua.edu.pe/academico/admision/examen-ordinario" target="_blank" rel="noopener">📝 Admisión 2026-I</a>
+    <a href="https://www.facebook.com/unifslboficial" target="_blank" rel="noopener">📘 Facebook</a>
+    <a href="https://www.youtube.com/@unifslb-oficial/playlists" target="_blank" rel="noopener">▶️ YouTube</a>
+  </div>
+  <div class="credits-text">
+    Charla vocacional para estudiantes de secundaria de Bagua y Utcubamba · Escuela Profesional de Educación Tecnológica
+  </div>
+</footer>
+<div class="pattern-bar"></div>
+
+<!-- ═══════════════════════════════════════
+     MODAL LIGHTBOX PARA GALERÍA
+════════════════════════════════════════ -->
+<div id="lightboxModal" class="lightbox-modal">
+  <span class="lightbox-close">&times;</span>
+  <img class="lightbox-content" id="lightboxImage" alt="">
+  <div id="lightboxCaption"></div>
+</div>
+
+<audio id="backgroundMusic" src="assets/audio/no_one_else .mp3" loop></audio>
+
+<script src="js/main.js"></script>
 </body>
-
 </html>

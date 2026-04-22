@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía completa: Estructura de SGBD y Modelo Entidad-Relación</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e9edf2 100%);
+            color: #1a2b3e;
+            line-height: 1.5;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+            padding: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 0.5rem;
+            border-left: 6px solid #2a5298;
+            padding-left: 1rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+            border-bottom: 3px solid #cbd5e1;
+            padding-bottom: 0.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            color: #2c5282;
+            display: inline-block;
+            background: #e2e8f0;
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+        }
+
+        .badge {
+            background: #2a5298;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 20px;
+            padding: 0.2rem 0.8rem;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .card {
+            background: #f8fafc;
+            border-radius: 1rem;
+            padding: 1.2rem;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 5px solid #2a5298;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.1);
+        }
+
+        .card h4 {
+            font-size: 1.3rem;
+            color: #1e3c72;
+            margin-bottom: 0.75rem;
+        }
+
+        .interactive-area {
+            background: #f1f5f9;
+            border-radius: 1.5rem;
+            padding: 1.8rem;
+            margin: 2rem 0;
+            border: 1px solid #cbd5e1;
+        }
+
+        .example-box {
+            background: white;
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-top: 1rem;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+
+        button {
+            background: #2a5298;
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0.3rem;
+        }
+
+        button:hover {
+            background: #1e3c72;
+            transform: scale(1.02);
+        }
+
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 1rem;
+            border-radius: 1rem;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            margin: 1rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 0.6rem;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        th {
+            background: #e2e8f0;
+            font-weight: 600;
+        }
+
+        .rel-viz {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            background: #e6f0fa;
+            padding: 1rem;
+            border-radius: 1rem;
+        }
+
+        .entity-card {
+            background: #fff;
+            border-radius: 12px;
+            padding: 0.8rem 1.2rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .relation-badge {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2a5298;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            color: #5b6e8c;
+            border-top: 1px solid #cbd5e1;
+            padding-top: 1.5rem;
+        }
+
+        @media (max-width: 700px) {
+            body {
+                padding: 1rem;
+            }
+            .container {
+                padding: 1rem;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>🗄️ Estructura de los SGBD y Modelado de Datos</h1>
+    <p style="font-size:1.1rem; margin-bottom:1rem;">Una guía ordenada: desde las capas de abstracción hasta el modelo Entidad-Relación, con ejemplos interactivos para entender <strong>Entidades, Atributos y Relaciones</strong>.</p>
+
+    <!-- ================= SECCIÓN 1: CAPAS DE ABSTRACCIÓN ================= -->
+    <h2>📚 1. Capas de abstracción en un SGBD</h2>
+    <p>Los SGBD organizan los datos en tres niveles para lograr <strong>independencia lógica y física</strong>:</p>
+    <div class="grid-cards">
+        <div class="card"><h4>🌐 Externa (Vistas)</h4><p>Muestra solo una parte de la base de datos a cada usuario. Oculta detalles internos.</p><small>Ej: Vista de clientes activos.</small></div>
+        <div class="card"><h4>🧠 Conceptual (Lógica)</h4><p>Representación global de los datos: entidades, relaciones, restricciones. Independiente del almacenamiento.</p><small>Tablas lógicas, tipos de datos.</small></div>
+        <div class="card"><h4>⚙️ Interna (Física)</h4><p>Cómo se guardan los datos en disco: índices, particiones, compresión. Optimización de rendimiento.</p><small>Archivos .ibd, páginas.</small></div>
+    </div>
+
+    <!-- ================= SECCIÓN 2: LOG vs TIPOS SGBD ================= -->
+    <h2>📝 2. El LOG (Registro de transacciones)</h2>
+    <p>El <strong>log</strong> es un archivo crítico que garantiza <strong>atomicidad y durabilidad</strong>. Escribe antes de modificar los datos (Write-Ahead Logging). Permite <strong>UNDO/REDO</strong> tras fallos.</p>
+    <div class="code-block">
+        -- Ejemplo conceptual de un log --
+        [LSN:01] BEGIN TRAN T1
+        [LSN:02] UPDATE Cuentas SET saldo=1200 WHERE id=5 (old=500, new=1200)
+        [LSN:03] COMMIT T1
+    </div>
+
+    <h2>🏷️ 3. Tipos de SGBD: Relacionales, No relacionales y Distribuidos</h2>
+    <div class="grid-cards">
+        <div class="card"><h4>📊 Relacionales (RDBMS)</h4><p>Basados en tablas, SQL y ACID. Ej: MySQL, PostgreSQL, Oracle, SQL Server.</p><small>Perfecto para integridad referencial y transacciones complejas.</small></div>
+        <div class="card"><h4>🍃 No relacionales (NoSQL)</h4><p>Documentos, clave-valor, columnas anchas o grafos. Escalamiento horizontal. Ej: MongoDB, Redis, Cassandra, Neo4j.</p><small>Flexibilidad y gran volumen.</small></div>
+        <div class="card"><h4>🌍 Distribuidos</h4><p>Datos repartidos en múltiples nodos. Pueden ser relacionales (CockroachDB, Spanner) o NoSQL (Cassandra). Alta disponibilidad.</p><small>Tolerancia a fallos, escalabilidad global.</small></div>
+    </div>
+
+    <!-- ================= MODELO ENTIDAD-RELACIÓN ================= -->
+    <h2>📐 4. Modelo Entidad-Relación (MER) — Elementos Fundamentales</h2>
+    <p>El MER es un modelo conceptual de alto nivel. Sus <strong>tres elementos fundamentales</strong> son:</p>
+
+    <!-- Interactivo: Entidad, Atributo y Relación -->
+    <div class="interactive-area">
+        <h3 style="margin-top:0;">🎮 Ejemplo Interactivo: Identidad, Atributo y Relación</h3>
+        <p>Haz clic en los botones para descubrir ejemplos de cada concepto dentro de un dominio de <strong>VETERINARIA</strong>.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;">
+            <button id="btnEntidad">🐕 ENTIDAD (Mascota)</button>
+            <button id="btnAtributo">📋 ATRIBUTO (Ejemplos)</button>
+            <button id="btnRelacion">🔗 RELACIÓN (Posee / Atiende)</button>
+        </div>
+        <div id="demoResult" class="example-box" style="min-height: 140px; font-size: 1rem;">
+            🔍 Presiona cualquier botón para ver una explicación y ejemplo concreto.
+        </div>
+    </div>
+
+    <!-- Explicación fija de los componentes -->
+    <div class="grid-cards">
+        <div class="card"><h4>🔷 Entidad</h4><p>Objeto distinguible del mundo real. Ej: <strong>CLIENTE, FACTURA, MASCOTA</strong>. Se representa con un rectángulo.</p><code>Entidad fuerte: MASCOTA (id_mascota, nombre, especie)</code></div>
+        <div class="card"><h4>🔶 Atributo</h4><p>Propiedades de una entidad o relación. Tipos: simple, compuesto, multivalorado, derivado, clave. Ej: <strong>nombre, teléfonos*, edad (derivado)</strong>.</p><code>◯ nombre (simple)  ◯◯ teléfonos (multivalorado)</code></div>
+        <div class="card"><h4>🔷 Relación</h4><p>Asociación entre entidades con cardinalidad (1:1, 1:N, M:N). Ej: <strong>Dueño → Posee → Mascota (1:N)</strong>.</p><code>CLIENTE (1) ---- POSEe ---- (N) MASCOTA</code></div>
+    </div>
+
+    <!-- Tabla de atributos detallada -->
+    <h3>Tipos de Atributos en detalle</h3>
+    <table>
+        <thead><tr><th>Tipo</th><th>Definición</th><th>Ejemplo</th></tr></thead>
+        <tbody>
+            <tr><td>Simple</td><td>Valor indivisible</td><td>edad, sueldo</td></tr>
+            <tr><td>Compuesto</td><td>Se divide en subatributos</td><td>dirección → (calle, ciudad, cp)</td></tr>
+            <tr><td>Multivalorado</td><td>Múltiples valores</td><td>teléfonos, correos</td></tr>
+            <tr><td>Derivado</td><td>Se calcula de otros atributos</td><td>edad (de fecha_nac), total_factura</td></tr>
+            <tr><td>Clave</td><td>Identifica unívocamente cada entidad</td><td>id_cliente, DNI</td></tr>
+        </tbody>
+    </table>
+
+    <!-- ================= MODELO CONCEPTUAL vs LÓGICO ================= -->
+    <h2>🔄 5. Del Modelo Conceptual al Modelo Lógico (Relacional)</h2>
+    <p><strong>Conceptual (MER):</strong> independiente de tecnología. <strong>Lógico:</strong> traduce a tablas, claves primarias y foráneas, resuelve atributos multivalorados y relaciones M:N. Aún sin detalles físicos.</p>
+    
+    <div class="rel-viz">
+        <div class="entity-card">📌 MODELO CONCEPTUAL<br> Entidades: CLIENTE, PEDIDO, PRODUCTO<br> Relación M:N "Compra" con atributo "cantidad"</div>
+        <span class="relation-badge">➡️ Transformación ⬅️</span>
+        <div class="entity-card">📌 MODELO LÓGICO (Tablas)<br> CLIENTE(id PK)<br> PEDIDO(id PK, id_cliente FK)<br> PRODUCTO(id PK)<br> DETALLE_PEDIDO(id_pedido FK, id_prod FK, cantidad)</div>
+    </div>
+
+    <div class="code-block">
+        -- Ejemplo de transformación lógica (SQL DDL) --
+        CREATE TABLE CLIENTE (id_cliente INT PRIMARY KEY, nombre VARCHAR(100));
+        CREATE TABLE PEDIDO (id_pedido INT PRIMARY KEY, fecha DATE, id_cliente INT, FOREIGN KEY (id_cliente) REFERENCES CLIENTE(id_cliente));
+        CREATE TABLE PRODUCTO (id_producto INT PRIMARY KEY, nombre VARCHAR(100));
+        CREATE TABLE DETALLE_PEDIDO (id_pedido INT, id_producto INT, cantidad INT, PRIMARY KEY(id_pedido, id_producto),
+        FOREIGN KEY (id_pedido) REFERENCES PEDIDO(id_pedido), FOREIGN KEY (id_producto) REFERENCES PRODUCTO(id_producto));
+    </div>
+
+    <!-- ================= EJEMPLO INTEGRADO PASO A PASO ================= -->
+    <h2>🧩 6. Ejemplo guiado: Biblioteca Digital</h2>
+    <p>Aplicamos los conceptos: identificamos entidades, atributos y relaciones, luego construimos el modelo lógico.</p>
+    <div class="grid-cards">
+        <div class="card"><h4>📖 Entidades</h4> LIBRO, AUTOR, PRESTAMO</div>
+        <div class="card"><h4>🏷️ Atributos clave</h4> LIBRO(isbn PK, título, páginas); AUTOR(id_autor PK, nombre); PRESTAMO(fecha_prestamo, fecha_devolución)</div>
+        <div class="card"><h4>🔗 Relaciones</h4> AUTOR escribe LIBRO (M:N) ➜ tabla AUTOR_LIBRO; PRESTAMO referencia LECTOR y LIBRO (1:N).</div>
+    </div>
+    <button id="showLogicalBtn">📄 Ver modelo lógico de Biblioteca</button>
+    <div id="logicalOutput" class="code-block" style="display:none;">
+        -- Tablas resultantes (Modelo Lógico) --
+        CREATE TABLE LIBRO (isbn VARCHAR(13) PRIMARY KEY, titulo VARCHAR(200), paginas INT);
+        CREATE TABLE AUTOR (id_autor INT PRIMARY KEY, nombre VARCHAR(100));
+        CREATE TABLE AUTOR_LIBRO (id_autor INT, isbn VARCHAR(13), PRIMARY KEY(id_autor, isbn),
+            FOREIGN KEY (id_autor) REFERENCES AUTOR(id_autor), FOREIGN KEY (isbn) REFERENCES LIBRO(isbn));
+        CREATE TABLE LECTOR (id_lector INT PRIMARY KEY, nombre VARCHAR(100));
+        CREATE TABLE PRESTAMO (id_prestamo INT PRIMARY KEY, fecha DATE, id_lector INT, isbn VARCHAR(13),
+            FOREIGN KEY (id_lector) REFERENCES LECTOR(id_lector), FOREIGN KEY (isbn) REFERENCES LIBRO(isbn));
+    </div>
+
+    <!-- ================= RESUMEN ESTRUCTURADO DEL PROCESO ================= -->
+    <h2>📌 Proceso completo de diseño de BD (resumen ordenado)</h2>
+    <div style="background: #eef2ff; border-radius: 1rem; padding: 1.2rem;">
+        <ol style="margin-left: 1.5rem; line-height: 1.7;">
+            <li><strong>Análisis de requisitos</strong> → identificar entidades, atributos y relaciones del dominio.</li>
+            <li><strong>Modelo Conceptual (MER)</strong> → diagrama ER con entidades, atributos (simples, compuestos, multi, derivados) y relaciones (cardinalidades).</li>
+            <li><strong>Modelo Lógico (Relacional)</strong> → transformar a tablas: cada entidad fuerte → tabla; atributos multivalorados → tabla independiente; relaciones M:N → tabla de enlace; definir PK y FK.</li>
+            <li><strong>Normalización</strong> (opcional pero recomendada) → eliminar redundancias y anomalías.</li>
+            <li><strong>Modelo Físico</strong> → implementar en un SGBD específico (tipos concretos, índices, particiones).</li>
+        </ol>
+    </div>
+
+    <!-- ================= SECCIÓN DE INDEPENDENCIA DE DATOS ================= -->
+    <h2>⚡ Independencia de datos (ventaja de las capas)</h2>
+    <p><strong>Independencia lógica:</strong> cambios en el esquema conceptual (agregar un campo) no afectan vistas externas.<br>
+    <strong>Independencia física:</strong> cambios en almacenamiento (índices, reorganización) no afectan esquemas lógicos ni externos.</p>
+    <div class="example-box">
+        ✅ Ejemplo: Agregar el atributo "email" a la entidad CLIENTE no requiere modificar las aplicaciones que solo usan nombre y teléfono, gracias a las vistas externas.
+    </div>
+
+    <!-- ================= MÁS INTERACTIVIDAD: PRACTICA RELACIÓN ================= -->
+    <div class="interactive-area">
+        <h3>🎯 Juego rápido: ¿Qué elemento es?</h3>
+        <p>Selecciona si la siguiente descripción corresponde a <strong>Entidad, Atributo o Relación</strong>:</p>
+        <div id="quizStatement" style="font-weight: bold; background: white; padding: 0.8rem; border-radius: 1rem; margin: 1rem 0;">
+            "Cada pedido tiene una fecha y pertenece a un cliente"
+        </div>
+        <div>
+            <button id="ansEntidad">Entidad</button>
+            <button id="ansAtributo">Atributo</button>
+            <button id="ansRelacion">Relación</button>
+        </div>
+        <div id="quizFeedback" class="example-box" style="margin-top: 0.8rem;">🤔 Haz clic en una respuesta.</div>
+    </div>
+
+    <footer>
+        <p>📘 Resumen completo: Capas de abstracción → LOG → Tipos de SGBD → Modelo ER (Entidad, Atributo, Relación) → Modelo Conceptual vs Lógico → Proceso de diseño.</p>
+        <p>✔️ Material interactivo para afianzar los elementos fundamentales del modelado de bases de datos.</p>
+    </footer>
+</div>
+
+<script>
+    // DEMO INTERACTIVA: ENTIDAD, ATRIBUTO, RELACIÓN (VETERINARIA)
+    const demoDiv = document.getElementById('demoResult');
+    document.getElementById('btnEntidad').addEventListener('click', () => {
+        demoDiv.innerHTML = `<strong>🐕 ENTIDAD (Mascota)</strong><br>Una entidad es un objeto distinguible: "MASCOTA". En veterinaria, cada mascota tiene existencia propia. 
+        <br><br><strong>Ejemplo:</strong> Entidad <code>MASCOTA</code> con instancias: "Luna", "Max", "Bella". Se representa con rectángulo. Atributos: id_mascota (clave), nombre, especie, edad.`;
+    });
+    document.getElementById('btnAtributo').addEventListener('click', () => {
+        demoDiv.innerHTML = `<strong>📋 ATRIBUTO (Propiedades de la entidad)</strong><br>Los atributos describen a la entidad. Tipos: 
+        <ul><li><strong>Simple:</strong> nombre = 'Firulais'</li><li><strong>Compuesto:</strong> dirección (calle, ciudad)</li>
+        <li><strong>Multivalorado:</strong> teléfonos de contacto del dueño 📞📞</li><li><strong>Derivado:</strong> edad (calculado desde fecha_nacimiento)</li>
+        <li><strong>Clave:</strong> id_mascota (único)</li></ul>Ejemplo: atributo "vacunas" (multivalorado) podría almacenar varias vacunas.`;
+    });
+    document.getElementById('btnRelacion').addEventListener('click', () => {
+        demoDiv.innerHTML = `<strong>🔗 RELACIÓN (Asociación entre entidades)</strong><br>Relación "POSEER" entre CLIENTE y MASCOTA. Cardinalidad 1:N (un cliente posee muchas mascotas). 
+        <br><br><strong>Ejemplo adicional:</strong> Relación "ATIENDE" entre VETERINARIO y MASCOTA (M:N). Un veterinario atiende muchas mascotas y una mascota puede ser atendida por varios veterinarios a lo largo del tiempo. 
+        <br>📌 Se representa con rombo y se definen cardinalidades.`;
+    });
+
+    // Mostrar modelo lógico biblioteca
+    const showBtn = document.getElementById('showLogicalBtn');
+    const logicalDiv = document.getElementById('logicalOutput');
+    showBtn.addEventListener('click', () => {
+        if (logicalDiv.style.display === 'none') {
+            logicalDiv.style.display = 'block';
+            showBtn.textContent = '📄 Ocultar modelo lógico';
+        } else {
+            logicalDiv.style.display = 'none';
+            showBtn.textContent = '📄 Ver modelo lógico de Biblioteca';
+        }
+    });
+
+    // QUIZ: identificar elemento (Entidad, Atributo, Relación)
+    const quizStatement = document.getElementById('quizStatement');
+    const feedback = document.getElementById('quizFeedback');
+    
+    function checkAnswer(selected) {
+        // La frase: "Cada pedido tiene una fecha y pertenece a un cliente"
+        // Contiene "pedido" (entidad), "fecha" (atributo de pedido), "pertenece a un cliente" (relación entre pedido y cliente)
+        // La pregunta pide "¿Qué elemento es?" pero la frase mezcla varios. Para enseñar, hacemos que sea 'Relación' porque el núcleo es la pertenencia.
+        // Sin embargo, para evitar confusión, explicamos que el concepto principal es la RELACIÓN "pertenece".
+        // Pero daremos la respuesta correcta como "Relación", pero también mostramos un análisis.
+        if (selected === 'relacion') {
+            feedback.innerHTML = '✅ ¡Correcto! La frase describe la <strong>RELACIÓN</strong> "pertenece" entre las entidades PEDIDO y CLIENTE. Además menciona el atributo "fecha", pero la esencia de la oración es el vínculo entre entidades.';
+        } else if (selected === 'entidad') {
+            feedback.innerHTML = '⚠️ No exactamente. "Pedido" y "Cliente" son entidades, pero la oración resalta la asociación entre ellas (pertenece). El elemento principal es la <strong>Relación</strong>. Inténtalo de nuevo.';
+        } else if (selected === 'atributo') {
+            feedback.innerHTML = '⚠️ "Fecha" es un atributo, pero la oración completa habla de la pertenencia de un pedido a un cliente. El foco es la <strong>Relación</strong>. Vuelve a intentarlo.';
+        }
+    }
+    document.getElementById('ansEntidad').addEventListener('click', () => checkAnswer('entidad'));
+    document.getElementById('ansAtributo').addEventListener('click', () => checkAnswer('atributo'));
+    document.getElementById('ansRelacion').addEventListener('click', () => checkAnswer('relacion'));
+
+    // Efecto adicional: hover a los botones, mostrando buena experiencia
+    const buttons = document.querySelectorAll('button');
+    buttons.forEach(btn => {
+        btn.addEventListener('mouseenter', () => btn.style.opacity = '0.9');
+        btn.addEventListener('mouseleave', () => btn.style.opacity = '1');
+    });
+</script>
+</body>
+</html>
